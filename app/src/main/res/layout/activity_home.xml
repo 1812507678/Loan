@@ -1,0 +1,139 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".activity.HomeActivity"
+    android:background="#EBEBEB">
+
+    <RelativeLayout
+        android:id="@+id/rl_home_top"
+        android:layout_width="fill_parent"
+        android:layout_height="45dp"
+        android:background="#41AA53" >
+
+        <TextView
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:gravity="center"
+            android:text="主页"
+            android:textColor="#fff"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            android:visibility="gone"/>
+    </RelativeLayout>
+
+
+
+    <LinearLayout
+        android:id="@+id/ll_home_bottom"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:orientation="horizontal"
+        android:background="#FFFFFF">
+
+        <LinearLayout
+            android:id="@+id/ll_home_home"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:orientation="vertical">
+            <ImageView
+                android:id="@+id/iv_home_home"
+                android:layout_width="wrap_content"
+                android:layout_height="30dp"
+                android:src="@drawable/widget_bar_news_over"/>
+            <TextView
+                android:id="@+id/tv_home_home"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="平台"
+                android:layout_marginTop="-5dp"
+                android:gravity="center"
+                android:textColor="#0b9a27"
+                android:textSize="12sp"
+                android:layout_marginBottom="5dp"/>
+        </LinearLayout>
+        <LinearLayout
+            android:id="@+id/ll_home_care"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:orientation="vertical">
+            <ImageView
+                android:id="@+id/iv_home_care"
+                android:layout_width="wrap_content"
+                android:layout_height="30dp"
+                android:src="@drawable/widget_bar_tweet_nor"/>
+            <TextView
+                android:id="@+id/tv_home_care"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="咨询"
+                android:layout_marginTop="-5dp"
+                android:gravity="center"
+                android:textColor="#999999"
+                android:textSize="12sp"
+                android:layout_marginBottom="5dp"/>
+        </LinearLayout>
+        <LinearLayout
+            android:id="@+id/ll_home_find"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:orientation="vertical">
+            <ImageView
+                android:id="@+id/iv_home_find"
+                android:layout_width="wrap_content"
+                android:layout_height="30dp"
+                android:src="@drawable/widget_bar_explore_nor"/>
+            <TextView
+                android:id="@+id/tv_home_find"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="了解"
+                android:layout_marginTop="-5dp"
+                android:gravity="center"
+                android:textColor="#999"
+                android:textSize="12sp"
+                android:layout_marginBottom="5dp"/>
+        </LinearLayout>
+        <LinearLayout
+            android:id="@+id/ll_home_me"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:orientation="vertical">
+            <ImageView
+                android:id="@+id/iv_home_me"
+                android:layout_width="wrap_content"
+                android:layout_height="30dp"
+                android:src="@drawable/widget_bar_me_nor"/>
+            <TextView
+                android:id="@+id/tv_home_me"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="我"
+                android:layout_marginTop="-5dp"
+                android:gravity="center"
+                android:textColor="#999"
+                android:textSize="12sp"
+                android:layout_marginBottom="5dp"/>
+        </LinearLayout>
+    </LinearLayout>
+
+
+    <zhiyuan.com.loan.util.MyViewPager
+        android:id="@+id/vp_home_page"
+        android:layout_above="@id/ll_home_bottom"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+    </zhiyuan.com.loan.util.MyViewPager>
+
+
+</RelativeLayout>
