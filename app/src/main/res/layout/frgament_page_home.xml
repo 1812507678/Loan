@@ -2,7 +2,8 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="#EAEAEA">
     <RelativeLayout
         android:id="@+id/rl_home_top"
         android:layout_width="fill_parent"
@@ -19,9 +20,165 @@
             android:textStyle="bold"/>
 
     </RelativeLayout>
-    <TextView
+
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="主页"/>
+        android:layout_height="match_parent">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="150dp">
+
+                <android.support.v4.view.ViewPager
+                    android:id="@+id/vp_home_msg"
+                    android:layout_width="match_parent"
+                    android:layout_height="160dp">
+                </android.support.v4.view.ViewPager>
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="30dp"
+                    android:layout_alignParentBottom="true"
+                    android:padding="5dp">
+                    <!--android:background="#55888888"-->
+
+                    <TextView
+                        android:id="@+id/tv_home_imagetitle"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:gravity="left"
+                        android:text="xxxx"
+                        android:textColor="#EE7600"
+                        android:textSize="15sp"
+                        android:visibility="gone"/>
+                    <LinearLayout
+                        android:id="@+id/ll_home_point"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="15dp"
+                        android:gravity="center"
+                        android:orientation="horizontal">
+                    </LinearLayout>
+                </RelativeLayout>
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/rl_home_successrate"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/bg_item"
+                android:layout_marginTop="10dp">
+                <ImageView
+                    android:layout_width="150dp"
+                    android:layout_height="100dp"
+                    android:src="@drawable/main_success_rate"/>
+
+                <FrameLayout
+                    android:layout_width="100dp"
+                    android:layout_height="100dp"
+                    android:layout_alignParentRight="true">
+                    <ImageView
+                        android:layout_width="100dp"
+                        android:layout_height="100dp"
+                        android:src="@drawable/main_success_rate_first"/>
+                    <ImageView
+                        android:layout_width="30dp"
+                        android:layout_height="30dp"
+                        android:layout_gravity="center"
+                        android:src="@drawable/my_cash_hint_bg"/>
+                </FrameLayout>
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/rl_home_speeed"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/bg_item"
+                android:layout_marginTop="10dp">
+                <ImageView
+                    android:layout_width="150dp"
+                    android:layout_height="100dp"
+                    android:src="@drawable/main_speed"/>
+
+                <FrameLayout
+                    android:layout_width="100dp"
+                    android:layout_height="100dp"
+                    android:layout_alignParentRight="true">
+                    <ImageView
+                        android:layout_width="100dp"
+                        android:layout_height="100dp"
+                        android:src="@drawable/main_speed_first"/>
+                    <ImageView
+                        android:layout_width="30dp"
+                        android:layout_height="30dp"
+                        android:layout_gravity="center"
+                        android:src="@drawable/my_cash_hint_bg"/>
+                </FrameLayout>
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/rl_home_rate"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:background="@drawable/bg_item">
+                <ImageView
+                    android:layout_width="150dp"
+                    android:layout_height="100dp"
+                    android:src="@drawable/main_interest_rate"/>
+
+                <FrameLayout
+                    android:layout_width="100dp"
+                    android:layout_height="100dp"
+                    android:layout_alignParentRight="true">
+                    <ImageView
+                        android:layout_width="100dp"
+                        android:layout_height="100dp"
+                        android:src="@drawable/main_interest_rate_first"/>
+                    <ImageView
+                        android:layout_width="30dp"
+                        android:layout_height="30dp"
+                        android:layout_gravity="center"
+                        android:src="@drawable/my_cash_hint_bg"/>
+                </FrameLayout>
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/rl_home_count"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/bg_item"
+                android:layout_marginTop="10dp">
+                <ImageView
+                    android:layout_width="150dp"
+                    android:layout_height="100dp"
+                    android:src="@drawable/main_amount"/>
+
+                <FrameLayout
+                    android:layout_width="100dp"
+                    android:layout_height="100dp"
+                    android:layout_alignParentRight="true">
+                    <ImageView
+                        android:layout_width="100dp"
+                        android:layout_height="100dp"
+                        android:src="@drawable/main_amount_first"/>
+                    <ImageView
+                        android:layout_width="30dp"
+                        android:layout_height="30dp"
+                        android:layout_gravity="center"
+                        android:src="@drawable/my_cash_hint_bg"/>
+                </FrameLayout>
+            </RelativeLayout>
+        </LinearLayout>
+    </ScrollView>
+
+
+
+
+
 
 </LinearLayout>
