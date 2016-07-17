@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="80dp"
+    android:padding="5dp">
+    <TextView
+        android:id="@+id/tv_chattitem_time"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="10:59"
+        android:background="@drawable/bg_time"
+        android:padding="2dp"
+        android:layout_centerHorizontal="true" />
+
+    <zhiyuan.com.loan.view.CircleImageView
+        android:id="@+id/iv_chattitem_icon"
+        android:layout_below="@id/tv_chattitem_time"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:src="@drawable/ease_default_avatar"
+        android:layout_centerVertical="true"
+        android:layout_alignParentLeft="true"
+        />
+
+
+    <!--<ImageView
+        android:id="@+id/iv_chattitem_icon"
+        android:layout_below="@id/tv_chattitem_time"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:src="@drawable/ease_default_avatar"
+        android:layout_centerVertical="true"
+        android:layout_alignParentLeft="true"/>-->
+
+    <TextView
+        android:id="@+id/tv_chattitem_message"
+        android:layout_toRightOf="@id/iv_chattitem_icon"
+        android:layout_below="@id/tv_chattitem_time"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:layout_marginRight="5dp"
+        android:background="@drawable/bg_item_message_right"
+        android:gravity="left|center"
+        android:text="大幅度的功夫功夫功夫高哥哥"
+        android:clickable="true"/>
+
+
+
+</RelativeLayout>

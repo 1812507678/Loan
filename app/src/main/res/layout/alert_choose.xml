@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="#FFFFFF">
+    <TextView
+        android:id="@+id/tv_alert_copy"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="复制"
+        android:textColor="#000000"
+        android:textSize="20sp"
+        android:background="@drawable/bg_alert_item"
+        android:padding="10dp"
+        android:gravity="center"/>
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="#CDC9C9"/>
+    <TextView
+        android:id="@+id/tv_alert_delete"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="删除"
+        android:textColor="#000000"
+        android:textSize="20sp"
+        android:padding="10dp"
+        android:background="@drawable/bg_alert_item"
+        android:gravity="center"/>
+
+</LinearLayout>

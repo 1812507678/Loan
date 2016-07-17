@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="80dp"
+    >
+
+    <zhiyuan.com.loan.view.CircleImageView
+        android:id="@+id/iv_item_icon"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:src="@drawable/ease_default_avatar"
+        android:layout_centerVertical="true"
+        android:layout_marginLeft="10dp"
+        />
+
+   <!-- <ImageView
+        android:id="@+id/iv_item_icon"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:src="@drawable/ease_default_avatar"
+        android:layout_centerVertical="true"
+        android:layout_marginLeft="10dp"/>-->
+
+
+
+    <TextView
+        android:id="@+id/tv_item_nickname"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="用户名"
+        android:layout_toRightOf="@id/iv_item_icon"
+        android:layout_marginTop="10dp"
+        android:layout_marginLeft="10dp"
+        android:textColor="#020202"/>
+
+    <TextView
+        android:id="@+id/tv_item_message"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="消息内容消息内容消息内容消息内容消息内容消息内容"
+        android:layout_toRightOf="@id/iv_item_icon"
+        android:layout_below="@id/tv_item_nickname"
+        android:layout_marginTop="5dp"
+        android:layout_marginLeft="10dp"
+        android:singleLine="true"
+        android:layout_marginRight="40dp"
+        android:textColor="#7D7D7D"/>
+    <TextView
+        android:id="@+id/tv_item_time"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="15:47"
+        android:layout_alignParentRight="true"
+        android:layout_marginTop="10dp"
+        android:layout_marginRight="10dp"/>
+    <FrameLayout
+        android:id="@+id/fl_item_point"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/tv_item_time"
+        android:layout_marginRight="10dp"
+        android:layout_marginTop="5dp"
+        android:layout_alignParentRight="true"
+        android:visibility="gone">
+        <ImageView
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:src="@drawable/em_unread_dot"/>
+        <TextView
+            android:id="@+id/tv_item_unread"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="1"
+            android:textColor="#FFFFFF"
+            android:layout_gravity="center"/>
+    </FrameLayout>
+
+</RelativeLayout>

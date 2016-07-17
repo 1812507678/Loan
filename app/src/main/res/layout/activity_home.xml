@@ -95,7 +95,7 @@
                 android:id="@+id/tv_home_find"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="了解"
+                android:text="攻略"
                 android:layout_marginTop="-5dp"
                 android:gravity="center"
                 android:textColor="#999"

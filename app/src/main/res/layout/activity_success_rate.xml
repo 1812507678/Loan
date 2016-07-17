@@ -16,7 +16,8 @@
             android:layout_width="40dp"
             android:layout_height="40dp"
             android:src="@drawable/ic_keyboard_arrow_left_white_24dp"
-            android:layout_centerVertical="true"/>
+            android:layout_centerVertical="true"
+            android:onClick="back"/>
         <TextView
             android:layout_width="fill_parent"
             android:layout_height="fill_parent"

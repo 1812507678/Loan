@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <item type="drawable" name="hint">#ff868686</item>
+    <item type="drawable" name="white">#ffffffff</item>
+    <item type="drawable" name="transparent_checked_d">#ff323636</item>
+    <item type="drawable" name="transparent_checked_n">#ff242727</item>
+    <item type="drawable" name="home_shortcut_sel_d">#ff222222</item>
+    <item type="drawable" name="layout_top_bg">#ff1f92ec</item>
+    <item type="drawable" name="button_period_d">#ff8ec31f</item>
+    <item type="drawable" name="button_period_n">#ffffffff</item>
+    <item type="drawable" name="button_background_color">#ff8ec31f</item>
+    <item type="drawable" name="button_background_color_d">#ff587815</item>
+    <item type="drawable" name="bg_click_press">#22000000</item>
+    <item type="drawable" name="bg_click_normal">#00ffffff</item>
+    <item type="drawable" name="bg_transparent_popup">#997f7f7f</item>
+</resources>
