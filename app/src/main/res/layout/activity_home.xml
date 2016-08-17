@@ -49,7 +49,7 @@
                 android:id="@+id/tv_home_home"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="平台"
+                android:text="主页"
                 android:layout_marginTop="-5dp"
                 android:gravity="center"
                 android:textColor="#0b9a27"

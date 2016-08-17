@@ -34,15 +34,15 @@
             android:id="@+id/rl_user_center"
             android:layout_width="match_parent"
             android:layout_height="100dp"
-            android:background="@drawable/user_center_bg"
+            android:background="#FFFFFF"
             android:clickable="true" >
 
             <zhiyuan.com.loan.view.CircleImageView
                 android:id="@+id/cv_me_icon"
-                android:layout_width="60dp"
-                android:layout_height="60dp"
+                android:layout_width="70dp"
+                android:layout_height="70dp"
                 android:layout_centerHorizontal="true"
-                android:layout_marginTop="10dp"
+                android:layout_marginTop="5dp"
                 android:contentDescription="@null"
                 android:src="@drawable/widget_dface"
                 />
@@ -53,7 +53,6 @@
                 android:layout_below="@id/cv_me_icon"
                 android:layout_centerHorizontal="true"
                 android:layout_marginTop="@dimen/space_5"
-                style="@style/user_formation_info"
                 android:text="点击登陆"/>
 
         </RelativeLayout>
@@ -63,7 +62,8 @@
             android:layout_height="wrap_content"
             android:gravity="center_vertical"
             android:orientation="horizontal"
-            android:background="#FFFFFF">
+            android:background="#FFFFFF"
+            android:layout_marginTop="2dp">
 
             <LinearLayout
                 android:id="@+id/ll_me_collect"
@@ -106,6 +106,19 @@
             style="@style/option_item_text"
             android:text="个人信息" />
     </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1px"
+        android:background="@color/list_divider_color" />
+    <LinearLayout
+        android:id="@+id/ll_me_applyhis"
+        style="@style/option_item_rl">
+        <TextView
+            style="@style/option_item_text"
+            android:text="申请记录" />
+    </LinearLayout>
+
     <View
         android:layout_width="match_parent"
         android:layout_height="1px"
@@ -114,21 +127,9 @@
     <LinearLayout
         android:id="@+id/ll_me_invite"
         style="@style/option_item_rl">
-
-
         <TextView
             style="@style/option_item_text"
             android:text="邀请好友" />
     </LinearLayout>
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="1px"
-        android:background="@color/list_divider_color" />
-    <LinearLayout
-        android:id="@+id/ll_me_set"
-        style="@style/option_item_rl">
-        <TextView
-            style="@style/option_item_text"
-            android:text="设置" />
-    </LinearLayout>
+
 </LinearLayout>

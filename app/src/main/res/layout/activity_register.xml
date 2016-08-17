@@ -85,7 +85,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerVertical="true"
-                android:text="新密码："
+                android:text="密码："
                 android:textColor="#ff1a1a1a"
                 android:textSize="15.0sp" />
 
@@ -128,7 +128,6 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_centerVertical="true"
-                android:layout_toLeftOf="@id/main_login_pwd_del"
                 android:layout_toRightOf="@+id/submit_psw_tv"
                 android:background="@drawable/text_edit_bg"
                 android:hint="确认密码："

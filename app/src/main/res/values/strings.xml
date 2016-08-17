@@ -1,16 +1,4 @@
 <resources>
-    <string name="app_name">Loan</string>
-
-    <string name="user_redpacket">我的红包</string>
-    <string name="user_money">我的现金</string>
-    <string name="ll_my_loadmanager">贷款管家</string>
-    <string name="ll_my_loadrecords">贷款记录</string>
-    <string name="ll_my_makemoney">我要赚钱</string>
-    <string name="ll_my_personalinformation">个人信息</string>
-    <string name="ll_my_problem">常见问题</string>
-    <string name="ll_my_invite">邀请好友</string>
-    <string name="ll_my_setup">设置</string>
-    <string name="personnal">个人</string>
-    <string name="notes">便签</string>
-    <string name="family">家庭</string>
+    <string name="app_name">58名校贷</string>
+    <string name="share">分享</string>
 </resources>

@@ -43,8 +43,8 @@
 
                 <ImageView
                     android:id="@+id/main_login_account_prefix"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
                     android:layout_centerVertical="true"
                     android:src="@drawable/account_icon" />
 
@@ -59,7 +59,7 @@
 
                 <EditText
                     android:id="@+id/et_login_account"
-                    android:layout_width="fill_parent"
+                    android:layout_width="match_parent"
                     android:layout_height="30.0dip"
                     android:layout_centerVertical="true"
                     android:layout_marginLeft="10.0dip"
@@ -89,27 +89,19 @@
 
                 <ImageView
                     android:id="@+id/main_login_pwd_prefix"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
                     android:layout_centerVertical="true"
                     android:src="@drawable/password_icon" />
 
-                <Button
-                    android:id="@+id/main_login_pwd_del"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentRight="true"
-                    android:layout_centerVertical="true"
-                    android:background="@drawable/more_del_s"
-                    android:visibility="invisible" />
+
 
                 <EditText
                     android:id="@+id/et_login_pwd"
-                    android:layout_width="wrap_content"
-                    android:layout_height="30.0dip"
+                    android:layout_width="match_parent"
+                    android:layout_height="30dp"
                     android:layout_centerVertical="true"
                     android:layout_marginLeft="10.0dip"
-                    android:layout_toLeftOf="@+id/main_login_pwd_del"
                     android:layout_toRightOf="@+id/main_login_pwd_prefix"
                     android:background="@null"
                     android:hint="密码"
@@ -127,6 +119,27 @@
                 android:src="@drawable/home_icon_line2" />
         </LinearLayout>
 
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/linear_login">
+            <CheckBox
+                android:id="@+id/cb_login_isadmin"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_alignParentRight="true"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_toLeftOf="@id/cb_login_isadmin"
+                android:layout_centerVertical="true"
+                android:text="管理员" />
+        </RelativeLayout>
+
+
+
+
         <Button
             android:id="@+id/bt_login_login"
             android:layout_width="match_parent"
@@ -134,7 +147,7 @@
             android:layout_below="@id/linear_login"
             android:layout_centerHorizontal="true"
             android:background="@drawable/bg_button"
-            android:layout_marginTop="25dp"
+            android:layout_marginTop="45dp"
             android:text="登陆"
             android:onClick="login"
             android:textColor="@color/white"/>

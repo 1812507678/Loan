@@ -2,7 +2,8 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="#EAEAEA">
     <RelativeLayout
         android:id="@+id/rl_home_top"
         android:layout_width="fill_parent"
@@ -19,7 +20,9 @@
             android:textStyle="bold"/>
 
     </RelativeLayout>
-    <ListView
+
+
+    <zhiyuan.com.loan.view.LastMsgListView
         android:id="@+id/lv_strategy_articlelist"
         android:layout_width="match_parent"
         android:layout_height="match_parent"/>

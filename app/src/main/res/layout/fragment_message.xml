@@ -3,11 +3,18 @@
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
-    <ListView
+    <TextView
+        android:id="@+id/tv_msg_noMsgContent"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:text="暂无消息，点击刷新"
+        android:textSize="20sp"
+        android:background="@drawable/bg_textpress"
+        android:gravity="center"/>
+    <zhiyuan.com.loan.view.LastMsgListView
         android:id="@+id/lv_msg_message"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="#FFFFFF">
-    </ListView>
+        android:layout_height="match_parent">
+    </zhiyuan.com.loan.view.LastMsgListView>
 
 </LinearLayout>

@@ -2,8 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="#EAEAEA">
+    android:layout_height="match_parent">
     <RelativeLayout
         android:id="@+id/rl_home_top"
         android:layout_width="fill_parent"
@@ -18,164 +17,235 @@
             android:textColor="#fff"
             android:textSize="20sp"
             android:textStyle="bold"/>
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="150dp"
+        android:background="#999999">
+
+        <android.support.v4.view.ViewPager
+            android:id="@+id/vp_home_msg"
+            android:layout_width="match_parent"
+            android:layout_height="160dp">
+        </android.support.v4.view.ViewPager>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="30dp"
+            android:layout_alignParentBottom="true"
+            android:padding="5dp">
+            <!--android:background="#55888888"-->
+            <LinearLayout
+                android:id="@+id/ll_home_point"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="15dp"
+                android:gravity="center"
+                android:orientation="horizontal">
+            </LinearLayout>
+        </RelativeLayout>
 
     </RelativeLayout>
 
-    <ScrollView
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
-        <LinearLayout
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:background="#FFFFFF"
+        android:padding="5dp">
+        <TextView
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="wrap_content"
+            android:text="已申请人数:"
+            android:gravity="right"/>
+        <TextView
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="wrap_content"
+            android:text="10000"
+            android:textColor="#FF3030"
+            android:padding="5dp"
+            android:gravity="left"/>
+    </LinearLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:padding="5dp"
+        android:background="#FFFFFF">
+        <TextView
+            android:id="@+id/tv_home_desc"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="vertical">
+            android:layout_height="wrap_content"
+            android:text="-------------------资料极少，放款极速-------------------"
+            android:textColor="#FF7F00"
+            android:gravity="center"/>
+        <LinearLayout
+            android:layout_below="@id/tv_home_desc"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
             <RelativeLayout
-                android:layout_width="match_parent"
-                android:layout_height="150dp">
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="wrap_content"
+                android:padding="20dp">
+                <TextView
+                    android:id="@+id/tv_home_moneys"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="2000-50000"
+                    android:layout_centerHorizontal="true"
+                    android:textSize="20sp"
+                    android:textColor="#FF0000"/>
+                <TextView
+                    android:layout_below="@id/tv_home_moneys"
+                    android:layout_marginTop="10dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="贷款金额（元）"
+                    android:textSize="15sp"
+                    android:layout_centerHorizontal="true"/>
+            </RelativeLayout>
+            <RelativeLayout
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="wrap_content"
+                android:paddingTop="10dp"
+                android:paddingBottom="10dp"
+                android:paddingLeft="20dp"
+                android:paddingRight="20dp">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="借款周期"
+                    android:textSize="15sp"/>
+                <TextView
+                    android:id="@+id/tv_home_mouth"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="1-36个月"
+                    android:textSize="15sp"
+                    android:layout_alignParentRight="true"/>
 
-                <android.support.v4.view.ViewPager
-                    android:id="@+id/vp_home_msg"
+                <TextView
+                    android:id="@+id/tv_home_creditStep"
+                    android:layout_below="@id/tv_home_mouth"
                     android:layout_width="match_parent"
-                    android:layout_height="160dp">
-                </android.support.v4.view.ViewPager>
-
-                <RelativeLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="30dp"
-                    android:layout_alignParentBottom="true"
-                    android:padding="5dp">
-                    <!--android:background="#55888888"-->
-
-                    <TextView
-                        android:id="@+id/tv_home_imagetitle"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:gravity="left"
-                        android:text="xxxx"
-                        android:textColor="#EE7600"
-                        android:textSize="15sp"
-                        android:visibility="gone"/>
-                    <LinearLayout
-                        android:id="@+id/ll_home_point"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="15dp"
-                        android:gravity="center"
-                        android:orientation="horizontal">
-                    </LinearLayout>
-                </RelativeLayout>
-
+                    android:layout_height="wrap_content"
+                    android:text="立即借款"
+                    android:textColor="#FFFFFF"
+                    android:layout_marginTop="5dp"
+                    android:paddingTop="10dp"
+                    android:paddingBottom="10dp"
+                    android:textSize="20sp"
+                    android:gravity="center"
+                    android:background="@drawable/bg_loan"
+                    android:layout_centerInParent="true"/>
             </RelativeLayout>
 
-            <RelativeLayout
-                android:id="@+id/rl_home_successrate"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="@drawable/bg_item"
-                android:layout_marginTop="10dp">
-                <ImageView
-                    android:layout_width="150dp"
-                    android:layout_height="100dp"
-                    android:src="@drawable/main_success_rate"/>
-
-                <FrameLayout
-                    android:layout_width="100dp"
-                    android:layout_height="100dp"
-                    android:layout_alignParentRight="true">
-                    <ImageView
-                        android:layout_width="100dp"
-                        android:layout_height="100dp"
-                        android:src="@drawable/main_success_rate_first"/>
-                    <ImageView
-                        android:layout_width="30dp"
-                        android:layout_height="30dp"
-                        android:layout_gravity="center"
-                        android:src="@drawable/my_cash_hint_bg"/>
-                </FrameLayout>
-            </RelativeLayout>
-
-            <RelativeLayout
-                android:id="@+id/rl_home_speeed"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="@drawable/bg_item"
-                android:layout_marginTop="10dp">
-                <ImageView
-                    android:layout_width="150dp"
-                    android:layout_height="100dp"
-                    android:src="@drawable/main_speed"/>
-
-                <FrameLayout
-                    android:layout_width="100dp"
-                    android:layout_height="100dp"
-                    android:layout_alignParentRight="true">
-                    <ImageView
-                        android:layout_width="100dp"
-                        android:layout_height="100dp"
-                        android:src="@drawable/main_speed_first"/>
-                    <ImageView
-                        android:layout_width="30dp"
-                        android:layout_height="30dp"
-                        android:layout_gravity="center"
-                        android:src="@drawable/my_cash_hint_bg"/>
-                </FrameLayout>
-            </RelativeLayout>
-
-            <RelativeLayout
-                android:id="@+id/rl_home_rate"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
-                android:background="@drawable/bg_item">
-                <ImageView
-                    android:layout_width="150dp"
-                    android:layout_height="100dp"
-                    android:src="@drawable/main_interest_rate"/>
-
-                <FrameLayout
-                    android:layout_width="100dp"
-                    android:layout_height="100dp"
-                    android:layout_alignParentRight="true">
-                    <ImageView
-                        android:layout_width="100dp"
-                        android:layout_height="100dp"
-                        android:src="@drawable/main_interest_rate_first"/>
-                    <ImageView
-                        android:layout_width="30dp"
-                        android:layout_height="30dp"
-                        android:layout_gravity="center"
-                        android:src="@drawable/my_cash_hint_bg"/>
-                </FrameLayout>
-            </RelativeLayout>
-
-            <RelativeLayout
-                android:id="@+id/rl_home_count"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="@drawable/bg_item"
-                android:layout_marginTop="10dp">
-                <ImageView
-                    android:layout_width="150dp"
-                    android:layout_height="100dp"
-                    android:src="@drawable/main_amount"/>
-
-                <FrameLayout
-                    android:layout_width="100dp"
-                    android:layout_height="100dp"
-                    android:layout_alignParentRight="true">
-                    <ImageView
-                        android:layout_width="100dp"
-                        android:layout_height="100dp"
-                        android:src="@drawable/main_amount_first"/>
-                    <ImageView
-                        android:layout_width="30dp"
-                        android:layout_height="30dp"
-                        android:layout_gravity="center"
-                        android:src="@drawable/my_cash_hint_bg"/>
-                </FrameLayout>
-            </RelativeLayout>
         </LinearLayout>
-    </ScrollView>
+    </RelativeLayout>
 
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:background="#FFFFFF">
+        <RelativeLayout
+            android:id="@+id/rl_home_creditClass"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="wrap_content"
+            android:padding="10dp"
+            android:clickable="true"
+            android:background="@drawable/bg_item">
+            <View
+                android:id="@+id/vw_item_view1"
+                android:layout_width="80dp"
+                android:layout_height="80dp"
+                android:background="@drawable/bg_circle"
+                android:layout_centerHorizontal="true"/>
+            <ImageView
+                android:layout_width="70dp"
+                android:layout_height="70dp"
+                android:src="@drawable/class_icon"
+                android:layout_marginTop="5dp"
+                android:layout_centerHorizontal="true"/>
+
+            <TextView
+                android:id="@+id/tv_item_class1"
+                android:layout_below="@id/vw_item_view1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="20sp"
+                android:textColor="#47B4F1"
+                android:layout_marginTop="10dp"
+                android:layout_centerHorizontal="true"
+                android:text="贷款种类"/>
+            <TextView
+                android:layout_below="@id/tv_item_class1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="15sp"
+                android:layout_marginTop="5dp"
+                android:layout_centerHorizontal="true"
+                android:text="各种贷款平台介绍"/>
+
+        </RelativeLayout>
+
+        <View
+            android:layout_width="1dp"
+            android:layout_height="match_parent"
+            android:background="#F2F2F2"
+            android:layout_centerHorizontal="true"/>
+
+        <RelativeLayout
+            android:id="@+id/rl_home_consult"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="wrap_content"
+            android:padding="10dp"
+            android:clickable="true"
+            android:background="@drawable/bg_item">
+            <View
+                android:id="@+id/vw_item_view"
+                android:layout_width="80dp"
+                android:layout_height="80dp"
+                android:background="@drawable/bg_circle1"
+                android:layout_centerHorizontal="true"/>
+            <ImageView
+                android:layout_width="60dp"
+                android:layout_height="60dp"
+                android:src="@drawable/chat"
+                android:layout_marginTop="10dp"
+                android:layout_centerHorizontal="true"/>
+
+            <TextView
+                android:id="@+id/tv_item_class"
+                android:layout_below="@id/vw_item_view"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="20sp"
+                android:textColor="#52BA76"
+                android:layout_marginTop="10dp"
+                android:layout_centerHorizontal="true"
+                android:text="在线咨询"/>
+            <TextView
+                android:layout_below="@id/tv_item_class"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="15sp"
+                android:layout_marginTop="5dp"
+                android:layout_centerHorizontal="true"
+                android:text="实时聊天解决你的疑问"/>
+
+        </RelativeLayout>
+
+    </LinearLayout>
 
 
 

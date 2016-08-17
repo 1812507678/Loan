@@ -41,8 +41,6 @@
             android:layout_centerVertical="true"
             android:layout_marginLeft="10dp"
             android:src="@drawable/widget_dface" />
-
-
         <ImageView
             android:layout_width="30dp"
             android:layout_height="30dp"

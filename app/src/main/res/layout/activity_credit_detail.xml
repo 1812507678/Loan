@@ -63,7 +63,6 @@
                     android:layout_centerVertical="true"
                     android:layout_marginLeft="10dp"
                     android:layout_marginTop="10dp"
-                    android:background="#FFE4CD"
                     android:src="@drawable/daidaihong" />
                 <TextView
                     android:id="@+id/tv_credit_platformname"
@@ -72,7 +71,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="10dp"
                     android:layout_marginLeft="10dp"
-                    android:text="贷贷红-个人贷"
+                    android:text="拍来贷"
                     android:textColor="#494949"
                     android:textSize="16sp"/>
                 <TextView
@@ -86,6 +85,7 @@
                     android:textSize="15sp"
                     android:layout_marginLeft="10dp"
                     android:background="#6EA4E3"
+                    android:padding="2dp"
                     android:layout_centerVertical="true"/>
                 <TextView
 
@@ -163,7 +163,7 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="专科:"/>
+                        android:text="专科/本科及以上学历:"/>
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -172,11 +172,11 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="额度范围：1000~10000"/>
+                            android:text="额度范围：2000~3000"/>
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="期限范围：12~24月"/>
+                            android:text="期限范围：5~7月"/>
                     </LinearLayout>
                 </LinearLayout>
                 <!--<View
@@ -186,30 +186,7 @@
                     android:layout_marginLeft="10dp"
                     android:layout_marginRight="10dp"
                     android:layout_alignParentBottom="true"></View>-->
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:layout_marginLeft="10dp">
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="本科:"/>
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:orientation="vertical"
-                        android:layout_marginLeft="20dp">
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="额度范围：1000~50000"/>
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="期限范围：12~24月"/>
-                    </LinearLayout>
-                </LinearLayout>
+
             </LinearLayout>
 
             <TextView
@@ -289,15 +266,7 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="1.身份证正反面"/>
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="2.学生证封面、信息页"/>
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="3.银行卡正反面"/>
+                        android:text="身份证正反面"/>
                 </LinearLayout>
             </LinearLayout>
 
@@ -314,6 +283,7 @@
                     android:background="#FD9942"
                     android:textColor="#FFFFFF"
                     android:textSize="20sp"
+                    android:padding="2dp"
                     android:layout_marginLeft="5dp"/>
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -322,8 +292,8 @@
                     android:layout_marginTop="2dp"
                     android:layout_marginLeft="5dp">
                     <TextView
-                        android:layout_width="40dp"
-                        android:layout_height="40dp"
+                        android:layout_width="30dp"
+                        android:layout_height="30dp"
                         android:text="1"
                         android:gravity="center"
                         android:textColor="#FFFFFF"
@@ -331,10 +301,11 @@
                         android:background="@drawable/bg_process"/>
                     <TextView
                         android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="注册及信息验证"
+                        android:layout_height="match_parent"
+                        android:text="58名校贷上填写贷款申请"
                         android:textColor="#8E8E8E"
-                        android:textSize="25sp"
+                        android:textSize="20sp"
+                        android:gravity="center"
                         android:layout_marginLeft="20dp"/>
                 </LinearLayout>
                 <LinearLayout
@@ -344,8 +315,8 @@
                     android:orientation="horizontal"
                     android:layout_marginLeft="5dp">
                     <TextView
-                        android:layout_width="40dp"
-                        android:layout_height="40dp"
+                        android:layout_width="30dp"
+                        android:layout_height="30dp"
                         android:text="2"
                         android:gravity="center"
                         android:textColor="#FFFFFF"
@@ -353,10 +324,11 @@
                         android:background="@drawable/bg_process"/>
                     <TextView
                         android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="借款申请"
+                        android:layout_height="match_parent"
+                        android:text="客服通知您（或自己联系客服）"
                         android:textColor="#8E8E8E"
-                        android:textSize="25sp"
+                        android:textSize="20sp"
+                        android:gravity="center"
                         android:layout_marginLeft="20dp"/>
                 </LinearLayout>
                 <LinearLayout
@@ -366,8 +338,8 @@
                     android:layout_marginLeft="5dp"
                     android:orientation="horizontal">
                     <TextView
-                        android:layout_width="40dp"
-                        android:layout_height="40dp"
+                        android:layout_width="30dp"
+                        android:layout_height="30dp"
                         android:text="3"
                         android:gravity="center"
                         android:textColor="#FFFFFF"
@@ -375,10 +347,11 @@
                         android:background="@drawable/bg_process"/>
                     <TextView
                         android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="获取额度完善资料"
+                        android:layout_height="match_parent"
+                        android:text="客服进行资料提交与审核"
                         android:textColor="#8E8E8E"
-                        android:textSize="25sp"
+                        android:textSize="20sp"
+                        android:gravity="center"
                         android:layout_marginLeft="20dp"/>
                 </LinearLayout>
                 <LinearLayout
@@ -388,8 +361,8 @@
                     android:layout_marginLeft="5dp"
                     android:orientation="horizontal">
                     <TextView
-                        android:layout_width="40dp"
-                        android:layout_height="40dp"
+                        android:layout_width="30dp"
+                        android:layout_height="30dp"
                         android:text="4"
                         android:gravity="center"
                         android:textColor="#FFFFFF"
@@ -397,20 +370,16 @@
                         android:background="@drawable/bg_process"/>
                     <TextView
                         android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="视频签约"
+                        android:layout_height="match_parent"
+                        android:text="审核通过，资金下发"
                         android:textColor="#8E8E8E"
-                        android:textSize="25sp"
+                        android:textSize="20sp"
+                        android:gravity="center"
                         android:layout_marginLeft="20dp"/>
                 </LinearLayout>
 
             </LinearLayout>
 
-            <ListView
-                android:id="@+id/lv_credit_image"
-                android:layout_width="match_parent"
-                android:layout_height="1400dp">
-            </ListView>
         </LinearLayout>
 
     </ScrollView>
