@@ -68,6 +68,25 @@
  -keep class org.apache.http.**{*;}
 
 
-
+#环信聊天
 -keep class com.hyphenate.** {*;}
 -dontwarn  com.hyphenate.**
+
+
+#友盟统计
+-keepclassmembers enum * {
+    public static **[] values();
+    public static ** valueOf(java.lang.String);
+}
+
+
+#shareSDK
+-keep class cn.sharesdk.**{*;}
+-keep class com.sina.**{*;}
+-keep class **.R$* {*;}
+-keep class **.R{*;}
+
+-keep class com.mob.**{*;}
+-dontwarn com.mob.**
+-dontwarn cn.sharesdk.**
+-dontwarn **.R$*

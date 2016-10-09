@@ -10,22 +10,27 @@
         android:id="@+id/rl_credit_top"
         android:layout_width="match_parent"
         android:layout_height="45dp"
-        android:background="#41AA53" >
+        android:background="#FFFFFF" >
         <ImageView
             android:layout_width="40dp"
             android:layout_height="40dp"
-            android:src="@drawable/ic_keyboard_arrow_left_white_24dp"
+            android:src="@drawable/bg_back"
             android:layout_centerVertical="true"
-            android:onClick="back"/>
+            android:onClick="back"
+            android:padding="5dp"/>
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="fill_parent"
             android:layout_centerInParent="true"
             android:text="申请记录"
             android:gravity="center"
-            android:textColor="#fff"
-            android:textSize="20sp"
-            android:textStyle="bold"/>
+            android:textColor="#000"
+            android:textSize="20sp"/>
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="#F4F4F4"
+            android:layout_alignParentBottom="true"></View>
     </RelativeLayout>
     <TextView
         android:id="@+id/tv_lookup_histery"

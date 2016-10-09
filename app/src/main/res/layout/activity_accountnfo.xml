@@ -10,21 +10,26 @@
         android:id="@+id/rl_home_top"
         android:layout_width="fill_parent"
         android:layout_height="45dp"
-        android:background="#41AA53" >
+        android:background="#FFFFFF" >
         <ImageView
             android:layout_width="40dp"
             android:layout_height="40dp"
-            android:src="@drawable/ic_keyboard_arrow_left_white_24dp"
+            android:src="@drawable/bg_back"
             android:layout_centerVertical="true"
-            android:onClick="back"/>
+            android:onClick="back"
+            android:padding="5dp"/>
         <TextView
             android:layout_width="fill_parent"
             android:layout_height="fill_parent"
             android:gravity="center"
             android:text="账户信息"
-            android:textColor="#fff"
-            android:textSize="20sp"
-            android:textStyle="bold"/>
+            android:textColor="#000"
+            android:textSize="20sp"/>
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="#F4F4F4"
+            android:layout_alignParentBottom="true"></View>
     </RelativeLayout>
 
     <RelativeLayout
@@ -34,20 +39,22 @@
         android:layout_marginTop="10dp"
         android:background="#FFFFFF" >
 
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="头像"
+            android:layout_marginLeft="20dp"
+            android:textSize="15sp"
+            android:layout_centerVertical="true"/>
+
         <zhiyuan.com.loan.view.CircleImageView
             android:id="@+id/iv_personcenter_iocn"
             android:layout_width="80dp"
             android:layout_height="80dp"
             android:layout_centerVertical="true"
-            android:layout_marginLeft="10dp"
-            android:src="@drawable/widget_dface" />
-        <ImageView
-            android:layout_width="30dp"
-            android:layout_height="30dp"
-            android:layout_alignParentRight="true"
-            android:layout_centerVertical="true"
             android:layout_marginRight="10dp"
-            android:src="@drawable/share_table_indicator" />
+            android:layout_alignParentRight="true"
+            android:src="@drawable/widget_dface" />
     </RelativeLayout>
 
 
@@ -64,13 +71,15 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="昵称"
+            android:textSize="15sp"
+            android:layout_marginLeft="10dp"
             android:layout_centerVertical="true"
             android:textColor="#4F4F4F" />
 
         <ImageView
             android:id="@+id/iv_account_indocator1"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="15dp"
+            android:layout_height="15dp"
             android:layout_centerVertical="true"
             android:src="@drawable/share_table_indicator"
             android:layout_alignParentRight="true"/>
@@ -81,6 +90,7 @@
             android:layout_height="wrap_content"
             android:text="未设置"
             android:gravity="right"
+            android:textSize="15sp"
             android:layout_centerVertical="true"
             android:layout_marginRight="10dp"
             android:layout_toLeftOf="@+id/iv_account_indocator1"
@@ -106,14 +116,17 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="qq"
+            android:layout_marginLeft="10dp"
+            android:textSize="15sp"
             android:layout_centerVertical="true"
             android:textColor="#4F4F4F" />
 
         <ImageView
             android:id="@+id/iv_account_indocator2"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="15dp"
+            android:layout_height="15dp"
             android:layout_centerVertical="true"
+            android:textSize="15sp"
             android:src="@drawable/share_table_indicator"
             android:layout_alignParentRight="true"/>
 
@@ -125,6 +138,7 @@
             android:gravity="right"
             android:layout_centerVertical="true"
             android:layout_marginRight="10dp"
+            android:textSize="15sp"
             android:layout_toLeftOf="@+id/iv_account_indocator2"
             android:textColor="#8F8F8F" />
     </RelativeLayout>
@@ -148,13 +162,15 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="email"
+            android:textSize="15sp"
+            android:layout_marginLeft="10dp"
             android:layout_centerVertical="true"
             android:textColor="#4F4F4F" />
 
         <ImageView
             android:id="@+id/iv_account_indocator3"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="15dp"
+            android:layout_height="15dp"
             android:layout_centerVertical="true"
             android:src="@drawable/share_table_indicator"
             android:layout_alignParentRight="true"/>
@@ -165,6 +181,7 @@
             android:layout_height="wrap_content"
             android:text="xx"
             android:gravity="right"
+            android:textSize="15sp"
             android:layout_centerVertical="true"
             android:layout_marginRight="10dp"
             android:layout_toLeftOf="@+id/iv_account_indocator3"
@@ -177,7 +194,9 @@
         android:layout_marginLeft="10.0dip"
         android:layout_marginRight="10.0dip"
         android:scaleType="fitXY"
+        android:textSize="15sp"
         android:src="@drawable/home_icon_line2" />
+
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -190,6 +209,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="手机号"
+            android:textSize="15sp"
+            android:layout_marginLeft="10dp"
             android:layout_centerVertical="true"
             android:textColor="#4F4F4F" />
 
@@ -199,26 +220,12 @@
             android:layout_height="wrap_content"
             android:text="xx"
             android:gravity="right"
+            android:textSize="15sp"
             android:layout_centerVertical="true"
             android:layout_marginRight="20dp"
             android:layout_alignParentRight="true"
             android:textColor="#8F8F8F" />
     </RelativeLayout>
 
-    <RelativeLayout
-        android:id="@+id/rl_personcenter_exit"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:padding="10dp"
-        android:background="#FFFFFF"
-        android:layout_marginTop="20dp"
-        android:gravity="center_vertical" >
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="退出登陆"
-            android:layout_centerVertical="true"
-            android:textColor="#4F4F4F" />
-    </RelativeLayout>
 
 </LinearLayout>

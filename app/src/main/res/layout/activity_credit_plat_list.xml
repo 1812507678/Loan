@@ -7,24 +7,28 @@
         android:id="@+id/rl_home_top"
         android:layout_width="fill_parent"
         android:layout_height="45dp"
-        android:background="#41AA53" >
+        android:background="#FFFFFF" >
 
         <ImageView
-            android:layout_width="40dp"
-            android:layout_height="40dp"
-            android:src="@drawable/ic_keyboard_arrow_left_white_24dp"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:src="@drawable/bg_back"
             android:layout_centerVertical="true"
-            android:onClick="back"/>
+            android:onClick="back"
+            android:padding="5dp"/>
 
         <TextView
             android:layout_width="fill_parent"
             android:layout_height="fill_parent"
             android:gravity="center"
             android:text="贷款平台"
-            android:textColor="#fff"
-            android:textSize="20sp"
-            android:textStyle="bold"/>
-
+            android:textColor="#000"
+            android:textSize="20sp"/>
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="#F4F4F4"
+            android:layout_alignParentBottom="true"></View>
     </RelativeLayout>
 
     <ScrollView
@@ -32,7 +36,7 @@
         android:layout_height="match_parent">
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:orientation="vertical">
             <RelativeLayout
                 android:id="@+id/rl_sucess_first"
@@ -107,10 +111,11 @@
                         android:src="@drawable/ratingbar_icon"/>
                 </LinearLayout>
                 <ImageView
-                    android:layout_width="40dp"
-                    android:layout_height="40dp"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
                     android:src="@drawable/main_right_go_icon"
                     android:layout_alignParentRight="true"
+                    android:layout_marginRight="5dp"
                     android:layout_centerVertical="true"/>
             </RelativeLayout>
 
@@ -189,10 +194,11 @@
                         android:src="@drawable/ratingbar_icon"/>
                 </LinearLayout>
                 <ImageView
-                    android:layout_width="40dp"
-                    android:layout_height="40dp"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
                     android:src="@drawable/main_right_go_icon"
                     android:layout_alignParentRight="true"
+                    android:layout_marginRight="5dp"
                     android:layout_centerVertical="true"/>
             </RelativeLayout>
 
@@ -270,10 +276,11 @@
                         android:src="@drawable/ratingbar_icon"/>
                 </LinearLayout>
                 <ImageView
-                    android:layout_width="40dp"
-                    android:layout_height="40dp"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
                     android:src="@drawable/main_right_go_icon"
                     android:layout_alignParentRight="true"
+                    android:layout_marginRight="5dp"
                     android:layout_centerVertical="true"/>
             </RelativeLayout>
 
@@ -345,16 +352,14 @@
                         android:layout_width="20dp"
                         android:layout_height="20dp"
                         android:src="@drawable/ratingbar_icon"/>
-                    <ImageView
-                        android:layout_width="20dp"
-                        android:layout_height="20dp"
-                        android:src="@drawable/ratingbar_icon"/>
+
                 </LinearLayout>
                 <ImageView
-                    android:layout_width="40dp"
-                    android:layout_height="40dp"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
                     android:src="@drawable/main_right_go_icon"
                     android:layout_alignParentRight="true"
+                    android:layout_marginRight="5dp"
                     android:layout_centerVertical="true"/>
             </RelativeLayout>
 
@@ -422,16 +427,13 @@
                         android:layout_width="20dp"
                         android:layout_height="20dp"
                         android:src="@drawable/ratingbar_icon"/>
-                    <ImageView
-                        android:layout_width="20dp"
-                        android:layout_height="20dp"
-                        android:src="@drawable/ratingbar_icon"/>
                 </LinearLayout>
                 <ImageView
-                    android:layout_width="40dp"
-                    android:layout_height="40dp"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
                     android:src="@drawable/main_right_go_icon"
                     android:layout_alignParentRight="true"
+                    android:layout_marginRight="5dp"
                     android:layout_centerVertical="true"/>
             </RelativeLayout>
         </LinearLayout>

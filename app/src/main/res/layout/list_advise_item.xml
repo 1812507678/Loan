@@ -43,7 +43,7 @@
         android:id="@+id/tv_adviseitem_count"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="1678单累计成交"
+        android:text="欢迎您的咨询"
         android:layout_marginTop="10dp"
         android:layout_marginLeft="20dp"
         android:layout_below="@id/tv_adviseitem_name"

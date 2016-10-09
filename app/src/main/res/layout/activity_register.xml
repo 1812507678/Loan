@@ -2,22 +2,33 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
-    android:background="#fff5f5f5"
+    android:background="#FFFFFF"
     android:orientation="vertical" >
     <RelativeLayout
         android:id="@+id/rl_home_top"
         android:layout_width="fill_parent"
         android:layout_height="45dp"
-        android:background="#41AA53" >
+        android:background="#FFFFFF" >
 
         <TextView
             android:layout_width="fill_parent"
             android:layout_height="fill_parent"
             android:gravity="center"
             android:text="注册"
-            android:textColor="#fff"
-            android:textSize="20sp"
-            android:textStyle="bold"/>
+            android:textColor="#000"
+            android:textSize="20sp"/>
+        <ImageView
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:src="@drawable/bg_back"
+            android:layout_centerVertical="true"
+            android:onClick="back"
+            android:padding="5dp"/>
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="#F4F4F4"
+            android:layout_alignParentBottom="true"></View>
     </RelativeLayout>
 
     <RelativeLayout
@@ -78,7 +89,8 @@
             android:layout_gravity="center_vertical"
             android:layout_weight="1.0"
             android:orientation="horizontal"
-            android:padding="10.0dip" >
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp">
 
             <TextView
                 android:id="@+id/psw_tv"
@@ -98,7 +110,6 @@
                 android:layout_toLeftOf="@id/main_login_account_del"
                 android:layout_toRightOf="@+id/psw_tv"
                 android:background="@drawable/text_edit_bg"
-                android:hint="密码："
                 android:inputType="textPassword"
                 style="@style/editorStyle"
                 android:textSize="15.0sp"/>
@@ -111,7 +122,8 @@
             android:layout_gravity="center_vertical"
             android:layout_weight="1.0"
             android:orientation="horizontal"
-            android:padding="10.0dip" >
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp" >
 
             <TextView
                 android:id="@+id/submit_psw_tv"
@@ -130,7 +142,6 @@
                 android:layout_centerVertical="true"
                 android:layout_toRightOf="@+id/submit_psw_tv"
                 android:background="@drawable/text_edit_bg"
-                android:hint="确认密码："
                 android:inputType="textPassword"
                 android:singleLine="true"
                 style="@style/editorStyle"
@@ -142,7 +153,8 @@
             android:layout_gravity="center_vertical"
             android:layout_weight="1.0"
             android:orientation="horizontal"
-            android:padding="10.0dip" >
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp" >
 
             <TextView
                 android:id="@+id/tv_register_text1"
@@ -162,7 +174,6 @@
                 android:layout_toLeftOf="@id/main_login_account_del"
                 android:layout_toRightOf="@id/tv_register_text1"
                 android:background="@drawable/text_edit_bg"
-                android:hint="qq号码："
                 android:singleLine="true"
                 android:textColor="#ff1a1a1a"
                 style="@style/editorStyle"
@@ -174,7 +185,8 @@
             android:layout_gravity="center_vertical"
             android:layout_weight="1.0"
             android:orientation="horizontal"
-            android:padding="10.0dip" >
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp">
 
             <TextView
                 android:id="@+id/tv_register_text2"
@@ -194,7 +206,6 @@
                 android:layout_toLeftOf="@id/main_login_account_del"
                 android:layout_toRightOf="@id/tv_register_text2"
                 android:background="@drawable/text_edit_bg"
-                android:hint="邮箱："
                 android:singleLine="true"
                 android:textColor="#ff1a1a1a"
                 style="@style/editorStyle"

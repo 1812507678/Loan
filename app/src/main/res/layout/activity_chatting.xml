@@ -10,14 +10,15 @@
         android:id="@+id/rl_chatt_top"
         android:layout_width="fill_parent"
         android:layout_height="45dp"
-        android:background="#41AA53" >
+        android:background="#FFFFFF" >
 
         <ImageView
             android:layout_width="40dp"
             android:layout_height="40dp"
-            android:src="@drawable/ic_keyboard_arrow_left_white_24dp"
+            android:src="@drawable/bg_back"
             android:layout_centerVertical="true"
-            android:onClick="back"/>
+            android:onClick="back"
+            android:padding="5dp"/>
 
         <TextView
             android:id="@+id/tv_chatt_nickname"
@@ -25,9 +26,8 @@
             android:layout_height="fill_parent"
             android:gravity="center"
             android:text="用户名"
-            android:textColor="#fff"
-            android:textSize="20sp"
-            android:textStyle="bold"/>
+            android:textColor="#000"
+            android:textSize="20sp"/>
     </RelativeLayout>
 
 
@@ -47,8 +47,8 @@
             android:layout_height="wrap_content">
             <ImageView
                 android:id="@+id/iv_chatt_recorde"
-                android:layout_width="40dp"
-                android:layout_height="40dp"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
                 android:layout_alignParentLeft="true"
                 android:layout_centerVertical="true"
                 android:layout_marginLeft="10dip"
@@ -75,8 +75,8 @@
 
                 <ImageView
                     android:id="@+id/iv_chatt_send"
-                    android:layout_width="40dp"
-                    android:layout_height="40dp"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
                     android:layout_alignParentRight="true"
                     android:layout_centerVertical="true"
                     android:layout_marginRight="10dp"

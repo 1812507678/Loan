@@ -5,7 +5,6 @@
     android:padding="10dp">
     <ImageView
         android:id="@+id/iv_chatt_refresh"
-        android:layout_below="@+id/rl_chatt_top"
         android:layout_width="30dp"
         android:layout_height="30dp"
         android:src="@drawable/default_ptr_rotate"

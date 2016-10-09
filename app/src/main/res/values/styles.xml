@@ -3,10 +3,12 @@
     <!-- Base application theme. -->
     <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
         <!-- Customize your theme here. -->
-        <item name="colorPrimary">@color/colorPrimary</item>
-        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorPrimary">@color/main_black</item>
+        <item name="colorPrimaryDark">@color/main_black</item>
         <item name="colorAccent">@color/colorAccent</item>
         <item name="windowActionBar">true</item>
+
+
         <item name="windowNoTitle">false</item>
     </style>
     <style name="option_item_img"
@@ -74,7 +76,6 @@
 
     <style name="discover_item_ll">
         <item name="android:gravity">center_vertical</item>
-        <item name="android:background">@drawable/bg_common_click</item>
         <item name="android:paddingLeft">10.0dip</item>
         <item name="android:paddingTop">15.0dip</item>
         <item name="android:paddingRight">10.0dip</item>

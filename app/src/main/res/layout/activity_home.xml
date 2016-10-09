@@ -4,23 +4,22 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".activity.HomeActivity"
-    android:background="#EBEBEB">
+    >
 
     <RelativeLayout
         android:id="@+id/rl_home_top"
         android:layout_width="fill_parent"
         android:layout_height="45dp"
-        android:background="#41AA53" >
+        android:background="#FFFFFF" >
 
         <TextView
             android:layout_width="fill_parent"
             android:layout_height="fill_parent"
             android:gravity="center"
             android:text="主页"
-            android:textColor="#fff"
+            android:textColor="#000"
             android:textSize="20sp"
-            android:textStyle="bold"
-            android:visibility="gone"/>
+            android:textStyle="bold"/>
     </RelativeLayout>
 
 
@@ -31,7 +30,8 @@
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:orientation="horizontal"
-        android:background="#FFFFFF">
+        android:background="#FFFFFF"
+        android:baselineAligned="false">
 
         <LinearLayout
             android:id="@+id/ll_home_home"
@@ -126,11 +126,16 @@
                 android:layout_marginBottom="5dp"/>
         </LinearLayout>
     </LinearLayout>
-
+    <View
+        android:id="@+id/view"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="#F4F4F4"
+        android:layout_above="@id/ll_home_bottom"/>
 
     <zhiyuan.com.loan.util.MyViewPager
         android:id="@+id/vp_home_page"
-        android:layout_above="@id/ll_home_bottom"
+        android:layout_above="@id/view"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
     </zhiyuan.com.loan.util.MyViewPager>
