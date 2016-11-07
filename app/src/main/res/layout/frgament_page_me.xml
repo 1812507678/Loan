@@ -12,7 +12,11 @@
         android:layout_width="fill_parent"
         android:layout_height="45dp"
         android:background="#FFFFFF" >
-
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="#F4F4F4"
+            android:layout_alignParentTop="true"></View>
         <TextView
             android:layout_width="fill_parent"
             android:layout_height="fill_parent"
@@ -42,11 +46,7 @@
                 android:text="设置"/>
         </LinearLayout>
 
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:background="#F4F4F4"
-            android:layout_alignParentBottom="true"></View>
+
     </RelativeLayout>
 
     <LinearLayout
@@ -88,8 +88,7 @@
             android:layout_height="wrap_content"
             android:gravity="center_vertical"
             android:orientation="horizontal"
-            android:background="#FFFFFF"
-            android:layout_marginTop="2dp">
+            android:background="#FFFFFF">
 
             <LinearLayout
                 android:id="@+id/ll_me_collect"

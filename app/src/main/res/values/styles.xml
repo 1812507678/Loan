@@ -1,23 +1,21 @@
 <resources>
 
     <!-- Base application theme. -->
-    <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
-        <!-- Customize your theme here. -->
-        <item name="colorPrimary">@color/main_black</item>
-        <item name="colorPrimaryDark">@color/main_black</item>
-        <item name="colorAccent">@color/colorAccent</item>
-        <item name="windowActionBar">true</item>
-
-
+    <!--<style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
+        &lt;!&ndash; Customize your theme here. &ndash;&gt;
         <item name="windowNoTitle">false</item>
-    </style>
-    <style name="option_item_img"
-        >
+    </style>-->
 
+    <style name="MyAppTheme" parent="@android:style/Theme.NoTitleBar">
+        <item name="android:windowBackground">@color/mybackground</item>
+    </style>
+
+    <style name="option_item_img">
         <item name="android:layout_height">28dp</item>
         <item name="android:layout_width">28dp</item>
         <item name="android:layout_marginRight">@dimen/space_10</item>
     </style>
+
     <style name="option_item_text_parent">
         <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_height">wrap_content</item>

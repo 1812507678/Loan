@@ -9,7 +9,11 @@
         android:layout_width="fill_parent"
         android:layout_height="45dp"
         android:background="#FFFFFF" >
-
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="#F4F4F4"
+            android:layout_alignParentTop="true"></View>
         <TextView
             android:layout_width="fill_parent"
             android:layout_height="fill_parent"

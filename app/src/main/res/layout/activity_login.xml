@@ -9,7 +9,11 @@
         android:layout_width="fill_parent"
         android:layout_height="45dp"
         android:background="#FFFFFF" >
-
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="#F4F4F4"
+            android:layout_alignParentTop="true"></View>
         <TextView
             android:layout_width="fill_parent"
             android:layout_height="fill_parent"
@@ -25,11 +29,6 @@
             android:layout_centerVertical="true"
             android:onClick="back"
             android:padding="5dp"/>
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:background="#F4F4F4"
-            android:layout_alignParentBottom="true"></View>
     </RelativeLayout>
 
     <RelativeLayout
@@ -143,6 +142,8 @@
             android:layout_marginTop="45dp"
             android:text="登陆"
             android:onClick="login"
+            android:textSize="20sp"
+            android:padding="5dp"
             android:textColor="@color/white"/>
 
         <TextView

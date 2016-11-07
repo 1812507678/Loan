@@ -11,6 +11,11 @@
         android:layout_width="match_parent"
         android:layout_height="45dp"
         android:background="#FFFFFF" >
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="#F4F4F4"
+            android:layout_alignParentTop="true"></View>
         <ImageView
             android:layout_width="40dp"
             android:layout_height="40dp"

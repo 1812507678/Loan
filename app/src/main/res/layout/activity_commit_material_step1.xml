@@ -1,17 +1,22 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
+<LinearLayout android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:tools="http://schemas.android.com/tools"
     android:orientation="vertical"
     android:background="#FFFFFF"
-    tools:context="zhiyuan.com.loan.activity.CommitMaterialStep1Activity">
+    tools:context="zhiyuan.com.loan.activity.CommitMaterialStep1Activity"
+    xmlns:android="http://schemas.android.com/apk/res/android">
 
     <RelativeLayout
         android:id="@+id/rl_credit_top"
         android:layout_width="match_parent"
         android:layout_height="45dp"
         android:background="#FFFFFF" >
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="#F4F4F4"
+            android:layout_alignParentTop="true"></View>
         <ImageView
             android:layout_width="40dp"
             android:layout_height="40dp"
@@ -27,11 +32,6 @@
             android:gravity="center"
             android:textColor="#000"
             android:textSize="20sp"/>
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:background="#F4F4F4"
-            android:layout_alignParentBottom="true"></View>
     </RelativeLayout>
 
     <ScrollView
@@ -216,6 +216,9 @@
                 android:layout_marginRight="10dp"
                 android:layout_marginLeft="10dp"
                 android:onClick="netStep"
+                android:padding="5dp"
+                android:textSize="20sp"
+                android:textColor="@color/white"
                 android:background="@drawable/bg_button"/>
         </LinearLayout>
     </ScrollView>
