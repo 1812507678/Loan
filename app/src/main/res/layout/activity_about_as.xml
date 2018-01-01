@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/activity_about_as"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:clipToPadding="true"
+    android:fitsSystemWindows="true"
+    tools:context="zhiyuan.com.loan.activity.AboutAsActivity">
+
+    <RelativeLayout
+        android:id="@+id/rl_credit_top"
+        android:layout_width="match_parent"
+        android:layout_height="45dp"
+        android:background="#FFFFFF" >
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="#F4F4F4"
+            android:layout_alignParentTop="true"></View>
+        <ImageView
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:src="@drawable/bg_back"
+            android:layout_centerVertical="true"
+            android:onClick="back"
+            android:padding="5dp"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="fill_parent"
+            android:layout_centerInParent="true"
+            android:text="关于我们"
+            android:gravity="center"
+            android:textColor="#000"
+            android:textSize="20sp"/>
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="#F4F4F4"
+            android:layout_alignParentBottom="true"></View>
+    </RelativeLayout>
+    <LinearLayout
+        android:layout_below="@id/rl_credit_top"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:background="#FFFFFF">
+        <ImageView
+            android:id="@+id/iv_logo"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:layout_centerHorizontal="true"
+            android:layout_gravity="center"
+            android:layout_marginTop="20dp"
+            android:src="@drawable/logo" />
+        <TextView
+            android:id="@+id/tv_text1"
+            android:layout_below="@id/iv_logo"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="20dp"
+            android:textColor="#05BDA7"
+            android:text="        58名校贷，隶属于泰安志远文化传媒有限公司，专注大学生贷款服务，以提供高效便捷的大学生贷款服务为己任，是一家专业大学生贷款服务公司。"/>
+
+        <TextView
+            android:layout_below="@id/tv_text1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
+            android:textColor="#05BDA7"
+            android:text="        固话：0538-6635456"/>
+        <TextView
+            android:layout_below="@id/tv_text1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
+            android:textColor="#05BDA7"
+            android:text="        邮箱：18853816890@139.com" />
+        <TextView
+            android:layout_below="@id/tv_text1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
+            android:textColor="#05BDA7"
+            android:text="        地址：山东省泰安市泰山区虎山路146号虎山路一中（原现代中学）南30米路东"/>
+    </LinearLayout>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="20dp"
+        android:textColor="#05BDA7"
+        android:onClick="openCompanyNet"
+        android:text="公司网站"/>
+
+
+</RelativeLayout>

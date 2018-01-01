@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:background="#F4F4F4"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <RelativeLayout
+        android:id="@+id/rl_home_top"
+        android:layout_width="fill_parent"
+        android:layout_height="45dp"
+        android:background="#FFFFFF" >
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="#F4F4F4"
+            android:layout_alignParentTop="true"></View>
+        <LinearLayout
+            android:layout_width="200dp"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_centerInParent="true">
+            <TextView
+                android:id="@+id/tv_consult_msg"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="35dp"
+                android:text="消息"
+                android:textColor="#FFF"
+                android:background="@drawable/bg_care_switch_lefton"
+                android:gravity="center"/>
+            <TextView
+                android:id="@+id/tv_consult_advise"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="35dp"
+                android:text="客服"
+                android:gravity="center"
+                android:textColor="#000"
+                android:background="@drawable/bg_care_switch_rightoff"/>
+
+        </LinearLayout>
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="#F4F4F4"
+            android:layout_alignParentBottom="true"></View>
+    </RelativeLayout>
+
+    <fragment
+        android:id="@+id/fg_consult_msg"
+        android:name="zhiyuan.com.loan.fragment.MessageFragment"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+    </fragment>
+
+    <fragment
+        android:id="@+id/fg_consult_advise"
+        android:name="zhiyuan.com.loan.fragment.AdvisersManFragment"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+    </fragment>
+
+
+
+
+
+
+</LinearLayout>

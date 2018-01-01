@@ -1,0 +1,1 @@
+package zhiyuan.com.loan.util;/** * Created by Administrator on 2016/7/18. */public class Constant {    public static int MESSAGETYPPE_TXT = 1;    public static int MESSAGETYPPE_VIOCE = 2;    public static int MESSAGETYPPE_IMG = 3;    public static String MEG_APPKEY = "1794bfbce3f30";}

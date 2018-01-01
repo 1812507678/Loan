@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:clipToPadding="true"
+    android:fitsSystemWindows="true"
+    tools:context="zhiyuan.com.loan.activity.ComplaintFeedbackActivity">
+
+    <RelativeLayout
+        android:id="@+id/rl_credit_top"
+        android:layout_width="match_parent"
+        android:layout_height="45dp"
+        android:background="#FFFFFF" >
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="#F4F4F4"
+            android:layout_alignParentTop="true"></View>
+        <ImageView
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:src="@drawable/bg_back"
+            android:layout_centerVertical="true"
+            android:onClick="back"
+            android:padding="5dp"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="fill_parent"
+            android:layout_centerInParent="true"
+            android:text="意见反馈"
+            android:gravity="center"
+            android:textColor="#000"
+            android:textSize="20sp"/>
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="#F4F4F4"
+            android:layout_alignParentBottom="true"></View>
+    </RelativeLayout>
+
+    <EditText
+        android:id="@+id/et_feedback_input"
+        android:layout_below="@id/rl_credit_top"
+        android:layout_margin="10dp"
+        android:layout_width="match_parent"
+        android:layout_height="200dp"
+        android:hint="请输入..."
+        android:padding="5dp"
+        android:gravity="left|top"
+        android:background="@drawable/bg_input"/>
+
+    <Button
+        android:id="@+id/bt_submit"
+        android:layout_below="@id/et_feedback_input"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="20dp"
+        android:onClick="submitSuggest"
+        android:background="@drawable/bg_button"
+        android:text="提交"/>
+
+    <TextView
+        android:layout_below="@+id/bt_submit"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:layout_margin="10dp"
+        android:textColor="#05BDA7"
+        android:text="您的建议将是对我们的最大支持"/>
+
+</RelativeLayout>

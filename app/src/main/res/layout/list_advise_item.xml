@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:padding="10dp">
+    <zhiyuan.com.loan.view.CircleImageView
+        android:id="@+id/cv_adviseitem_icon"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        android:layout_centerVertical="true"
+        android:layout_marginTop="10dp"
+        android:src="@drawable/widget_dface"
+        />
+
+    <TextView
+        android:id="@+id/tv_adviseitem_name"
+        android:layout_width="wrap_content"
+        android:layout_marginTop="10dp"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_marginLeft="20dp"
+        android:layout_toRightOf="@id/cv_adviseitem_icon"
+        android:text="名称"
+        android:singleLine="true"
+        android:textColor="#000"
+        android:maxLines="2"
+        android:ellipsize="end"
+        android:textSize="16sp" />
+
+    <TextView
+        android:id="@+id/tv_adviseitem_discrub"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_toRightOf="@id/cv_adviseitem_icon"
+        android:text="咨询顾问"
+        android:layout_marginTop="10dp"
+        android:layout_marginLeft="20dp"
+        android:layout_below="@id/tv_adviseitem_name"
+        android:textColor="@android:color/darker_gray"
+        android:textSize="12sp" />
+
+    <TextView
+        android:id="@+id/tv_adviseitem_count"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="欢迎您的咨询"
+        android:layout_marginTop="10dp"
+        android:layout_marginLeft="20dp"
+        android:layout_below="@id/tv_adviseitem_name"
+        android:textColor="#FF6347"
+        android:layout_toLeftOf="@+id/image"
+        android:textSize="12sp" />
+
+    <ImageView
+        android:id="@+id/image"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:src="@drawable/emoticon_good_happy"
+        android:layout_alignParentRight="true"/>
+</RelativeLayout>

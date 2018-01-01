@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <item type="id" name="right_tag"></item>
+    <item type="id" name="left_tag"></item>
+    <item type="id" name="myhonder"></item>
+    <item type="id" name="imageloader_uri" />
+</resources>

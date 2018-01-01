@@ -1,0 +1,184 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="zhiyuan.com.loan">
+
+    <!-- BmobSDK -->
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+    <uses-permission android:name="android.permission.WAKE_LOCK" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
+    <uses-permission android:name="android.permission.RECEIVE_USER_PRESENT" />
+
+    <!-- 环信sdk -->
+    <uses-permission android:name="android.permission.VIBRATE" />
+    <uses-permission android:name="android.permission.RECORD_AUDIO" />
+    <uses-permission android:name="android.permission.CAMERA" />
+    <uses-permission android:name="android.permission.MOUNT_UNMOUNT_FILESYSTEMS" />
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.GET_TASKS" />
+    <uses-permission android:name="android.permission.CHANGE_WIFI_STATE" />
+    <uses-permission android:name="android.permission.MODIFY_AUDIO_SETTINGS" />
+    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
+
+    <!-- shareSDK -->
+    <uses-permission android:name="android.permission.MANAGE_ACCOUNTS" />
+    <uses-permission android:name="android.permission.GET_ACCOUNTS" />
+    <uses-permission android:name="android.permission.CALL_PHONE" />
+    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.RECEIVE_SMS" />
+
+    <!--Bugly-->
+    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+    <uses-permission android:name="android.permission.READ_LOGS" />
+
+    <!-- 友盟 -->
+    <!--已加入-->
+
+
+    <application
+        android:name=".application.MyApplication"
+        android:allowBackup="true"
+        android:icon="@drawable/logo"
+        android:label="58名校贷"
+        android:supportsRtl="true"
+        android:theme="@style/MyAppTheme">
+        <activity android:name=".activity.HomeActivity" />
+        <activity android:name=".activity.SuccessRateActivity" />
+        <activity android:name=".activity.CreditDetailActivity" />
+        <activity android:name=".activity.CreditDetailActivity1" />
+        <activity android:name=".activity.CreditDetailActivity2" />
+        <activity android:name=".activity.CreditDetailActivity3" />
+        <activity android:name=".activity.CreditDetailActivity4" />
+        <activity android:name=".activity.ShowArticleDetailActivity" />
+        <activity android:name=".activity.LoginActivity" />
+        <activity android:name=".activity.RegisterActivity" />
+        <activity android:name=".activity.RetrievePasswordActivity" />
+        <activity android:name=".activity.AccountnfoActivity" />
+        <activity android:name=".activity.ModifyAccountItemActivity" />
+        <activity android:name=".activity.ChattingActivity" />
+
+        <!-- 设置环信应用的AppKey -->
+        <meta-data
+            android:name="EASEMOB_APPKEY"
+            android:value="1812507678#loan" />
+        <!-- 声明SDK所需的service SDK核心功能-->
+        <service android:name="com.hyphenate.chat.EMChatService" android:exported="true"/>
+        <service android:name="com.hyphenate.chat.EMJobService"
+            android:permission="android.permission.BIND_JOB_SERVICE"
+            android:exported="true"
+            />
+        <!-- 声明SDK所需的receiver -->
+        <receiver android:name="com.hyphenate.chat.EMMonitorReceiver">
+            <intent-filter>
+                <action android:name="android.intent.action.PACKAGE_REMOVED"/>
+                <data android:scheme="package"/>
+            </intent-filter>
+            <!-- 可选filter -->
+            <intent-filter>
+                <action android:name="android.intent.action.BOOT_COMPLETED"/>
+                <action android:name="android.intent.action.USER_PRESENT" />
+            </intent-filter>
+        </receiver>
+
+        <!-- 友盟appkey -->
+        <meta-data android:value="57ee21efe0f55aa6f9000763" android:name="UMENG_APPKEY"></meta-data>
+        <meta-data android:name="UMENG_CHANNEL" android:value="${UMENG_CHANNEL_VALUE}" />
+      <!--  <meta-data android:value="360" android:name="UMENG_CHANNEL"/>
+        <meta-data android:value="baidu" android:name="UMENG_CHANNEL"/>
+        <meta-data android:value="wandoujia" android:name="UMENG_CHANNEL"/>-->
+
+        <activity
+            android:name="cn.sharesdk.demo.wxapi.WXEntryActivity"
+            android:configChanges="keyboardHidden|orientation|screenSize"
+            android:exported="true"
+            android:screenOrientation="portrait"
+            android:theme="@android:style/Theme.Translucent.NoTitleBar" />
+        <activity
+            android:name="com.mob.tools.MobUIShell"
+            android:configChanges="keyboardHidden|orientation|screenSize"
+            android:screenOrientation="portrait"
+            android:theme="@android:style/Theme.Translucent.NoTitleBar"
+            android:windowSoftInputMode="stateHidden|adjustResize">
+            <intent-filter>
+                <data android:scheme="tencent100371282" />
+
+                <action android:name="android.intent.action.VIEW" />
+
+                <category android:name="android.intent.category.BROWSABLE" />
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+
+            <!-- 调用新浪原生SDK，需要注册的回调activity -->
+            <intent-filter>
+                <action android:name="com.sina.weibo.sdk.action.ACTION_SDK_REQ_ACTIVITY" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
+        <activity android:name=".activity.CollectArticleActivity" />
+        <activity android:name=".activity.ChatImageActivity" />
+        <activity android:name=".activity.CreditPlatListActivity" />
+        <activity android:name=".activity.CommitMaterialStep1Activity" />
+        <activity android:name=".activity.CommitMaterialStep2Activity" />
+        <activity android:name=".activity.ApplySuccessActivity" />
+        <activity android:name=".activity.LookupApplyActivity" />
+        <activity android:name=".activity.AcceptPushActivity" />
+        <activity android:name=".activity.SplashActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity android:name=".activity.InstallGuideActivity" />
+        <activity android:name=".activity.SettingActivity" />
+        <activity android:name=".activity.ComplaintFeedbackActivity" />
+        <activity android:name=".activity.AboutAsActivity" />
+        <activity android:name=".activity.BaseActivity" />
+
+        <receiver
+            android:name=".receiver.PushMessageReceiver"
+            android:enabled="true"
+            android:exported="true">
+            <intent-filter >
+                <action android:name="cn.bmob.push.action.MESSAGE"/>
+            </intent-filter>
+        </receiver>
+
+        <service
+            android:name="cn.bmob.push.lib.service.PushService"
+            android:exported="true"
+            android:label="PushService"
+            android:process="cn.bmob.push">
+            <intent-filter>
+                <action android:name="cn.bmob.push.lib.service.PushService" />
+            </intent-filter>
+        </service>
+
+        <receiver
+            android:name="cn.bmob.push.PushReceiver"
+            android:process="cn.bmob.push">
+            <intent-filter>
+                <!-- 优先级加最高 -->
+                <!-- 系统启动完成后会调用 -->
+                <action android:name="android.intent.action.BOOT_COMPLETED" />
+                <!-- 解锁完成后会调用 -->
+                <action android:name="android.intent.action.USER_PRESENT" />
+                <!-- 监听网络连通性 -->
+                <action android:name="android.net.conn.CONNECTIVITY_CHANGE" />
+            </intent-filter>
+        </receiver>
+
+
+
+    </application>
+
+</manifest>

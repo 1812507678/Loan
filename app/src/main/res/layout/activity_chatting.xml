@@ -1,0 +1,183 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".activity.ChattingActivity"
+    android:clipToPadding="true"
+    android:fitsSystemWindows="true"
+    android:background="#F1F0EB">
+
+    <RelativeLayout
+        android:id="@+id/rl_chatt_top"
+        android:layout_width="fill_parent"
+        android:layout_height="45dp"
+        android:background="#FFFFFF" >
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="#F4F4F4"
+            android:layout_alignParentTop="true"></View>
+        <ImageView
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:src="@drawable/bg_back"
+            android:layout_centerVertical="true"
+            android:onClick="back"
+            android:padding="5dp"/>
+
+        <TextView
+            android:id="@+id/tv_chatt_nickname"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:gravity="center"
+            android:text="用户名"
+            android:textColor="#000"
+            android:textSize="20sp"/>
+    </RelativeLayout>
+
+
+
+    <!-- 底部按钮以及 编辑框 -->
+    <RelativeLayout
+        android:id="@+id/rl_bottom"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:background="#FFFFFF"
+        android:paddingBottom="5dp">
+
+        <RelativeLayout
+            android:id="@+id/rl_chatt_bottominput"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <ImageView
+                android:id="@+id/iv_chatt_recorde"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_alignParentLeft="true"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="10dip"
+                android:background="@drawable/bg_record" />
+
+            <RelativeLayout
+                android:id="@+id/btn_bottom"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_toRightOf="@+id/iv_chatt_recorde" >
+
+                <EditText
+                    android:id="@+id/et_chatt_message"
+                    android:layout_width="match_parent"
+                    android:layout_alignParentRight="true"
+                    android:layout_height="40dp"
+                    android:layout_marginLeft="5dp"
+                    android:layout_marginRight="55dp"
+                    android:layout_marginBottom="10dp"
+                    android:layout_centerVertical="true"
+                    android:textSize="18sp"
+                    android:background="@drawable/layerbg"/>
+
+                <ImageView
+                    android:id="@+id/iv_chatt_send"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginRight="10dp"
+                    android:background="@drawable/bg_add"/>
+                <Button
+                    android:id="@+id/bt_chatt_send"
+                    android:layout_width="40dp"
+                    android:layout_height="30dp"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginRight="10dp"
+                    android:background="@drawable/chat_send_btn"
+                    android:text="发送"
+                    android:visibility="gone"/>
+
+            </RelativeLayout>
+
+            <TextView
+                android:id="@+id/tv_chatt_record"
+                android:layout_width="fill_parent"
+                android:layout_height="40dp"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="55dp"
+                android:layout_marginBottom="10dp"
+                android:layout_toRightOf="@+id/iv_chatt_recorde"
+                android:gravity="center"
+                android:background="@drawable/bg_spake"
+                android:text="按住说话"
+                android:visibility="gone"/>
+        </RelativeLayout>
+
+        <LinearLayout
+            android:id="@+id/ll_chatt_addother"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_below="@id/rl_chatt_bottominput"
+            android:visibility="gone">
+            <RelativeLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="10dp">
+                <ImageView
+                    android:id="@+id/iv_chatt_tackpicture"
+                    android:layout_width="60dp"
+                    android:layout_height="60dp"
+                    android:background="@drawable/bg_takepicture_icon"/>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/iv_chatt_tackpicture"
+                    android:text="拍照"
+                    android:layout_marginTop="5dp"
+                    android:layout_centerHorizontal="true"/>
+            </RelativeLayout>
+            <RelativeLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="10dp">
+                <ImageView
+                    android:id="@+id/iv_chatt_choosepicture"
+                    android:layout_width="60dp"
+                    android:layout_height="60dp"
+                    android:background="@drawable/bg_choosepicture_icon"/>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/iv_chatt_choosepicture"
+                    android:text="图片"
+                    android:layout_marginTop="5dp"
+                    android:layout_centerHorizontal="true"/>
+            </RelativeLayout>
+
+
+        </LinearLayout>
+    </RelativeLayout>
+
+    <!-- 聊天内容 listview -->
+    <ListView
+        android:id="@+id/lv_chatt_message"
+        android:layout_below="@id/rl_chatt_top"
+        android:layout_above="@id/rl_bottom"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:listSelector="@android:color/transparent"
+        android:divider="@null"/>
+
+    <ImageView
+        android:id="@+id/iv_chatt_recordicon"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/ease_record"
+        android:layout_centerInParent="true"
+        android:visibility="gone"/>
+
+</RelativeLayout>
