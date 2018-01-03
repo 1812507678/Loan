@@ -84,7 +84,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="10dp"
                     android:layout_marginLeft="10dp"
-                    android:text="名校贷-学生包"
+                    android:text="名校贷"
                     android:textColor="#494949"
                     android:textSize="16sp"/>
                 <TextView
@@ -268,7 +268,7 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="2.在校大学生"/>
+                        android:text="2.毕业大学生"/>
                 </LinearLayout>
             </LinearLayout>
 

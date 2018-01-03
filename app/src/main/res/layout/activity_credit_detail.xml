@@ -245,7 +245,7 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="2.在校大学生"/>
+                        android:text="2.毕业大学生"/>
                 </LinearLayout>
             </LinearLayout>
 

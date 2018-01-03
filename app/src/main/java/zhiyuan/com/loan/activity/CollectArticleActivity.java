@@ -1,6 +1,5 @@
 package zhiyuan.com.loan.activity;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -15,6 +14,7 @@ import java.util.Collection;
 import java.util.List;
 
 import cn.bmob.v3.BmobQuery;
+import cn.bmob.v3.exception.BmobException;
 import cn.bmob.v3.listener.FindListener;
 import zhiyuan.com.loan.R;
 import zhiyuan.com.loan.adapter.ArticlelistAdapter;
@@ -46,45 +46,41 @@ public class CollectArticleActivity extends BaseActivity {
         BmobQuery<ArticleCollection> collectionQuery = new BmobQuery<>();
         collectionQuery.addWhereEqualTo("type",1); // 收藏
         collectionQuery.addWhereEqualTo("userId", MyApplication.sharedPreferences.getString("userId",""));
-        collectionQuery.findObjects(this, new FindListener<ArticleCollection>() {
+        collectionQuery.findObjects(new FindListener<ArticleCollection>() {
             @Override
-            public void onSuccess(List<ArticleCollection> list) {
-                BmobQuery<StrategyArticle> bmobQuery = new BmobQuery<>();
-                Collection<String> collection = new ArrayList<>();
-                for (int i=0;i<list.size();i++){
-                    collection.add(list.get(i).getArticleId());
+            public void done(List<ArticleCollection> list, BmobException e) {
+                if (e==null){
+                    BmobQuery<StrategyArticle> bmobQuery = new BmobQuery<>();
+                    Collection<String> collection = new ArrayList<>();
+                    for (int i=0;i<list.size();i++){
+                        collection.add(list.get(i).getArticleId());
+                    }
+                    bmobQuery.addWhereContainedIn("articleId",collection);
+
+                    bmobQuery.findObjects(new FindListener<StrategyArticle>() {
+                        @Override
+                        public void done(List<StrategyArticle> list, BmobException e) {
+                            if (e==null){
+                                Log.i(TAG,"list.size()2:"+list.size());
+                                if (list.size()>0){
+                                    lv_strategy_articlelist.setVisibility(View.VISIBLE);
+                                    tv_null.setVisibility(View.INVISIBLE);
+                                }
+
+                                for (int i=0;i<list.size();i++){
+                                    articleListLis.add(list.get(i));
+                                    Log.i(TAG,"list.get(i):"+ articleListLis.get(i).toString());
+
+                                }
+                                lv_strategy_articlelist.setAdapter(new ArticlelistAdapter(CollectArticleActivity.this,articleListLis));
+                            }else {
+                                Toast.makeText(CollectArticleActivity.this,"失败,请检查网络"+e,Toast.LENGTH_SHORT).show();
+                            }
+                        }
+                    });
+                }else {
+
                 }
-                bmobQuery.addWhereContainedIn("articleId",collection);
-
-                bmobQuery.findObjects(CollectArticleActivity.this, new FindListener<StrategyArticle>() {
-                    @Override
-                    public void onSuccess(List<StrategyArticle> list) {
-                        Log.i(TAG,"list.size()2:"+list.size());
-                        if (list.size()>0){
-                            lv_strategy_articlelist.setVisibility(View.VISIBLE);
-                            tv_null.setVisibility(View.INVISIBLE);
-                        }
-
-                        for (int i=0;i<list.size();i++){
-                            articleListLis.add(list.get(i));
-                            Log.i(TAG,"list.get(i):"+ articleListLis.get(i).toString());
-
-                        }
-                        lv_strategy_articlelist.setAdapter(new ArticlelistAdapter(CollectArticleActivity.this,articleListLis));
-                    }
-
-                    @Override
-                    public void onError(int i, String s) {
-                        Toast.makeText(CollectArticleActivity.this,"失败,请检查网络"+s,Toast.LENGTH_SHORT).show();
-                    }
-                });
-
-
-            }
-
-            @Override
-            public void onError(int i, String s) {
-
             }
         });
 

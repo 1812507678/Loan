@@ -1,13 +1,13 @@
 package zhiyuan.com.loan.util;
 
 import android.app.Activity;
-import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.net.Uri;
+import android.support.v7.app.AlertDialog;
 import android.util.Log;
 import android.widget.ProgressBar;
 import android.widget.Toast;
@@ -19,7 +19,6 @@ import com.lidroid.xutils.http.callback.RequestCallBack;
 
 import java.io.File;
 
-import zhiyuan.com.loan.activity.SettingActivity;
 import zhiyuan.com.loan.application.MyApplication;
 
 /**
@@ -33,7 +32,7 @@ public class ApkVersionUtil {
 
 
     //版本更新
-    public static void updateVersion(int versionCode, final boolean isForceInstall, final Context context) {
+    public static void updateVersion(int versionCode, final boolean isForceInstall, final Context context,boolean isNeedShowToast) {
         progressBar  = new ProgressBar(context,null,android.R.attr.progressBarStyleHorizontal);
         progressBar.setMinimumHeight(10);
 
@@ -52,7 +51,8 @@ public class ApkVersionUtil {
                 if (!apkUrl.equals("")){
                     AlertDialog alertDialog = new AlertDialog.Builder(context)
                             .setTitle("有新版本")
-                            .setPositiveButton("现在更新", new DialogInterface.OnClickListener() {
+                            .setMessage("发现新的app版本，更加稳定，要更新吗？")
+                            .setPositiveButton("更新", new DialogInterface.OnClickListener() {
                                 @Override
                                 public void onClick(DialogInterface dialog, int which) {
                                     //弹出对话框，显示下载进度
@@ -65,7 +65,7 @@ public class ApkVersionUtil {
                                     downloadAndInstallApp(apkUrl,context);
                                 }
                             })
-                            .setNegativeButton("暂不更新", new DialogInterface.OnClickListener() {
+                            .setNegativeButton("取消", new DialogInterface.OnClickListener() {
                                 @Override
                                 public void onClick(DialogInterface dialog, int which) {
                                     if (isForceInstall){
@@ -75,8 +75,18 @@ public class ApkVersionUtil {
                                 }
                             })
                             .create();
-                    alertDialog.setCanceledOnTouchOutside(false);
+                    alertDialog.setCanceledOnTouchOutside(true);
                     alertDialog.show();
+                }
+                else {
+                    if (isNeedShowToast){
+                        MyUtils.showToask(context,"apk新版的连接地址错误");
+                    }
+                }
+            }
+            else {
+                if (isNeedShowToast){
+                    MyUtils.showToask(context,"当前已是最新版本");
                 }
             }
         } catch (PackageManager.NameNotFoundException e) {

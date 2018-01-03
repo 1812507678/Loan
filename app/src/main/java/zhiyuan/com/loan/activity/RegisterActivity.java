@@ -1,13 +1,9 @@
 package zhiyuan.com.loan.activity;
 
-import android.annotation.TargetApi;
-import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Intent;
-import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
-import android.os.Looper;
 import android.os.Message;
 import android.text.TextUtils;
 import android.util.Log;
@@ -16,38 +12,25 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.hyphenate.EMCallBack;
 import com.hyphenate.EMError;
 import com.hyphenate.chat.EMClient;
 import com.hyphenate.exceptions.HyphenateException;
-import com.lidroid.xutils.HttpUtils;
-import com.lidroid.xutils.exception.HttpException;
-import com.lidroid.xutils.http.RequestParams;
-import com.lidroid.xutils.http.ResponseInfo;
-import com.lidroid.xutils.http.callback.RequestCallBack;
-import com.lidroid.xutils.http.client.HttpRequest;
 
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.Locale;
-import java.util.Random;
 import java.util.Timer;
 import java.util.TimerTask;
 
-import cn.bmob.v3.BmobSMS;
 import cn.bmob.v3.exception.BmobException;
-import cn.bmob.v3.listener.RequestSMSCodeListener;
 import cn.bmob.v3.listener.SaveListener;
 import cn.smssdk.EventHandler;
-import cn.smssdk.OnSendMessageHandler;
 import cn.smssdk.SMSSDK;
-import cn.smssdk.gui.RegisterPage;
 import zhiyuan.com.loan.R;
 import zhiyuan.com.loan.bean.User;
 import zhiyuan.com.loan.util.Constant;
+import zhiyuan.com.loan.util.SharedPreferencesUtil;
 
 
 public class RegisterActivity extends BaseActivity {
@@ -266,24 +249,23 @@ public class RegisterActivity extends BaseActivity {
     //将数据插入到数据库
     private void insertToDB(final User user) {
         showDialog("正在注册....");
-        user.save(this, new SaveListener() {
+        user.save(new SaveListener() {
             @Override
-            public void onSuccess() {
-                registerHuanxin(user);
-            }
+            public void done(Object o, BmobException e) {
+                if (e==null){
+                    registerHuanxin(user);
+                }else {
+                    Log.i(TAG,"onFailure:"+e);
+                    //onFailure:401,unique index cannot has duplicate value: 1868946319
+                    if (e.getErrorCode()==401){
+                        Toast.makeText(RegisterActivity.this,"该号码已经注册过，请登陆！" + e,Toast.LENGTH_SHORT).show();
 
-            @Override
-            public void onFailure(int code, String msg) {
-                Log.i(TAG,"onFailure:"+code+","+msg);
-                //onFailure:401,unique index cannot has duplicate value: 1868946319
-                if (code==401){
-                    Toast.makeText(RegisterActivity.this,"该号码已经注册过，请登陆！" + msg,Toast.LENGTH_SHORT).show();
-
+                    }
+                    else {
+                        Toast.makeText(RegisterActivity.this,"注册失败：" + e,Toast.LENGTH_SHORT).show();
+                    }
+                    hideDialog();
                 }
-                else {
-                    Toast.makeText(RegisterActivity.this,"注册失败：" + msg,Toast.LENGTH_SHORT).show();
-                }
-                hideDialog();
             }
         });
     }
@@ -299,22 +281,7 @@ public class RegisterActivity extends BaseActivity {
                 try {
                     EMClient.getInstance().createAccount(user.getPhone(), user.getPassword());//同步方法
                     Log.i(TAG,"注册成功");
-                    runOnUiThread(new Runnable() {
-                        public void run() {
-                            hideDialog();
-                            Toast.makeText(RegisterActivity.this, "注册成功：" + user.getObjectId(), Toast.LENGTH_SHORT).show();
-                        }
-                    });
-
-
-                    startActivity(new Intent(RegisterActivity.this, HomeActivity.class));
-                    //将登陆用户信息保存在ApplicationInfo类的user对象里面
-                    LoginActivity.saveToApplication(user);
-                    Intent intent = getIntent();
-                    intent.putExtra("registOK",true);
-                    setResult(RESULT_OK,intent);
-                    finish();
-
+                    login(user.getPhone(), user.getPassword(),user);
                 } catch (final HyphenateException e) {
                     e.printStackTrace();
                     Log.i(TAG,"注册失败:"+e.toString());
@@ -336,59 +303,50 @@ public class RegisterActivity extends BaseActivity {
                             }
                         }
                     });
-                }
+                }catch (Exception e){}
             }
         }.start();
+    }
+
+    //环信账号登陆
+    public void login(final String phone, String password, final User user){
+        EMClient.getInstance().login(phone,password,new EMCallBack() {
+            @Override
+            public void onSuccess() {
+                Log.i(TAG, "登录聊天服务器成功！");
+                SharedPreferencesUtil.putBooleanValueFromSP(Constant.isChatLogined,true);
+                runOnUiThread(new Runnable() {
+                    public void run() {
+                        hideDialog();
+                        Toast.makeText(RegisterActivity.this, "注册成功：" + user.getObjectId(), Toast.LENGTH_SHORT).show();
+                    }
+                });
+
+
+                startActivity(new Intent(RegisterActivity.this, HomeActivity.class));
+                //将登陆用户信息保存在ApplicationInfo类的user对象里面
+                LoginActivity.saveToApplication(user);
+                Intent intent = getIntent();
+                intent.putExtra("registOK",true);
+                setResult(RESULT_OK,intent);
+                finish();
+            }
+
+            @Override
+            public void onProgress(int progress, String status) {
+
+            }
+
+            @Override
+            public void onError(int code, String message) {
+                Toast.makeText(RegisterActivity.this,"注册成功"+message,Toast.LENGTH_SHORT).show();
+            }
+        });
     }
 
     public void getMESCode(String country, final String phone) {
         SMSSDK.getVerificationCode(country, phone);
 
-    }
-
-    //通过Bmob请求短信验证码
-    public void getMsgByBmob(){
-        bu_register_getvercode.setClickable(false);
-        String number = et_register_phone.getText().toString();
-        if(!TextUtils.isEmpty(number)){
-            SimpleDateFormat format =new SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.CHINA);
-            String sendTime = format.format(new Date());
-
-            //产生6位验证码
-            int round = (int) Math.round(Math.random() * (999999 - 100000) + 100000);
-            verifycode = String.valueOf(round);
-            Log.i(TAG,"验证码"+ round +"");  //"您的验证码为"+ verifycode +"，请及时验证！"
-            BmobSMS.requestSMS(this, number, "58名校贷",sendTime,new RequestSMSCodeListener() {
-
-                @Override
-                public void done(Integer smsId,BmobException ex) {
-                    hideDialog();
-
-                    if(ex==null){//验证码发送成功
-                        Toast.makeText(RegisterActivity.this,"验证码发送成功",Toast.LENGTH_SHORT).show();
-
-                        //toast("验证码发送成功，短信id："+smsId);//用于查询本次短信发送详情
-                    }else{
-                        //发送失败：errorCode = 9016,errorMsg = The network is not available,please check your network!
-                        //发送失败：errorCode = 301,errorMsg = mobilePhoneNumber Must be valid mobile number
-                        if (ex.getErrorCode()==301){
-                            //号码格式不正确
-                            Toast.makeText(RegisterActivity.this,"发送失败，请输入正确的手机号码",Toast.LENGTH_SHORT).show();
-                        }
-                        else if (ex.getErrorCode()==9016){
-                            //网络有问题
-                            Toast.makeText(RegisterActivity.this,"发送失败，请检查网络",Toast.LENGTH_SHORT).show();
-                        }
-                        Log.i(TAG,"发送失败：errorCode = "+ex.getErrorCode()+",errorMsg = "+ex.getLocalizedMessage());
-                    }
-                    bu_register_getvercode.setClickable(true);
-                }
-            });
-        }else{
-            hideDialog();
-            Toast.makeText(RegisterActivity.this,"输入手机号",Toast.LENGTH_SHORT).show();
-            bu_register_getvercode.setClickable(true);
-        }
     }
 
     void showDialog(String message) {

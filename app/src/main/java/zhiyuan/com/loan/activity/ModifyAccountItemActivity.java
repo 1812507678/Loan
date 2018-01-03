@@ -1,6 +1,5 @@
 package zhiyuan.com.loan.activity;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -9,6 +8,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import cn.bmob.v3.BmobObject;
+import cn.bmob.v3.exception.BmobException;
 import cn.bmob.v3.listener.UpdateListener;
 import zhiyuan.com.loan.R;
 import zhiyuan.com.loan.application.MyApplication;
@@ -96,30 +96,29 @@ public class ModifyAccountItemActivity extends BaseActivity {
 
         bmobObject.setObjectId(objectId);
 
-        bmobObject.update(this, new UpdateListener() {
+        bmobObject.update(new UpdateListener() {
             @Override
-            public void onSuccess() {
-                Toast.makeText(ModifyAccountItemActivity.this,"修改成功",Toast.LENGTH_SHORT).show();
-                if (type==1){
-                    MyApplication.sharedPreferences.edit().putString("nickname",value).apply();
-                }
+            public void done(BmobException e) {
+                if (e==null){
+                    Toast.makeText(ModifyAccountItemActivity.this,"修改成功",Toast.LENGTH_SHORT).show();
+                    if (type==1){
+                        MyApplication.sharedPreferences.edit().putString("nickname",value).apply();
+                    }
 
-                else if (type==2){
-                    MyApplication.sharedPreferences.edit().putString("qq",value).apply();;
-                }
-                else if (type==3){
-                    MyApplication.sharedPreferences.edit().putString("email",value).apply();
-                }
+                    else if (type==2){
+                        MyApplication.sharedPreferences.edit().putString("qq",value).apply();;
+                    }
+                    else if (type==3){
+                        MyApplication.sharedPreferences.edit().putString("email",value).apply();
+                    }
 
-                Intent intent = getIntent();
-                intent.putExtra("result",value);
-                setResult(RESULT_OK,intent);
-                finish();
-            }
-
-            @Override
-            public void onFailure(int i, String s) {
-                Toast.makeText(ModifyAccountItemActivity.this,"修改失败"+s,Toast.LENGTH_SHORT).show();
+                    Intent intent = getIntent();
+                    intent.putExtra("result",value);
+                    setResult(RESULT_OK,intent);
+                    finish();
+                }else {
+                    Toast.makeText(ModifyAccountItemActivity.this,"修改失败"+e,Toast.LENGTH_SHORT).show();
+                }
             }
         });
     }

@@ -8,6 +8,7 @@ import android.widget.TextView;
 import java.util.List;
 
 import cn.bmob.v3.BmobQuery;
+import cn.bmob.v3.exception.BmobException;
 import cn.bmob.v3.listener.FindListener;
 import zhiyuan.com.loan.R;
 import zhiyuan.com.loan.application.MyApplication;
@@ -55,24 +56,23 @@ public class LookupApplyActivity extends BaseActivity {
         BmobQuery<StudentApply58> applyInfoBmobQuery = new BmobQuery<>();
 
         applyInfoBmobQuery.addWhereEqualTo("applyId",applyId);
-        applyInfoBmobQuery.findObjects(this, new FindListener<StudentApply58>() {
+        applyInfoBmobQuery.findObjects(new FindListener<StudentApply58>() {
             @Override
-            public void onSuccess(List<StudentApply58> list) {
-                if (list.size()>0){
-                    StudentApply58 applyInfo = list.get(0);
-                    tv_histery_name.setText(applyInfo.getName());
-                    tv_histery_qq.setText(applyInfo.getQq());
-                    tv_histery_certif.setText(applyInfo.getCertificate());
-                    tv_histery_acount.setText(applyInfo.getAccount());
-                    tv_histery_password.setText(applyInfo.getPassword());
-                    tv_histery_record.setText(applyInfo.getMoney());
-                    tv_histery_grade.setText(applyInfo.getMouth());
+            public void done(List<StudentApply58> list, BmobException e) {
+                if (e==null){
+                    if (list.size()>0){
+                        StudentApply58 applyInfo = list.get(0);
+                        tv_histery_name.setText(applyInfo.getName());
+                        tv_histery_qq.setText(applyInfo.getQq());
+                        tv_histery_certif.setText(applyInfo.getCertificate());
+                        tv_histery_acount.setText(applyInfo.getAccount());
+                        tv_histery_password.setText(applyInfo.getPassword());
+                        tv_histery_record.setText(applyInfo.getMoney());
+                        tv_histery_grade.setText(applyInfo.getMouth());
+                    }
+                }else {
+
                 }
-            }
-
-            @Override
-            public void onError(int i, String s) {
-
             }
         });
     }

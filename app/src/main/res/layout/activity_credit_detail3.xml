@@ -301,7 +301,7 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="2.在校大学生"/>
+                        android:text="2.毕业大学生"/>
                 </LinearLayout>
             </LinearLayout>
 
@@ -339,7 +339,7 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="2.学生证封面、注册章页、个人信息页或者其他含有学生信息的证件/图片"/>
+                        android:text="2.毕业学生证封面、注册章页、个人信息页或者其他含有学生信息的证件/图片"/>
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"

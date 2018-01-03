@@ -11,7 +11,11 @@ public class Apk extends BmobObject {
     private boolean isUpdateWhenOpen;
     private boolean isForceWhenUpdate;
     private String qqContactInfo;
+    private String weixinContactInfo;
+    private String weixinGZHContactInfo;
+    private String qrCode;
     private String contactPhone;
+    private String platform;
 
     public String getApkUrl() {
         return apkUrl;
@@ -60,5 +64,37 @@ public class Apk extends BmobObject {
 
     public void setContactPhone(String contactPhone) {
         this.contactPhone = contactPhone;
+    }
+
+    public String getWeixinContactInfo() {
+        return weixinContactInfo;
+    }
+
+    public void setWeixinContactInfo(String weixinContactInfo) {
+        this.weixinContactInfo = weixinContactInfo;
+    }
+
+    public String getQrCode() {
+        return qrCode;
+    }
+
+    public void setQrCode(String qrCode) {
+        this.qrCode = qrCode;
+    }
+
+    public String getPlatform() {
+        return platform;
+    }
+
+    public void setPlatform(String platform) {
+        this.platform = platform;
+    }
+
+    public String getWeixinGZHContactInfo() {
+        return weixinGZHContactInfo;
+    }
+
+    public void setWeixinGZHContactInfo(String weixinGZHContactInfo) {
+        this.weixinGZHContactInfo = weixinGZHContactInfo;
     }
 }

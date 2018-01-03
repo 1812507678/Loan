@@ -1,14 +1,12 @@
 package zhiyuan.com.loan.activity;
 
-import android.app.Activity;
 import android.app.ProgressDialog;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
 
-import cn.bmob.v3.BmobObject;
+import cn.bmob.v3.exception.BmobException;
 import cn.bmob.v3.listener.SaveListener;
 import zhiyuan.com.loan.R;
 import zhiyuan.com.loan.application.MyApplication;
@@ -34,19 +32,17 @@ public class ComplaintFeedbackActivity extends BaseActivity {
 			String phone = MyApplication.sharedPreferences.getString("phone","");
 			Suggestion suggestion = new Suggestion(phone,msg);
 
-			suggestion.save(this, new SaveListener() {
+			suggestion.save(new SaveListener() {
 				@Override
-				public void onSuccess() {
-					hideDialog();
-					Toast.makeText(ComplaintFeedbackActivity.this,"提交成功",Toast.LENGTH_SHORT).show();
-					finish();
-				}
-
-
-				@Override
-				public void onFailure(int i, String s) {
-					hideDialog();
-					Toast.makeText(ComplaintFeedbackActivity.this,"提交失败"+s,Toast.LENGTH_SHORT).show();
+				public void done(Object o, BmobException e) {
+					if (e==null){
+						hideDialog();
+						Toast.makeText(ComplaintFeedbackActivity.this,"提交成功",Toast.LENGTH_SHORT).show();
+						finish();
+					}else {
+						hideDialog();
+						Toast.makeText(ComplaintFeedbackActivity.this,"提交失败"+e,Toast.LENGTH_SHORT).show();
+					}
 				}
 			});
 		}

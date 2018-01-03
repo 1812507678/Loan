@@ -1,13 +1,12 @@
 package zhiyuan.com.loan.activity;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
-import android.provider.MediaStore;
 import android.os.Bundle;
+import android.provider.MediaStore;
 import android.util.Log;
 import android.view.View;
 import android.widget.RelativeLayout;
@@ -17,13 +16,14 @@ import android.widget.Toast;
 import com.lidroid.xutils.BitmapUtils;
 
 import java.io.File;
+
 import cn.bmob.v3.datatype.BmobFile;
+import cn.bmob.v3.exception.BmobException;
 import cn.bmob.v3.listener.UpdateListener;
 import cn.bmob.v3.listener.UploadFileListener;
 import zhiyuan.com.loan.R;
 import zhiyuan.com.loan.application.MyApplication;
 import zhiyuan.com.loan.bean.User;
-import zhiyuan.com.loan.fragment.MessageFragment;
 import zhiyuan.com.loan.view.CircleImageView;
 
 public class AccountnfoActivity extends BaseActivity {
@@ -128,33 +128,32 @@ public class AccountnfoActivity extends BaseActivity {
 					iv_personcenter_iocn.setImageBitmap(BitmapFactory.decodeFile(path));
 
 					final BmobFile icon = new BmobFile(new File(path));
-					icon.upload(this, new UploadFileListener() {
+					icon.upload(new UploadFileListener() {
 						@Override
-						public void onSuccess() {
-							User user = new User();
-							String objectId = MyApplication.sharedPreferences.getString("objectId", "");
-							user.setObjectId(objectId);
-							user.setIconUrl(icon.getUrl());
-							if (!objectId.equals("")){
-								user.update(AccountnfoActivity.this, new UpdateListener() {
-									@Override
-									public void onSuccess() {
-										Toast.makeText(AccountnfoActivity.this,"头像上传成功",Toast.LENGTH_SHORT).show();
-										SharedPreferences.Editor edit = MyApplication.sharedPreferences.edit();
-										edit.putString("iconUrl",icon.getUrl());
-										edit.apply();
-									}
-									@Override
-									public void onFailure(int i, String s) {
-										Toast.makeText(AccountnfoActivity.this,"头像上传失败"+s,Toast.LENGTH_SHORT).show();
-									}
-								});
+						public void done(BmobException e) {
+							if (e==null){
+								User user = new User();
+								String objectId = MyApplication.sharedPreferences.getString("objectId", "");
+								user.setObjectId(objectId);
+								user.setIconUrl(icon.getUrl());
+								if (!objectId.equals("")){
+									user.update(new UpdateListener() {
+										@Override
+										public void done(BmobException e) {
+											if (e==null){
+												Toast.makeText(AccountnfoActivity.this,"头像上传成功",Toast.LENGTH_SHORT).show();
+												SharedPreferences.Editor edit = MyApplication.sharedPreferences.edit();
+												edit.putString("iconUrl",icon.getUrl());
+												edit.apply();
+											}else {
+												Toast.makeText(AccountnfoActivity.this,"头像上传失败"+e,Toast.LENGTH_SHORT).show();
+											}
+										}
+									});
+								}
+							}else {
+								Log.i(TAG,"上传失败error:   "+e);
 							}
-						}
-						@Override
-						public void onFailure(int i, String ss) {
-							Log.i(TAG,"上传失败error:   "+ss);
-
 						}
 					});
 

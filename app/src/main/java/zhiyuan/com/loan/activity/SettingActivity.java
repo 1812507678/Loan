@@ -7,16 +7,15 @@ import android.content.Intent;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.net.Uri;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.MotionEvent;
 import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import android.widget.Toast;
 
+import com.hyphenate.chat.EMClient;
 import com.lidroid.xutils.HttpUtils;
 import com.lidroid.xutils.exception.HttpException;
 import com.lidroid.xutils.http.ResponseInfo;
@@ -25,13 +24,10 @@ import com.lidroid.xutils.http.callback.RequestCallBack;
 import java.io.File;
 import java.util.List;
 
-import cn.bmob.v3.BmobQuery;
-import cn.bmob.v3.listener.FindListener;
 import zhiyuan.com.loan.R;
 import zhiyuan.com.loan.application.MyApplication;
-import zhiyuan.com.loan.bean.Apk;
-import zhiyuan.com.loan.fragment.MessageFragment;
 import zhiyuan.com.loan.util.ApkVersionUtil;
+import zhiyuan.com.loan.util.SharedPreferencesUtil;
 
 
 public class SettingActivity extends BaseActivity {
@@ -96,9 +92,8 @@ public class SettingActivity extends BaseActivity {
 					for (int i=0;i<activityList.size();i++){
 						activityList.get(i).finish();
 					}
-					MyApplication.sharedPreferences.edit().putString("phone","").apply();
-					MyApplication.sharedPreferences.edit().putString("iconUrl","").apply();
-					MessageFragment.exit();
+					SharedPreferencesUtil.clearAllSPData();
+					EMClient.getInstance().logout(true);
 					finish();
 					break;
 			}
@@ -107,7 +102,7 @@ public class SettingActivity extends BaseActivity {
 
 	private void checkAndUpdateVersion() {
 		int versionCode = MyApplication.sharedPreferences.getInt("versionCode", 0);
-		ApkVersionUtil.updateVersion(versionCode,false,this);
+		ApkVersionUtil.updateVersion(versionCode,false,this,true);
 	}
 
 	//版本更新

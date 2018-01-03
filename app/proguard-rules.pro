@@ -20,52 +20,60 @@
 #Bmob混淆
 -ignorewarnings
 
--keepattributes Signature
+-keepattributes Signature,*Annotation*
 
+# keep BmobSDK
+-dontwarn cn.bmob.v3.**
 -keep class cn.bmob.v3.** {*;}
--keep class cn.bmob.push.** {*;}
 
-# 保证继承自BmobObject、BmobUser类的JavaBean不被混淆
+# 确保JavaBean不被混淆-否则gson将无法将数据解析成具体对象
 -keep class * extends cn.bmob.v3.BmobObject {
     *;
 }
-
-# 也可以逐一个填写
 -keep class com.example.bmobexample.bean.BankCard{*;}
 -keep class com.example.bmobexample.bean.GameScore{*;}
 -keep class com.example.bmobexample.bean.MyUser{*;}
 -keep class com.example.bmobexample.bean.Person{*;}
-
 -keep class com.example.bmobexample.file.Movie{*;}
 -keep class com.example.bmobexample.file.Song{*;}
-
 -keep class com.example.bmobexample.relation.Post{*;}
 -keep class com.example.bmobexample.relation.Comment{*;}
 
-# 如果你使用了okhttp、okio的包，请添加以下混淆代码
--dontwarn com.squareup.okhttp.**
--keep class com.squareup.okhttp.** { *;}
--keep interface com.squareup.okhttp.** { *; }
+# keep BmobPush
+-dontwarn  cn.bmob.push.**
+-keep class cn.bmob.push.** {*;}
+
+# keep okhttp3、okio
+-dontwarn okhttp3.**
+-keep class okhttp3.** { *;}
+-keep interface okhttp3.** { *; }
 -dontwarn okio.**
 
-# 如果你使用了support v4包，请添加如下混淆代码
--dontwarn android.support.v4.**
--keep class android.support.v4.** { *; }
--keep interface android.support.v4.app.** { *; }
--keep public class * extends android.support.v4.**
--keep public class * extends android.app.Fragment
+# keep rx
+-dontwarn sun.misc.**
+-keepclassmembers class rx.internal.util.unsafe.*ArrayQueue*Field* {
+ long producerIndex;
+ long consumerIndex;
+}
+-keepclassmembers class rx.internal.util.unsafe.BaseLinkedQueueProducerNodeRef {
+ rx.internal.util.atomic.LinkedQueueNode producerNode;
+}
+-keepclassmembers class rx.internal.util.unsafe.BaseLinkedQueueConsumerNodeRef {
+ rx.internal.util.atomic.LinkedQueueNode consumerNode;
+}
 
 # 如果你需要兼容6.0系统，请不要混淆org.apache.http.legacy.jar
- -dontwarn android.net.compatibility.**
- -dontwarn android.net.http.**
- -dontwarn com.android.internal.http.multipart.**
- -dontwarn org.apache.commons.**
- -dontwarn org.apache.http.**
- -keep class android.net.compatibility.**{*;}
- -keep class android.net.http.**{*;}
- -keep class com.android.internal.http.multipart.**{*;}
- -keep class org.apache.commons.**{*;}
- -keep class org.apache.http.**{*;}
+-dontwarn android.net.compatibility.**
+-dontwarn android.net.http.**
+-dontwarn com.android.internal.http.multipart.**
+-dontwarn org.apache.commons.**
+-dontwarn org.apache.http.**
+-keep class android.net.compatibility.**{*;}
+-keep class android.net.http.**{*;}
+-keep class com.android.internal.http.multipart.**{*;}
+-keep class org.apache.commons.**{*;}
+-keep class org.apache.http.**{*;}
+
 
 
 #环信聊天

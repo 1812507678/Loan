@@ -7,7 +7,6 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
-import android.support.v4.content.PermissionChecker;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.view.LayoutInflater;
@@ -21,10 +20,12 @@ import android.widget.TextView;
 import com.umeng.analytics.MobclickAgent;
 
 import zhiyuan.com.loan.R;
+import zhiyuan.com.loan.activity.ChattingActivity;
 import zhiyuan.com.loan.activity.CommitMaterialStep1Activity;
 import zhiyuan.com.loan.activity.CreditPlatListActivity;
-import zhiyuan.com.loan.activity.HomeActivity;
 import zhiyuan.com.loan.application.MyApplication;
+import zhiyuan.com.loan.util.ChooseAlertDialogUtil;
+import zhiyuan.com.loan.util.Constant;
 
 /**
  * Created by Administrator on 2016/7/7.
@@ -43,8 +44,6 @@ public class HomePageFragment  extends Fragment {
 
         initView();
 
-
-
         return inflate;
     }
 
@@ -54,12 +53,14 @@ public class HomePageFragment  extends Fragment {
         TextView tv_home_creditcall = (TextView) inflate.findViewById(R.id.tv_home_creditcall);
         RelativeLayout rl_home_creditClass = (RelativeLayout) inflate.findViewById(R.id.rl_home_creditClass);
         RelativeLayout rl_home_consult = (RelativeLayout) inflate.findViewById(R.id.rl_home_consult);
+        ImageView iv_home_qr = inflate.findViewById(R.id.iv_home_qr);
 
         HomeOnClickListener homeOnClickListener = new HomeOnClickListener();
         tv_home_creditStep.setOnClickListener(homeOnClickListener);
         tv_home_creditcall.setOnClickListener(homeOnClickListener);
         rl_home_creditClass.setOnClickListener(homeOnClickListener);
         rl_home_consult.setOnClickListener(homeOnClickListener);
+        iv_home_qr.setOnClickListener(homeOnClickListener);
 
     }
     private void initViewPage() {
@@ -172,10 +173,20 @@ public class HomePageFragment  extends Fragment {
                     break;
 
                 case R.id.rl_home_consult:
-                    HomeActivity activity = (HomeActivity) getActivity();
+                    /*HomeActivity activity = (HomeActivity) getActivity();
                     activity.setCurrentItem(1);
                     ConsultPageFragment consultPageFragment = (ConsultPageFragment) activity.pageFragments.get(1);
-                    consultPageFragment.switchState(1);
+                    consultPageFragment.switchState(1);*/
+                    Intent intent1 = new Intent(getActivity(), ChattingActivity.class);
+                    intent1.putExtra("toPhone","18689463192");
+                    intent1.putExtra("toNickname", Constant.adviserDefaultName);
+                    intent1.putExtra("toIconUrl",Constant.adviserDefaultIcon);
+                    startActivity(intent1);
+                    break;
+
+                case R.id.iv_home_qr:
+                    ChooseAlertDialogUtil chooseAlertDialogUtil = new ChooseAlertDialogUtil(getContext());
+                    chooseAlertDialogUtil.setAlertDialogText();
                     break;
             }
         }

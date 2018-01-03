@@ -9,12 +9,12 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Build;
 import android.util.Log;
-import android.widget.Toast;
 
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import cn.bmob.push.PushConstants;
+import cn.bmob.v3.exception.BmobException;
 import cn.bmob.v3.listener.SaveListener;
 import zhiyuan.com.loan.R;
 import zhiyuan.com.loan.activity.ShowArticleDetailActivity;
@@ -86,16 +86,16 @@ public class PushMessageReceiver extends BroadcastReceiver {
         articleCollection.setType(2);  //类型为推送
         articleCollection.setCollectId("cc" + System.currentTimeMillis());
 
-        articleCollection.save(context, new SaveListener() {
+        articleCollection.save(new SaveListener() {
             @Override
-            public void onSuccess() {
-                Log.i(TAG,"ok");
+            public void done(Object o, BmobException e) {
+                if (e==null){
+                    Log.i(TAG,"ok");
+                }else {
+                    Log.i(TAG,"fail:"+e);
+                }
             }
 
-            @Override
-            public void onFailure(int i, String s) {
-                Log.i(TAG,"fail"+i+","+s);
-            }
         });
 
     }

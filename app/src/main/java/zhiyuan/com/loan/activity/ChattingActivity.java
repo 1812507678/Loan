@@ -1,7 +1,6 @@
 package zhiyuan.com.loan.activity;
 
 import android.annotation.TargetApi;
-import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.ClipboardManager;
 import android.content.Context;
@@ -49,7 +48,6 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Locale;
-
 
 import zhiyuan.com.loan.R;
 import zhiyuan.com.loan.application.MyApplication;
@@ -112,6 +110,7 @@ public class ChattingActivity extends BaseActivity {
 		toPhone = intent.getStringExtra("toPhone");
 		toNickName = intent.getStringExtra("toNickname");
 		toIconUrl = intent.getStringExtra("toIconUrl");
+
 		Log.i(TAG,"initView  nickname:"+ toNickName);
 		Log.i(TAG,"initView  toIconUrl:"+ toIconUrl);
 
@@ -744,6 +743,11 @@ public class ChattingActivity extends BaseActivity {
 
 		@Override
 		public void onMessageDelivered(List<EMMessage> messages) {
+
+		}
+
+		@Override
+		public void onMessageRecalled(List<EMMessage> list) {
 
 		}
 

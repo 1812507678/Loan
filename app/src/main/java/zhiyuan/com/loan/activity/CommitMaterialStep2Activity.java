@@ -5,12 +5,15 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.RelativeLayout;
 import android.widget.Toast;
 
+import cn.bmob.v3.exception.BmobException;
 import cn.bmob.v3.listener.SaveListener;
 import zhiyuan.com.loan.R;
 import zhiyuan.com.loan.application.MyApplication;
 import zhiyuan.com.loan.bean.StudentApply58;
+import zhiyuan.com.loan.util.ChooseAlertDialogUtil;
 
 public class CommitMaterialStep2Activity extends BaseActivity {
 
@@ -34,6 +37,15 @@ public class CommitMaterialStep2Activity extends BaseActivity {
         et_commit_certif = (EditText) findViewById(R.id.et_commit_certif);
         et_commit_acount = (EditText) findViewById(R.id.et_commit_acount);
         et_commit_password = (EditText) findViewById(R.id.et_commit_password);
+
+        RelativeLayout rl_step2_contactme = findViewById(R.id.rl_step2_contactme);
+        rl_step2_contactme.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ChooseAlertDialogUtil chooseAlertDialogUtil = new ChooseAlertDialogUtil(CommitMaterialStep2Activity.this);
+                chooseAlertDialogUtil.setAlertDialogTextContact();
+            }
+        });
     }
 
     public void commitInfo(View view){
@@ -74,20 +86,21 @@ public class CommitMaterialStep2Activity extends BaseActivity {
 
     private void uploadData(StudentApply58 applyInfo) {
         showDialog("正在提交");
-        applyInfo.save(this, new SaveListener() {
-            @Override
-            public void onSuccess() {
-                hideDialog();
-                Toast.makeText(CommitMaterialStep2Activity.this, "申请成功", Toast.LENGTH_SHORT).show();
-                startActivity(new Intent(CommitMaterialStep2Activity.this,ApplySuccessActivity.class));
-                MyApplication.sharedPreferences.edit().putString("applyId",applyId).commit();
-                finish();
-            }
+        applyInfo.save(new SaveListener() {
+
 
             @Override
-            public void onFailure(int i, String s) {
-                hideDialog();
-                Toast.makeText(CommitMaterialStep2Activity.this, "申请失败"+s, Toast.LENGTH_SHORT).show();
+            public void done(Object o, BmobException e) {
+                if (e==null){
+                    hideDialog();
+                    Toast.makeText(CommitMaterialStep2Activity.this, "申请成功", Toast.LENGTH_SHORT).show();
+                    startActivity(new Intent(CommitMaterialStep2Activity.this,ApplySuccessActivity.class));
+                    MyApplication.sharedPreferences.edit().putString("applyId",applyId).commit();
+                    finish();
+                }else {
+                    hideDialog();
+                    Toast.makeText(CommitMaterialStep2Activity.this, "申请失败"+e, Toast.LENGTH_SHORT).show();
+                }
             }
         });
 

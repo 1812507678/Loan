@@ -1,27 +1,17 @@
 package zhiyuan.com.loan.activity;
 
-import android.app.Activity;
-import android.app.ProgressDialog;
-import android.content.Intent;
 import android.os.Bundle;
-import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import java.text.SimpleDateFormat;
-import java.util.Date;
 import java.util.List;
-import java.util.Locale;
 
 import cn.bmob.v3.BmobQuery;
-import cn.bmob.v3.BmobSMS;
 import cn.bmob.v3.exception.BmobException;
 import cn.bmob.v3.listener.FindListener;
-import cn.bmob.v3.listener.RequestSMSCodeListener;
-import cn.bmob.v3.listener.UpdateListener;
 import zhiyuan.com.loan.R;
 import zhiyuan.com.loan.bean.User;
 import zhiyuan.com.loan.util.MyUtils;
@@ -62,25 +52,24 @@ public class RetrievePasswordActivity extends BaseActivity {
         MyUtils.showDialog("正在查找",this);
         BmobQuery<User> bmobQuery = new BmobQuery<>();
         bmobQuery.addWhereEqualTo("phone",user.getPhone());
-        bmobQuery.findObjects(RetrievePasswordActivity.this, new FindListener<User>() {
+        bmobQuery.findObjects(new FindListener<User>() {
             @Override
-            public void onSuccess(List<User> list) {
-                MyUtils.hideDialog();
-                et_retrive_password.setVisibility(View.VISIBLE);
-                if (list.size()>0){
-                    User userInfo = list.get(0);
-                    Log.i(TAG,"userInfo:"+userInfo.toString());
-                    et_retrive_password.setText(userInfo.getPassword());
-                }
+            public void done(List<User> list, BmobException e) {
+                if (e==null){
+                    MyUtils.hideDialog();
+                    et_retrive_password.setVisibility(View.VISIBLE);
+                    if (list.size()>0){
+                        User userInfo = list.get(0);
+                        Log.i(TAG,"userInfo:"+userInfo.toString());
+                        et_retrive_password.setText(userInfo.getPassword());
+                    }
 
-                else {
-                    et_retrive_password.setText("用户不存在或输入号码错误");
+                    else {
+                        et_retrive_password.setText("用户不存在或输入号码错误");
+                    }
+                }else {
+                    MyUtils.hideDialog();
                 }
-            }
-
-            @Override
-            public void onError(int i, String s) {
-                MyUtils.hideDialog();
             }
         });
     }

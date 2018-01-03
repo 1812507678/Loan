@@ -2,9 +2,9 @@ package zhiyuan.com.loan.fragment;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.os.Looper;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -33,7 +33,6 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.Date;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
@@ -42,6 +41,7 @@ import zhiyuan.com.loan.R;
 import zhiyuan.com.loan.activity.ChattingActivity;
 import zhiyuan.com.loan.application.MyApplication;
 import zhiyuan.com.loan.bean.LastMessage;
+import zhiyuan.com.loan.util.Constant;
 import zhiyuan.com.loan.util.MessageComparator;
 import zhiyuan.com.loan.view.LastMsgListView;
 
@@ -61,7 +61,6 @@ public class MessageFragment extends Fragment {
 	private String phone;
 	private TextView tv_msg_noMsgContent;
 	private int  showCount;
-	private boolean isLogon ;
 	private String password;
 
 
@@ -72,13 +71,31 @@ public class MessageFragment extends Fragment {
 
 		phone = MyApplication.sharedPreferences.getString("phone", "");
 		password = MyApplication.sharedPreferences.getString("password", "");
-		if (!phone.equals("")){
-			login(phone, password);
-		}
+
+
+			//加载数据
+			/*loadNetInitData();
+			getActivity().runOnUiThread(new Runnable() {
+				@Override
+				public void run() {
+					if (lastMessageList.size()>0){
+						tv_msg_noMsgContent.setVisibility(View.GONE);
+						myListViewAdapter.notifyDataSetChanged();
+					}
+
+					Toast.makeText(getActivity(), "登录成功", Toast.LENGTH_SHORT).show();
+				}
+			});*/
+
+
+
 
 		initView();
+		initData();
 		return inflate;
 	}
+
+
 
 	private void initView() {
 		lv_msg_message = (LastMsgListView) inflate.findViewById(R.id.lv_msg_message);
@@ -92,20 +109,11 @@ public class MessageFragment extends Fragment {
 			@Override
 			public void onClick(View v) {
 				//已经登录了，刷新时重新加载数据
-				if (isLogon){
-					loadNetInitData();
-					if (lastMessageList.size()>0){
-						tv_msg_noMsgContent.setVisibility(View.GONE);
-						myListViewAdapter.notifyDataSetChanged();
-					}
-				}
+				loadNetInitData();
 
-				//注：存在问题，因为在登陆失败的情况下一般是没网，这时环信SDK初始化失败，登陆异常
-				//没有登录，需重新登陆
-				else {
-					if (!phone.equals("")){
-						login(phone, password);
-					}
+				if (lastMessageList.size()>0){
+					tv_msg_noMsgContent.setVisibility(View.GONE);
+					myListViewAdapter.notifyDataSetChanged();
 				}
 			}
 		});
@@ -178,6 +186,19 @@ public class MessageFragment extends Fragment {
 		});
 	}
 
+	private void initData() {
+		loadNetInitData();
+		if (lastMessageList.size()>0){
+			tv_msg_noMsgContent.setVisibility(View.GONE);
+			myListViewAdapter.notifyDataSetChanged();
+		}
+
+		//添加消息监听
+		EMClient.getInstance().chatManager().addMessageListener(msgListener);
+		//添加聊天监听器
+		addMConnectionListener();
+	}
+
 	//初始化聊天信息列表
 	public void loadNetInitData(){
 		lastMessageList.clear();
@@ -188,58 +209,63 @@ public class MessageFragment extends Fragment {
 		Collection<EMConversation> values = allConversations.values();
 		for (EMConversation next : values) {
 			Log.i(TAG, "next:" + next);
-			/*if (!next.getUserName().equals(phone)) {
-				EMConversation conversation = EMClient.getInstance().chatManager().getConversation(next.getUserName());
-				int unreadMsgCount = conversation.getUnreadMsgCount();
+			int unreadMsgCount = next.getUnreadMsgCount();
 
-				EMMessage emMessage = conversation.getLastMessage();
-				if (emMessage == null) {
-					continue;
-				}
+			EMMessage emMessage = next.getLastMessage();
+			Log.i(TAG, "emMessage:" + emMessage);
+			if (emMessage == null) {
+				continue;
+			}
 
-				String iconUrl = "";
-				String nickName = "";
-				try {
-					iconUrl = emMessage.getStringAttribute("toIconUrl");
-					nickName = emMessage.getStringAttribute("toNickName");
+			String iconUrl = "";
+			String nickName = "";
+			try {
+				iconUrl = emMessage.getStringAttribute("toIconUrl");
+				nickName = emMessage.getStringAttribute("toNickName");
 
-				} catch (HyphenateException e) {
-					e.printStackTrace();
-				}
+			} catch (HyphenateException e) {
+				e.printStackTrace();
+			}
+			if (TextUtils.isEmpty(iconUrl)){
+				iconUrl = Constant.adviserDefaultIcon;
+			}
+			if (TextUtils.isEmpty(nickName)){
+				nickName = Constant.adviserDefaultName;
+			}
 
-				Log.i(TAG, "iconUrl:" + iconUrl);
-				Log.i(TAG, "nickname:" + nickName);
-				//Log.i(TAG, "next.getUserName():" + next.getUserName());
+			Log.i(TAG, "iconUrl:" + iconUrl);
+			Log.i(TAG, "nickname:" + nickName);
+			//Log.i(TAG, "next.getUserName():" + next.getUserName());
 
-				String adIconUrl = MyApplication.sharedPreferences.getString("adIconUrl", "");
-				String adNickname = MyApplication.sharedPreferences.getString("adNickname", "");
+			String adIconUrl = MyApplication.sharedPreferences.getString("adIconUrl", "");
+			String adNickname = MyApplication.sharedPreferences.getString("adNickname", "");
 
-				if (iconUrl.equals("") && nickName.equals("")){
-					iconUrl = adIconUrl;
-					nickName = adNickname;
-				}
+			if (iconUrl.equals("") && nickName.equals("")){
+				iconUrl = adIconUrl;
+				nickName = adNickname;
+			}
 
-				String messageTime = getSpecfFormatTime(emMessage.getMsgTime());
-				String message = "";
-				String body = emMessage.getBody().toString();
-				String[] split = body.split(":");
-				switch (split[0]) {
-					case "txt":
-						//文字
-						message = split[1].split("\"")[1];
-						break;
-					case "voice":
-						//文字
-						message = "[语音]";
-						break;
-					case "image":
-						//图片
-						message = "[图片]";
-						break;
-				}
+			String messageTime = getSpecfFormatTime(emMessage.getMsgTime());
+			String message = "";
+			String body = emMessage.getBody().toString();
+			String[] split = body.split(":");
+			switch (split[0]) {
+				case "txt":
+					//文字
+					message = split[1].split("\"")[1];
+					break;
+				case "voice":
+					//文字
+					message = "[语音]";
+					break;
+				case "image":
+					//图片
+					message = "[图片]";
+					break;
+			}
 
-				//lastMessageList.add(new LastMessage(next.getUserName(), message, messageTime, iconUrl, nickName, unreadMsgCount));
-			}*/
+			lastMessageList.add(new LastMessage(emMessage.getUserName(), message, messageTime, iconUrl, nickName, unreadMsgCount));
+
 		}
 
 		MessageComparator messageComparator = new MessageComparator();
@@ -249,6 +275,8 @@ public class MessageFragment extends Fragment {
 			LastMessage lastMessage = lastMessageList.get(i);
 			Log.i(TAG,"lastMessage"+lastMessage.toString());
 		}
+
+
 	}
 	@Override
 	public void onStart() {
@@ -262,74 +290,6 @@ public class MessageFragment extends Fragment {
 			}
 		}
 		showCount++;
-	}
-
-
-	//环信账号登陆
-	public void login(String username,String password){
-		EMClient.getInstance().login(username,password,new EMCallBack() {
-			@Override
-			public void onSuccess() {
-				showCount = 0;
-				isLogon = true;
-
-				//加载数据
-				loadNetInitData();
-				getActivity().runOnUiThread(new Runnable() {
-					@Override
-					public void run() {
-						if (lastMessageList.size()>0){
-							tv_msg_noMsgContent.setVisibility(View.GONE);
-							myListViewAdapter.notifyDataSetChanged();
-						}
-
-						Toast.makeText(getActivity(), "登录成功", Toast.LENGTH_SHORT).show();
-					}
-				});
-
-				Log.i(TAG, "登录聊天服务器成功！");
-				//添加消息监听
-				EMClient.getInstance().chatManager().addMessageListener(msgListener);
-				//添加聊天监听器
-				addMConnectionListener();
-			}
-
-			@Override
-			public void onProgress(int progress, String status) {
-
-			}
-
-
-			@Override
-			public void onError(int code, String message) {
-				Looper.prepare();
-				Toast.makeText(getActivity(), "登录失败:"+message, Toast.LENGTH_SHORT).show();
-				Looper.loop();
-			}
-		});
-
-	}
-
-	//退出登陆
-	public static void exit(){
-		//EMClient.getInstance().logout(true);//此方法为同步方法，里面的参数 true 表示退出登录时解绑 GCM 或者小米推送的 token
-
-		//此方法为异步方法
-		EMClient.getInstance().logout(true, new EMCallBack() {
-
-			@Override
-			public void onSuccess() {
-			}
-
-			@Override
-			public void onProgress(int progress, String status) {
-
-			}
-
-			@Override
-			public void onError(int code, String message) {
-			}
-		});
 	}
 
 	public void addMConnectionListener(){
@@ -357,6 +317,7 @@ public class MessageFragment extends Fragment {
 					else if (error == EMError.USER_LOGIN_ANOTHER_DEVICE) {
 						// 显示帐号在其他设备登录
 						Toast.makeText(getActivity(), "服务器断开，帐号在其他设备登录", Toast.LENGTH_SHORT).show();
+						reLogin(phone,password);
 					}
 					else {
 						if (NetUtils.hasNetwork(getActivity())){
@@ -372,6 +333,25 @@ public class MessageFragment extends Fragment {
 				}
 			});
 		}
+	}
+
+	//环信账号登陆
+	public void reLogin(final String phone, String password){
+		EMClient.getInstance().login(phone,password,new EMCallBack() {
+			@Override
+			public void onSuccess() {
+				Log.i(TAG, "登录聊天服务器成功！");
+			}
+
+			@Override
+			public void onProgress(int progress, String status) {
+
+			}
+
+			@Override
+			public void onError(int code, String message) {
+			}
+		});
 	}
 
 	class MyListViewAdapter extends BaseAdapter{
@@ -523,6 +503,11 @@ public class MessageFragment extends Fragment {
 		}
 
 		@Override
+		public void onMessageRecalled(List<EMMessage> list) {
+
+		}
+
+		@Override
 		public void onMessageChanged(EMMessage message, Object change) {
 			//消息状态变动
 		}
@@ -536,7 +521,6 @@ public class MessageFragment extends Fragment {
 
 	@Override
 	public void onDestroy() {
-		exit();
 		EMClient.getInstance().chatManager().removeMessageListener(msgListener);
 		super.onDestroy();
 		Log.i(TAG,"onDestroy");

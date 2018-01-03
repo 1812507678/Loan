@@ -23,6 +23,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import cn.bmob.v3.BmobQuery;
+import cn.bmob.v3.exception.BmobException;
 import cn.bmob.v3.listener.FindListener;
 import zhiyuan.com.loan.R;
 import zhiyuan.com.loan.activity.ShowArticleDetailActivity;
@@ -71,43 +72,42 @@ public class StrategyPageFragment extends Fragment {
                 bmobQuery.setLimit(10);
                 Log.i(TAG,"articleListListContent.get(0):"+articleListListContent.get(0));
                 bmobQuery.addWhereGreaterThan("articleId",lastAritcleID);
-                bmobQuery.findObjects(getActivity(), new FindListener<StrategyArticle>() {
+                bmobQuery.findObjects(new FindListener<StrategyArticle>() {
                     @Override
-                    public void onSuccess(List<StrategyArticle> list) {
-                        Log.i(TAG,"onSuccess");
+                    public void done(List<StrategyArticle> list, BmobException e) {
+                        if (e==null){
+                            Log.i(TAG,"onSuccess");
 
-                        if (list!=null){
-                            if (list.size()>1){
-                                lastAritcleID = list.get(0).getArticleId();
-                                Toast.makeText(getActivity(),"加载成功",Toast.LENGTH_SHORT).show();
-                            }
-
-
-                            else {
-                                Toast.makeText(getActivity(),"没有更多数据了",Toast.LENGTH_SHORT).show();
-                            }
-
-                            for (int i=0;i<list.size();i++){
-                                if (Integer.parseInt(lastAritcleID)<Integer.parseInt(list.get(i).getArticleId())){
-                                    lastAritcleID =list.get(i).getArticleId();
+                            if (list!=null){
+                                if (list.size()>1){
+                                    lastAritcleID = list.get(0).getArticleId();
+                                    Toast.makeText(getActivity(),"加载成功",Toast.LENGTH_SHORT).show();
                                 }
 
-                                articleListListContent.add(list.get(i));
-                                Log.i(TAG,"list.get(i):"+articleListListContent.get(i).toString());
+
+                                else {
+                                    Toast.makeText(getActivity(),"没有更多数据了",Toast.LENGTH_SHORT).show();
+                                }
+
+                                for (int i=0;i<list.size();i++){
+                                    if (Integer.parseInt(lastAritcleID)<Integer.parseInt(list.get(i).getArticleId())){
+                                        lastAritcleID =list.get(i).getArticleId();
+                                    }
+
+                                    articleListListContent.add(list.get(i));
+                                    Log.i(TAG,"list.get(i):"+articleListListContent.get(i).toString());
+                                }
                             }
+
+                            strategyAdapter.notifyDataSetChanged();
+
+                            lv_strategy_articlelist.iv_chatt_refresh.clearAnimation();
+                            lv_strategy_articlelist.viewFoot.setPadding(0,0,0,-lv_strategy_articlelist.viewFoot.getMeasuredHeight());
+                        }else {
+                            Toast.makeText(getActivity(),"刷新失败,请检查网络"+e,Toast.LENGTH_SHORT).show();
+                            lv_strategy_articlelist.iv_chatt_refresh.clearAnimation();
+                            lv_strategy_articlelist.viewFoot.setPadding(0,0,0,-lv_strategy_articlelist.viewFoot.getMeasuredHeight());
                         }
-
-                        strategyAdapter.notifyDataSetChanged();
-
-                        lv_strategy_articlelist.iv_chatt_refresh.clearAnimation();
-                        lv_strategy_articlelist.viewFoot.setPadding(0,0,0,-lv_strategy_articlelist.viewFoot.getMeasuredHeight());
-                    }
-
-                    @Override
-                    public void onError(int i, String s) {
-                        Toast.makeText(getActivity(),"刷新失败,请检查网络"+s,Toast.LENGTH_SHORT).show();
-                        lv_strategy_articlelist.iv_chatt_refresh.clearAnimation();
-                        lv_strategy_articlelist.viewFoot.setPadding(0,0,0,-lv_strategy_articlelist.viewFoot.getMeasuredHeight());
                     }
                 });
             }
@@ -144,15 +144,17 @@ public class StrategyPageFragment extends Fragment {
                 case 0:
                     if (isRefresh){
                         View viewHead = lv_strategy_articlelist.getChildAt(0);
-                        Log.i(TAG,"viewHead.getMeasuredHeight():"+viewHead.getMeasuredHeight());
-                        lv_strategy_articlelist.setPadding(0,-viewHead.getMeasuredHeight(),0,0);
-                        lv_strategy_articlelist.state = 0;
-                        lv_strategy_articlelist.tv_head_msg.setText("下拉刷新");
-                        lv_strategy_articlelist.iv_head_icon.clearAnimation();
-                        lv_strategy_articlelist.iv_head_icon.setImageResource(R.drawable.indicator_arrow);
+                        if (viewHead!=null){
+                            Log.i(TAG,"viewHead.getMeasuredHeight():"+viewHead.getMeasuredHeight());
+                            lv_strategy_articlelist.setPadding(0,-viewHead.getMeasuredHeight(),0,0);
+                            lv_strategy_articlelist.state = 0;
+                            lv_strategy_articlelist.tv_head_msg.setText("下拉刷新");
+                            lv_strategy_articlelist.iv_head_icon.clearAnimation();
+                            lv_strategy_articlelist.iv_head_icon.setImageResource(R.drawable.indicator_arrow);
 
-                        strategyAdapter.notifyDataSetChanged();
-                        Toast.makeText(getActivity(),"刷新成功",Toast.LENGTH_SHORT).show();
+                            strategyAdapter.notifyDataSetChanged();
+                            Toast.makeText(getActivity(),"刷新成功",Toast.LENGTH_SHORT).show();
+                        }
                     }
                     break;
             }
@@ -163,30 +165,29 @@ public class StrategyPageFragment extends Fragment {
     private void loadInitData() {
         BmobQuery<StrategyArticle> bmobQuery = new BmobQuery<>();
         bmobQuery.setLimit(10);
-        bmobQuery.findObjects(getActivity(), new FindListener<StrategyArticle>() {
+        bmobQuery.findObjects(new FindListener<StrategyArticle>() {
             @Override
-            public void onSuccess(List<StrategyArticle> list) {
-                articleListListContent.clear();
-                if (list!=null && list.size()>0){
-                    myHandler.sendEmptyMessage(0);
-                    lastAritcleID =list.get(0).getArticleId();
-                    for (int i=0;i<list.size();i++){
-                        articleListListContent.add(list.get(i));
+            public void done(List<StrategyArticle> list, BmobException e) {
+                if (e==null){
+                    articleListListContent.clear();
+                    if (list!=null && list.size()>0){
+                        myHandler.sendEmptyMessage(0);
+                        lastAritcleID =list.get(0).getArticleId();
+                        for (int i=0;i<list.size();i++){
+                            articleListListContent.add(list.get(i));
 
-                        if (Integer.parseInt(lastAritcleID)<Integer.parseInt(list.get(i).getArticleId())){
-                            lastAritcleID =list.get(i).getArticleId();
+                            if (Integer.parseInt(lastAritcleID)<Integer.parseInt(list.get(i).getArticleId())){
+                                lastAritcleID =list.get(i).getArticleId();
+                            }
                         }
-
                     }
+                    strategyAdapter = new ArticlelistAdapter();
+                    lv_strategy_articlelist.setAdapter(strategyAdapter);
+                }else {
+                    Toast.makeText(getActivity(),"失败,请检查网络"+e,Toast.LENGTH_SHORT).show();
                 }
-                strategyAdapter = new ArticlelistAdapter();
-                lv_strategy_articlelist.setAdapter(strategyAdapter);
             }
 
-            @Override
-            public void onError(int i, String s) {
-                Toast.makeText(getActivity(),"失败,请检查网络"+s,Toast.LENGTH_SHORT).show();
-            }
         });
     }
 

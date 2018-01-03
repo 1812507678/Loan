@@ -20,6 +20,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import cn.bmob.v3.BmobQuery;
+import cn.bmob.v3.exception.BmobException;
 import cn.bmob.v3.listener.FindListener;
 import zhiyuan.com.loan.R;
 import zhiyuan.com.loan.activity.ChattingActivity;
@@ -51,21 +52,20 @@ public class AdvisersManFragment extends Fragment{
         final ListView lv_advise_adviser = (ListView) inflate.findViewById(R.id.lv_advise_adviser);
 
         BmobQuery<Adviser> bmobQuery = new BmobQuery<>();
-        bmobQuery.findObjects(getActivity(), new FindListener<Adviser>() {
+        bmobQuery.findObjects(new FindListener<Adviser>() {
             @Override
-            public void onSuccess(List<Adviser> list) {
-                if (list!=null){
-                    for (int i=0;i<list.size();i++){
-                        adviserList.add(list.get(i));
+            public void done(List<Adviser> list, BmobException e) {
+                if (e==null){
+                    if (list!=null){
+                        for (int i=0;i<list.size();i++){
+                            adviserList.add(list.get(i));
 
+                        }
                     }
+                    lv_advise_adviser.setAdapter(new MyListViewAdapter());
+                }else {
+                    Toast.makeText(getActivity(),"失败,请检查网络"+e,Toast.LENGTH_SHORT).show();
                 }
-                lv_advise_adviser.setAdapter(new MyListViewAdapter());
-            }
-
-            @Override
-            public void onError(int i, String s) {
-                Toast.makeText(getActivity(),"失败,请检查网络"+s,Toast.LENGTH_SHORT).show();
             }
         });
 

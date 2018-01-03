@@ -1,9 +1,7 @@
 package zhiyuan.com.loan.activity;
 
-import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 
@@ -12,11 +10,12 @@ import com.umeng.analytics.MobclickAgent;
 import java.util.List;
 
 import cn.bmob.v3.BmobQuery;
+import cn.bmob.v3.exception.BmobException;
 import cn.bmob.v3.listener.FindListener;
 import zhiyuan.com.loan.R;
 import zhiyuan.com.loan.application.MyApplication;
 import zhiyuan.com.loan.bean.Apk;
-import zhiyuan.com.loan.util.ApkVersionUtil;
+import zhiyuan.com.loan.util.MyUtils;
 
 public class SplashActivity extends BaseActivity {
 
@@ -61,31 +60,33 @@ public class SplashActivity extends BaseActivity {
 
     private void initData(final Context context) {
         BmobQuery<Apk> apkBmobQuery = new BmobQuery<>();
-        apkBmobQuery.findObjects(this, new FindListener<Apk>() {
+        apkBmobQuery.findObjects(new FindListener<Apk>() {
             @Override
-            public void onSuccess(List<Apk> list) {
-                if (list!=null && list.size()>0){
-                    Apk apk = list.get(0);
-                    int versionCode = Integer.parseInt(apk.getVersionCode());
-                    String apkUrl = apk.getApkUrl();
-                    boolean forceWhenUpdate = apk.isForceWhenUpdate();
-                    boolean updateWhenOpen = apk.isUpdateWhenOpen();
-                    String qqContactInfo = apk.getQqContactInfo();
-                    String contactPhone = apk.getContactPhone();
+            public void done(List<Apk> list, BmobException e) {
+                if (e==null){
+                    if (list!=null && list.size()>0){
+                        Apk apk = list.get(0);
+                        int versionCode = Integer.parseInt(apk.getVersionCode());
+                        String apkUrl = apk.getApkUrl();
+                        boolean forceWhenUpdate = apk.isForceWhenUpdate();
+                        boolean updateWhenOpen = apk.isUpdateWhenOpen();
+                        String qqContactInfo = apk.getQqContactInfo();
+                        String contactPhone = apk.getContactPhone();
 
-                    Log.i(TAG,"versionCode:"+versionCode+",apkUrl:"+apkUrl+",forceWhenUpdate:"+forceWhenUpdate+",updateWhenOpen:"+updateWhenOpen);
-                    MyApplication.sharedPreferences.edit().putInt("versionCode",versionCode).apply();
-                    MyApplication.sharedPreferences.edit().putString("apkUrl",apkUrl).apply();
-                    MyApplication.sharedPreferences.edit().putString("qqContactInfo",qqContactInfo).apply();
-                    MyApplication.sharedPreferences.edit().putString("contactPhone",contactPhone).apply();
-                    MyApplication.sharedPreferences.edit().putBoolean("forceWhenUpdate",forceWhenUpdate).apply();
-                    MyApplication.sharedPreferences.edit().putBoolean("updateWhenOpen",updateWhenOpen).apply();
+                        Log.i(TAG,"versionCode:"+versionCode+",apkUrl:"+apkUrl+",forceWhenUpdate:"+forceWhenUpdate+",updateWhenOpen:"+updateWhenOpen);
+                        MyApplication.sharedPreferences.edit().putInt("versionCode",versionCode).apply();
+                        MyApplication.sharedPreferences.edit().putString("apkUrl",apkUrl).apply();
+                        MyApplication.sharedPreferences.edit().putString("qqContactInfo",qqContactInfo).apply();
+                        MyApplication.sharedPreferences.edit().putString("contactPhone",contactPhone).apply();
+                        MyApplication.sharedPreferences.edit().putBoolean("forceWhenUpdate",forceWhenUpdate).apply();
+                        MyApplication.sharedPreferences.edit().putBoolean("updateWhenOpen",updateWhenOpen).apply();
+                        MyApplication.sharedPreferences.edit().putString("weixinContactInfo",apk.getWeixinContactInfo()).apply();
+
+                        MyUtils.putApkToSP(apk);
+                    }
+                }else {
+
                 }
-            }
-
-            @Override
-            public void onError(int i, String s) {
-
             }
         });
 

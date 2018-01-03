@@ -3,10 +3,11 @@
 buildscript {
     repositories {
         jcenter()
-        maven {
+        /*maven {
             url 'https://maven.google.com/'
             name 'Google'
-        }
+        }*/
+        google()
     }
     dependencies {
         classpath 'com.android.tools.build:gradle:3.0.1'
@@ -19,14 +20,15 @@ buildscript {
 allprojects {
     repositories {
         jcenter()
-        maven {
+        /*maven {
             url 'https://maven.google.com/'
             name 'Google'
-        }
-        maven {  url "https://raw.githubusercontent.com/HyphenateInc/Hyphenate-SDK-Android/master/repository" }
+        }*/
+        //maven {  url "https://raw.githubusercontent.com/HyphenateInc/Hyphenate-SDK-Android/master/repository" }
+        //maven { url "https://raw.github.com/bmob/bmob-android-sdk/master" }
+        google()
     }
 }
-
 
 task clean(type: Delete) {
     delete rootProject.buildDir

@@ -6,11 +6,12 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import zhiyuan.com.loan.R;
-import zhiyuan.com.loan.application.MyApplication;
+import zhiyuan.com.loan.util.ChooseAlertDialogUtil;
 
 public class CommitMaterialStep1Activity extends BaseActivity {
 
@@ -37,10 +38,15 @@ public class CommitMaterialStep1Activity extends BaseActivity {
         et_commit_phone = (EditText) findViewById(R.id.et_commit_phone);
         tv_commit_contactinf = (TextView) findViewById(R.id.tv_commit_contactinf);
 
-        String qqContactInfo = MyApplication.sharedPreferences.getString("qqContactInfo", "");
-        if (!qqContactInfo.equals("")){
-            tv_commit_contactinf.setText(qqContactInfo);
-        }
+        RelativeLayout rl_step1_contactme = findViewById(R.id.rl_step1_contactme);
+        rl_step1_contactme.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ChooseAlertDialogUtil chooseAlertDialogUtil = new ChooseAlertDialogUtil(CommitMaterialStep1Activity.this);
+                chooseAlertDialogUtil.setAlertDialogTextContact();
+            }
+        });
+
     }
 
 

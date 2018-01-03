@@ -52,7 +52,7 @@
             android:layout_centerHorizontal="true"
             android:layout_gravity="center"
             android:layout_marginTop="20dp"
-            android:src="@drawable/logo" />
+            android:src="@drawable/app_logo" />
         <TextView
             android:id="@+id/tv_text1"
             android:layout_below="@id/iv_logo"

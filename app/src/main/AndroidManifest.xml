@@ -32,21 +32,21 @@
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.RECEIVE_SMS" />
 
-    <!--Bugly-->
+    <!-- Bugly -->
     <uses-permission android:name="android.permission.READ_PHONE_STATE" />
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
     <uses-permission android:name="android.permission.READ_LOGS" />
 
+    <uses-permission android:name="android.permission.VIBRATE"/>
+
     <!-- 友盟 -->
-    <!--已加入-->
-
-
+    <!-- 已加入 -->
     <application
         android:name=".application.MyApplication"
         android:allowBackup="true"
-        android:icon="@drawable/logo"
+        android:icon="@drawable/app_logo"
         android:label="58名校贷"
         android:supportsRtl="true"
         android:theme="@style/MyAppTheme">
@@ -63,37 +63,49 @@
         <activity android:name=".activity.RetrievePasswordActivity" />
         <activity android:name=".activity.AccountnfoActivity" />
         <activity android:name=".activity.ModifyAccountItemActivity" />
-        <activity android:name=".activity.ChattingActivity" />
+        <activity android:name=".activity.ChattingActivity"
+            android:launchMode="singleTask"
+            android:screenOrientation="portrait">
+        </activity>
 
         <!-- 设置环信应用的AppKey -->
         <meta-data
             android:name="EASEMOB_APPKEY"
             android:value="1812507678#loan" />
-        <!-- 声明SDK所需的service SDK核心功能-->
-        <service android:name="com.hyphenate.chat.EMChatService" android:exported="true"/>
-        <service android:name="com.hyphenate.chat.EMJobService"
-            android:permission="android.permission.BIND_JOB_SERVICE"
+        <!-- 声明SDK所需的service SDK核心功能 -->
+        <service
+            android:name="com.hyphenate.chat.EMChatService"
+            android:exported="true" />
+        <service
+            android:name="com.hyphenate.chat.EMJobService"
             android:exported="true"
-            />
+            android:permission="android.permission.BIND_JOB_SERVICE" />
         <!-- 声明SDK所需的receiver -->
         <receiver android:name="com.hyphenate.chat.EMMonitorReceiver">
             <intent-filter>
-                <action android:name="android.intent.action.PACKAGE_REMOVED"/>
-                <data android:scheme="package"/>
+                <action android:name="android.intent.action.PACKAGE_REMOVED" />
+
+                <data android:scheme="package" />
             </intent-filter>
             <!-- 可选filter -->
             <intent-filter>
-                <action android:name="android.intent.action.BOOT_COMPLETED"/>
+                <action android:name="android.intent.action.BOOT_COMPLETED" />
                 <action android:name="android.intent.action.USER_PRESENT" />
             </intent-filter>
         </receiver>
 
         <!-- 友盟appkey -->
-        <meta-data android:value="57ee21efe0f55aa6f9000763" android:name="UMENG_APPKEY"></meta-data>
-        <meta-data android:name="UMENG_CHANNEL" android:value="${UMENG_CHANNEL_VALUE}" />
-      <!--  <meta-data android:value="360" android:name="UMENG_CHANNEL"/>
+        <meta-data
+            android:name="UMENG_APPKEY"
+            android:value="57ee21efe0f55aa6f9000763" />
+        <meta-data
+            android:name="UMENG_CHANNEL"
+            android:value="${UMENG_CHANNEL_VALUE}" />
+        <!--
+        <meta-data android:value="360" android:name="UMENG_CHANNEL"/>
         <meta-data android:value="baidu" android:name="UMENG_CHANNEL"/>
-        <meta-data android:value="wandoujia" android:name="UMENG_CHANNEL"/>-->
+        <meta-data android:value="wandoujia" android:name="UMENG_CHANNEL"/>
+        -->
 
         <activity
             android:name="cn.sharesdk.demo.wxapi.WXEntryActivity"
@@ -148,8 +160,8 @@
             android:name=".receiver.PushMessageReceiver"
             android:enabled="true"
             android:exported="true">
-            <intent-filter >
-                <action android:name="cn.bmob.push.action.MESSAGE"/>
+            <intent-filter>
+                <action android:name="cn.bmob.push.action.MESSAGE" />
             </intent-filter>
         </receiver>
 
@@ -167,6 +179,7 @@
             android:name="cn.bmob.push.PushReceiver"
             android:process="cn.bmob.push">
             <intent-filter>
+
                 <!-- 优先级加最高 -->
                 <!-- 系统启动完成后会调用 -->
                 <action android:name="android.intent.action.BOOT_COMPLETED" />
@@ -177,8 +190,10 @@
             </intent-filter>
         </receiver>
 
-
-
+        <service
+            android:name=".service.CoreService"
+            android:enabled="true"
+            android:exported="true"></service>
     </application>
 
 </manifest>

@@ -1,28 +1,34 @@
 package zhiyuan.com.loan.activity;
 
-import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
-import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.hyphenate.EMCallBack;
+import com.hyphenate.chat.EMClient;
 import com.umeng.analytics.MobclickAgent;
 
 import java.util.List;
+
 import cn.bmob.v3.BmobQuery;
+import cn.bmob.v3.exception.BmobException;
 import cn.bmob.v3.listener.FindListener;
 import zhiyuan.com.loan.R;
 import zhiyuan.com.loan.application.MyApplication;
-import zhiyuan.com.loan.bean.Adviser;
 import zhiyuan.com.loan.bean.User;
+import zhiyuan.com.loan.util.Constant;
+import zhiyuan.com.loan.util.MyUtils;
+import zhiyuan.com.loan.util.SharedPreferencesUtil;
 
 
 public class LoginActivity extends BaseActivity {
 
+    private static final String TAG = "LoginActivity";
     private EditText et_login_account;
     private EditText et_login_pwd;
     private ProgressDialog dialog;
@@ -39,9 +45,6 @@ public class LoginActivity extends BaseActivity {
     private void initView() {
         et_login_account = (EditText) findViewById(R.id.et_login_account);
         et_login_pwd = (EditText) findViewById(R.id.et_login_pwd);
-
-
-
     }
 
     public void login(View view){
@@ -73,36 +76,58 @@ public class LoginActivity extends BaseActivity {
         BmobQuery bmobQuery = new BmobQuery();
         bmobQuery.addWhereEqualTo("phone",phone);
 
-        bmobQuery.findObjects(this, new FindListener<User>() {
+        bmobQuery.findObjects(new FindListener<User>() {
             @Override
-            public void onSuccess(List<User> list) {
-                hideDialog();
-                //查询到对应的信息，则注册过，跳到主页面
-                if (list.size()==0){
-                    //没有查询到对应的信息，则没注册过，提示该用户未注册
-                    Toast.makeText(LoginActivity.this,"还未注册，请先进行注册",Toast.LENGTH_SHORT).show();
-                }
-                else {
-                    User user = list.get(0);
-                    if (!user.getPassword().equals(password)){
-                        Toast.makeText(LoginActivity.this,"密码不正确",Toast.LENGTH_SHORT).show();
-                        return;
+            public void done(List<User> list, BmobException e) {
+                if (e==null){
+                    hideDialog();
+                    //查询到对应的信息，则注册过，跳到主页面
+                    if (list.size()==0){
+                        //没有查询到对应的信息，则没注册过，提示该用户未注册
+                        Toast.makeText(LoginActivity.this,"还未注册，请先进行注册",Toast.LENGTH_SHORT).show();
                     }
-                    MobclickAgent.onProfileSignIn(phone); //友盟统计
-                    saveToApplication(user);
-                    //Toast.makeText(LoginActivity.this,"欢迎:"+user.getNickname(),Toast.LENGTH_SHORT).show();
-                    startActivity(new Intent(LoginActivity.this,HomeActivity.class));
-                    finish();
+                    else {
+                        User user = list.get(0);
+                        if (!user.getPassword().equals(password)){
+                            Toast.makeText(LoginActivity.this,"密码不正确",Toast.LENGTH_SHORT).show();
+                            return;
+                        }
+                        login(phone,password,user);
+                    }
+                }else {
+                    hideDialog();
+                    Toast.makeText(LoginActivity.this,"登陆失败"+e,Toast.LENGTH_SHORT).show();
                 }
-            }
-
-            @Override
-            public void onError(int i, String s) {
-                hideDialog();
-                Toast.makeText(LoginActivity.this,"登陆失败"+s,Toast.LENGTH_SHORT).show();
             }
         });
 
+    }
+
+    //环信账号登陆
+    public void login(final String phone, String password, final User user){
+        EMClient.getInstance().login(phone,password,new EMCallBack() {
+            @Override
+            public void onSuccess() {
+                Log.i(TAG, "登录聊天服务器成功！");
+                SharedPreferencesUtil.putBooleanValueFromSP(Constant.isChatLogined,true);
+
+                MobclickAgent.onProfileSignIn(phone); //友盟统计
+                saveToApplication(user);
+                //Toast.makeText(LoginActivity.this,"欢迎:"+user.getNickname(),Toast.LENGTH_SHORT).show();
+                startActivity(new Intent(LoginActivity.this,HomeActivity.class));
+                finish();
+            }
+
+            @Override
+            public void onProgress(int progress, String status) {
+
+            }
+
+            @Override
+            public void onError(int code, String message) {
+                Toast.makeText(LoginActivity.this,"登陆失败"+message,Toast.LENGTH_SHORT).show();
+            }
+        });
     }
 
     public static void saveToApplication(User user) {

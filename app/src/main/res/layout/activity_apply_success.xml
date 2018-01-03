@@ -7,6 +7,38 @@
     android:fitsSystemWindows="true"
     tools:context="zhiyuan.com.loan.activity.ApplySuccessActivity">
 
+    <RelativeLayout
+        android:id="@+id/rl_credit_top"
+        android:layout_width="match_parent"
+        android:layout_height="45dp"
+        android:background="#FFFFFF" >
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="#F4F4F4"
+            android:layout_alignParentTop="true"></View>
+        <ImageView
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:src="@drawable/bg_back"
+            android:layout_centerVertical="true"
+            android:onClick="backToFinsh"
+            android:padding="5dp"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="fill_parent"
+            android:layout_centerInParent="true"
+            android:text="申请成功"
+            android:gravity="center"
+            android:textColor="#000"
+            android:textSize="20sp"/>
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="#F4F4F4"
+            android:layout_alignParentBottom="true"></View>
+    </RelativeLayout>
+
     <TextView
         android:id="@+id/text"
         android:layout_width="match_parent"
@@ -17,10 +49,11 @@
         android:textColor="#006400"
         android:layout_marginTop="200dp"/>
 
+
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="知道啦"
+        android:text="联系我们"
         android:background="@drawable/bg_button"
         android:onClick="knowIt"
         android:layout_centerInParent="true"/>
