@@ -1,7 +1,5 @@
 package zhiyuan.com.loan.fragment;
 
-import android.animation.ObjectAnimator;
-import android.animation.ValueAnimator;
 import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Bitmap;
@@ -22,10 +20,7 @@ import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
-import java.util.List;
 
-import cn.bmob.v3.BmobQuery;
-import cn.bmob.v3.listener.FindListener;
 import cn.sharesdk.onekeyshare.OnekeyShare;
 import zhiyuan.com.loan.R;
 import zhiyuan.com.loan.activity.AcceptPushActivity;
@@ -35,7 +30,6 @@ import zhiyuan.com.loan.activity.LoginActivity;
 import zhiyuan.com.loan.activity.LookupApplyActivity;
 import zhiyuan.com.loan.activity.SettingActivity;
 import zhiyuan.com.loan.application.MyApplication;
-import zhiyuan.com.loan.bean.Apk;
 import zhiyuan.com.loan.view.CircleImageView;
 
 /**
@@ -135,7 +129,7 @@ public class MePageFragment extends Fragment {
         if (file.exists()){
             return;
         }
-        Bitmap logoBitmap = BitmapFactory.decodeResource(getResources(), R.drawable.logo);
+        Bitmap logoBitmap = BitmapFactory.decodeResource(getContext().getResources(), R.drawable.logo);
         ByteArrayOutputStream logoStream = new ByteArrayOutputStream();
         boolean res = logoBitmap.compress(Bitmap.CompressFormat.PNG, 100, logoStream);
         //将图像读取到logoStream中

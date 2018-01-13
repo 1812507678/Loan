@@ -16,6 +16,7 @@ import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
 import android.text.Editable;
+import android.text.TextUtils;
 import android.text.TextWatcher;
 import android.util.Log;
 import android.view.MotionEvent;
@@ -138,6 +139,7 @@ public class ChattingActivity extends BaseActivity {
 		rotateAnimation = new RotateAnimation(0, 360, Animation.RELATIVE_TO_SELF,0.5f, Animation.RELATIVE_TO_SELF, 0.5f);
 		rotateAnimation.setDuration(500);
 		rotateAnimation.setRepeatCount(2);
+
 		//输入框文本变化监听器
 		et_chatt_message.addTextChangedListener(new TextWatcher() {
 
@@ -195,6 +197,7 @@ public class ChattingActivity extends BaseActivity {
 				}
 			}
 		});
+
 		//改ListView加入头部刷新布局
 		viewHead = (RelativeLayout) View.inflate(this, R.layout.view_head, null);
 		final ImageView iv_chatt_refresh = (ImageView) viewHead.findViewById(R.id.iv_chatt_refresh);
@@ -296,23 +299,27 @@ public class ChattingActivity extends BaseActivity {
 							if (isStartRecord){
 								//调用MediaRecorder的start()与stop()间隔不能小于1秒(有时候大于1秒也崩)，否则必崩。
 								//设置后不会崩
-								mediaRecorder.setOnErrorListener(null);
-								mediaRecorder.stop();
-								mediaRecorder.release();
-								mediaRecorder = null;
+								if (mediaRecorder!=	null){
+									mediaRecorder.setOnErrorListener(null);
+									mediaRecorder.stop();
+									mediaRecorder.release();
+									mediaRecorder = null;
+								}
+
 								isStartRecord = false;
 
 								long endTime = System.currentTimeMillis();
 								int timeLength = (int) ((endTime - startTime)/1000);
 								//判断时间不会太短，大于等于1秒
 								if (timeLength>0){
-									sendVioceMessage(currectFile.getAbsolutePath(), timeLength, toPhone);
-									String time = getCurrentFormatTime();
-									Message firstMessage = new Message(time, "", currectFile.getAbsolutePath(), 0, Constant.MESSAGETYPPE_VIOCE, timeLength);
-									messageList.add(firstMessage);
-									myListViewAdapter.notifyDataSetChanged();
-									lv_chatt_message.setSelection(myListViewAdapter.getCount()-1);
-
+									if (currectFile!=null){
+										sendVioceMessage(currectFile.getAbsolutePath(), timeLength, toPhone);
+										String time = getCurrentFormatTime();
+										Message firstMessage = new Message(time, "", currectFile.getAbsolutePath(), 0, Constant.MESSAGETYPPE_VIOCE, timeLength);
+										messageList.add(firstMessage);
+										myListViewAdapter.notifyDataSetChanged();
+										lv_chatt_message.setSelection(myListViewAdapter.getCount()-1);
+									}
 								}
 								else {
 									Toast.makeText(ChattingActivity.this,"时间太短",Toast.LENGTH_SHORT).show();
@@ -333,26 +340,31 @@ public class ChattingActivity extends BaseActivity {
 		EMClient.getInstance().chatManager().addMessageListener(msgListener);
 		Log.i(TAG,"initData==phone:"+toPhone);
 
-		EMConversation conversation = EMClient.getInstance().chatManager().getConversation(toPhone);
-		if (conversation!=null){
-			lastMessage = conversation.getLastMessage();
-			if (lastMessage!=null){
-				//收到消息
-				////获取startMsgId之前的pagesize条消息，此方法获取的messages SDK会自动存入到此会话中，APP中无需再次把获取到的messages添加到会话中
-				List<EMMessage> messages = conversation.loadMoreMsgFromDB(lastMessage.getMsgId(), 10);
-				messages.add(lastMessage);
-				Log.i(TAG,"lastMessage:"+lastMessage.toString());
-				for (int i=messages.size()-1;i>=0;i--) {
-					EMMessage emMessage = messages.get(i);
-					addMessageListItem(emMessage,0);
-				}
-				lastMessage = messages.get(0);
-				Log.i(TAG, messages.size()+"");
+		if (!TextUtils.isEmpty(toPhone)){
+			EMConversation conversation = EMClient.getInstance().chatManager().getConversation(toPhone);
+			if (conversation!=null){
+				lastMessage = conversation.getLastMessage();
+				if (lastMessage!=null){
+					//收到消息
+					////获取startMsgId之前的pagesize条消息，此方法获取的messages SDK会自动存入到此会话中，APP中无需再次把获取到的messages添加到会话中
+					List<EMMessage> messages = conversation.loadMoreMsgFromDB(lastMessage.getMsgId(), 10);
+					messages.add(lastMessage);
+					Log.i(TAG,"lastMessage:"+lastMessage.toString());
+					for (int i=messages.size()-1;i>=0;i--) {
+						EMMessage emMessage = messages.get(i);
+						if (emMessage!=null){
+							addMessageListItem(emMessage,0);
+						}
+					}
+					lastMessage = messages.get(0);
+					Log.i(TAG, messages.size()+"");
 
-				myListViewAdapter.notifyDataSetChanged();
-				lv_chatt_message.setSelection(myListViewAdapter.getCount()-1);
+					myListViewAdapter.notifyDataSetChanged();
+					lv_chatt_message.setSelection(myListViewAdapter.getCount()-1);
+				}
 			}
 		}
+
 	}
 
 	public void isUserLogin(){
@@ -442,8 +454,10 @@ public class ChattingActivity extends BaseActivity {
         /*if (chatType == CHATTYPE_GROUP)
             message.setChatType(EMMessage.ChatType.GroupChat);*/
 		//发送消息
-		addAttributeToMsg(emMessage);
-		EMClient.getInstance().chatManager().sendMessage(emMessage);
+		if (emMessage!=null){
+			addAttributeToMsg(emMessage);
+			EMClient.getInstance().chatManager().sendMessage(emMessage);
+		}
 	}
 
 	//发送语音消息
@@ -496,42 +510,46 @@ public class ChattingActivity extends BaseActivity {
 	//加载更多数据
 	private void loadMoreMessage() {
 		EMConversation conversation = EMClient.getInstance().chatManager().getConversation(toPhone);
-		List<EMMessage> messages = conversation.loadMoreMsgFromDB(lastMessage.getMsgId(), 10);
+		if (conversation!=null){
+			if (lastMessage!=null){
+				List<EMMessage> messages = conversation.loadMoreMsgFromDB(lastMessage.getMsgId(), 10);
 
-		//大小
-		final int size = messages.size();
-		//加载到更多数据
-		if (size>0){
-			for (int i=messages.size()-1;i>=0;i--) {
-				EMMessage emMessage = messages.get(i);
-				addMessageListItem(emMessage,0);
-			}
-			lastMessage = messages.get(0);
-		}
-		else {
-			Toast.makeText(ChattingActivity.this,"没有更多消息了",Toast.LENGTH_SHORT).show();
-		}
-		new Thread(){
-			@Override
-			public void run() {
-				try {
-					Thread.sleep(500);
-					runOnUiThread(new Runnable() {
-						@Override
-						public void run() {
-							viewHead.setPadding(0,viewHeadMeasuredHeight,0,0);
-							if (size>0){
-								myListViewAdapter.notifyDataSetChanged();
-								lv_chatt_message.setSelection(size);
-							}
-						}
-					});
-				} catch (InterruptedException e) {
-					e.printStackTrace();
+				//大小
+				final int size = messages.size();
+				//加载到更多数据
+				if (size>0){
+					for (int i=messages.size()-1;i>=0;i--) {
+						EMMessage emMessage = messages.get(i);
+						addMessageListItem(emMessage,0);
+					}
+					lastMessage = messages.get(0);
 				}
-				super.run();
+				else {
+					Toast.makeText(ChattingActivity.this,"没有更多消息了",Toast.LENGTH_SHORT).show();
+				}
+				new Thread(){
+					@Override
+					public void run() {
+						try {
+							Thread.sleep(500);
+							runOnUiThread(new Runnable() {
+								@Override
+								public void run() {
+									viewHead.setPadding(0,viewHeadMeasuredHeight,0,0);
+									if (size>0){
+										myListViewAdapter.notifyDataSetChanged();
+										lv_chatt_message.setSelection(size);
+									}
+								}
+							});
+						} catch (InterruptedException e) {
+							e.printStackTrace();
+						}
+						super.run();
+					}
+				}.start();
 			}
-		}.start();
+		}
 	}
 
 
@@ -952,12 +970,17 @@ public class ChattingActivity extends BaseActivity {
 			}
 
 			else if(requestCode==101){
-				path = currentImageSaveFile.getAbsolutePath();
+				if (currentImageSaveFile!=null){
+					path = currentImageSaveFile.getAbsolutePath();
+				}
 			}
-			sendImgMessage(path,toPhone);
-			messageList.add(new Message(time,path,"",0,Constant.MESSAGETYPPE_IMG));
-			myListViewAdapter.notifyDataSetChanged();
-			lv_chatt_message.setSelection(myListViewAdapter.getCount()-1);
+
+			if (path!=null){
+				sendImgMessage(path,toPhone);
+				messageList.add(new Message(time,path,"",0,Constant.MESSAGETYPPE_IMG));
+				myListViewAdapter.notifyDataSetChanged();
+				lv_chatt_message.setSelection(myListViewAdapter.getCount()-1);
+			}
 		}
 	}
 

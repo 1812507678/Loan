@@ -15,7 +15,6 @@ import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.hyphenate.EMCallBack;
 import com.hyphenate.EMConnectionListener;
@@ -121,21 +120,23 @@ public class MessageFragment extends Fragment {
 		lv_msg_message.setOnItemClickListener(new AdapterView.OnItemClickListener() {
 			@Override
 			public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-				LastMessage lastMessage = lastMessageList.get(position-1);
-				String phone = lastMessage.getPhone();
-				String nickname = lastMessage.getNickName();
-				String iconUrl = lastMessage.getIconUrl();
+				if (position-1<lastMessageList.size() && position-1>=0){
+					LastMessage lastMessage = lastMessageList.get(position-1);
+					String phone = lastMessage.getPhone();
+					String nickname = lastMessage.getNickName();
+					String iconUrl = lastMessage.getIconUrl();
 
-				Intent intent = new Intent(getActivity(), ChattingActivity.class);
-				intent.putExtra("toPhone",phone);
-				intent.putExtra("toNickname",nickname);
-				intent.putExtra("toIconUrl",iconUrl);
-				EMConversation conversation = EMClient.getInstance().chatManager().getConversation(phone);
-				//指定会话消息未读数清零
-				if (conversation!=null){
-					conversation.markAllMessagesAsRead();
+					Intent intent = new Intent(getActivity(), ChattingActivity.class);
+					intent.putExtra("toPhone",phone);
+					intent.putExtra("toNickname",nickname);
+					intent.putExtra("toIconUrl",iconUrl);
+					EMConversation conversation = EMClient.getInstance().chatManager().getConversation(phone);
+					//指定会话消息未读数清零
+					if (conversation!=null){
+						conversation.markAllMessagesAsRead();
+					}
+					MessageFragment.this.startActivityForResult(intent,199);
 				}
-				MessageFragment.this.startActivityForResult(intent,199);
 			}
 
 		});
@@ -156,17 +157,19 @@ public class MessageFragment extends Fragment {
 								@Override
 								public void run() {
 									View viewHead = lv_msg_message.getChildAt(0);
-									Log.i(TAG,"viewHead.getMeasuredHeight():"+viewHead.getMeasuredHeight());
-									lv_msg_message.setPadding(0,-viewHead.getMeasuredHeight(),0,0);
-									lv_msg_message.state = 0;
-									lv_msg_message.tv_head_msg.setText("下拉刷新");
-									lv_msg_message.iv_head_icon.clearAnimation();
-									lv_msg_message.iv_head_icon.setImageResource(R.drawable.indicator_arrow);
+									if (viewHead!=null){
+										Log.i(TAG,"viewHead.getMeasuredHeight():"+viewHead.getMeasuredHeight());
+										lv_msg_message.setPadding(0,-viewHead.getMeasuredHeight(),0,0);
+										lv_msg_message.state = 0;
+										lv_msg_message.tv_head_msg.setText("下拉刷新");
+										lv_msg_message.iv_head_icon.clearAnimation();
+										lv_msg_message.iv_head_icon.setImageResource(R.drawable.indicator_arrow);
 
-									if (lastMessageList.size()>0){
-										tv_msg_noMsgContent.setVisibility(View.GONE);
+										if (lastMessageList.size()>0){
+											tv_msg_noMsgContent.setVisibility(View.GONE);
+										}
+										myListViewAdapter.notifyDataSetChanged();
 									}
-									myListViewAdapter.notifyDataSetChanged();
 								}
 							});
 
@@ -311,22 +314,22 @@ public class MessageFragment extends Fragment {
 				public void run() {
 					if(error == EMError.USER_REMOVED){
 						// 显示帐号已经被移除
-						Toast.makeText(getActivity(), "服务器断开，帐号已经被移除", Toast.LENGTH_SHORT).show();
+						//Toast.makeText(getActivity(), "服务器断开，帐号已经被移除", Toast.LENGTH_SHORT).show();
 					}
 
 					else if (error == EMError.USER_LOGIN_ANOTHER_DEVICE) {
 						// 显示帐号在其他设备登录
-						Toast.makeText(getActivity(), "服务器断开，帐号在其他设备登录", Toast.LENGTH_SHORT).show();
+						//Toast.makeText(getActivity(), "服务器断开，帐号在其他设备登录", Toast.LENGTH_SHORT).show();
 						reLogin(phone,password);
 					}
 					else {
 						if (NetUtils.hasNetwork(getActivity())){
 							//连接不到聊天服务器
-							Toast.makeText(getActivity(), "服务器断开，连接不到聊天服务器", Toast.LENGTH_SHORT).show();
+							//Toast.makeText(getActivity(), "服务器断开，连接不到聊天服务器", Toast.LENGTH_SHORT).show();
 						}
 						else{
 							//当前网络不可用，请检查网络设置
-							Toast.makeText(getActivity(), "服务器断开，当前网络不可用，请检查网络设置", Toast.LENGTH_SHORT).show();
+							//Toast.makeText(getActivity(), "服务器断开，当前网络不可用，请检查网络设置", Toast.LENGTH_SHORT).show();
 						}
 
 					}

@@ -9,6 +9,7 @@ import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -18,6 +19,9 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.umeng.analytics.MobclickAgent;
+
+import java.util.HashMap;
+import java.util.Map;
 
 import zhiyuan.com.loan.R;
 import zhiyuan.com.loan.activity.ChattingActivity;
@@ -122,10 +126,23 @@ public class HomePageFragment  extends Fragment {
                 }
             }
         }.start();
+
+
+
     }
+
+    private Map<Integer,Bitmap> mViewsBitmap = new HashMap<>();
 
     class MyViewPageAdapter extends PagerAdapter {
         int []iamges = new int[]{R.drawable.viewpage02,R.drawable.viewpage01,R.drawable.viewpage03,R.drawable.viewpage04};
+        private BitmapFactory.Options options ;
+
+        public MyViewPageAdapter() {
+            options = new BitmapFactory.Options();
+            //options.inPreferredConfig = Bitmap.Config.ARGB_4444;
+            options.inPreferredConfig = Bitmap.Config.RGB_565;
+            //options.inSampleSize = 2;
+        }
 
         @Override
         public int getCount() {
@@ -140,22 +157,38 @@ public class HomePageFragment  extends Fragment {
         @Override
         public Object instantiateItem(ViewGroup container, int position) {
             int newPosition = position % 4;
-            ImageView imageView = new ImageView(getActivity());
-            BitmapFactory.Options options = new BitmapFactory.Options();
-            options.inPreferredConfig = Bitmap.Config.RGB_565;
-            //options.inSampleSize = 2;
-            Bitmap bitmap = BitmapFactory.decodeResource(getResources(), iamges[newPosition], options);
+            Log.i(TAG,"instantiateItem newPosition:"+newPosition);
+
+            ImageView imageView = new ImageView(getContext());
+            Bitmap bitmap = null;
+            bitmap = mViewsBitmap.get(newPosition);
+
+            if (bitmap==null){
+                bitmap = BitmapFactory.decodeResource(getContext().getResources(), iamges[newPosition], options);
+                mViewsBitmap.put(newPosition,bitmap);
+            }
             imageView.setImageBitmap(bitmap);
             imageView.setScaleType(ImageView.ScaleType.CENTER_CROP);
             container.addView(imageView);
+
             return imageView;
         }
 
         @Override
         public void destroyItem(ViewGroup container, int position, Object object) {
+            int i = position % 4;
+            Log.i(TAG,"destroyItem newPosition:"+i);
+            Bitmap bitmap = mViewsBitmap.get(i);
+            if (bitmap!=null){
+                bitmap.recycle();
+                bitmap = null;
+                mViewsBitmap.remove(i);
+            }
+
             container.removeView((View) object);
         }
     }
+
     class HomeOnClickListener implements View.OnClickListener{
 
 

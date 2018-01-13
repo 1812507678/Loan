@@ -1,6 +1,8 @@
 package zhiyuan.com.loan.fragment;
 
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -18,6 +20,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.lidroid.xutils.BitmapUtils;
+import com.lidroid.xutils.bitmap.BitmapDisplayConfig;
+import com.lidroid.xutils.bitmap.core.BitmapSize;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -28,6 +32,7 @@ import cn.bmob.v3.listener.FindListener;
 import zhiyuan.com.loan.R;
 import zhiyuan.com.loan.activity.ShowArticleDetailActivity;
 import zhiyuan.com.loan.bean.StrategyArticle;
+import zhiyuan.com.loan.util.MyUtils;
 import zhiyuan.com.loan.view.LastMsgListView;
 
 
@@ -78,16 +83,9 @@ public class StrategyPageFragment extends Fragment {
                         if (e==null){
                             Log.i(TAG,"onSuccess");
 
-                            if (list!=null){
-                                if (list.size()>1){
-                                    lastAritcleID = list.get(0).getArticleId();
-                                    Toast.makeText(getActivity(),"加载成功",Toast.LENGTH_SHORT).show();
-                                }
-
-
-                                else {
-                                    Toast.makeText(getActivity(),"没有更多数据了",Toast.LENGTH_SHORT).show();
-                                }
+                            if (list!=null && list.size()>0){
+                                lastAritcleID = list.get(0).getArticleId();
+                                Toast.makeText(getContext(),"加载成功",Toast.LENGTH_SHORT).show();
 
                                 for (int i=0;i<list.size();i++){
                                     if (Integer.parseInt(lastAritcleID)<Integer.parseInt(list.get(i).getArticleId())){
@@ -97,14 +95,16 @@ public class StrategyPageFragment extends Fragment {
                                     articleListListContent.add(list.get(i));
                                     Log.i(TAG,"list.get(i):"+articleListListContent.get(i).toString());
                                 }
+                                strategyAdapter.notifyDataSetChanged();
                             }
-
-                            strategyAdapter.notifyDataSetChanged();
+                            else {
+                                Toast.makeText(getContext(),"没有更多数据了",Toast.LENGTH_SHORT).show();
+                            }
 
                             lv_strategy_articlelist.iv_chatt_refresh.clearAnimation();
                             lv_strategy_articlelist.viewFoot.setPadding(0,0,0,-lv_strategy_articlelist.viewFoot.getMeasuredHeight());
                         }else {
-                            Toast.makeText(getActivity(),"刷新失败,请检查网络"+e,Toast.LENGTH_SHORT).show();
+                            Toast.makeText(getContext(),"刷新失败,请检查网络"+e,Toast.LENGTH_SHORT).show();
                             lv_strategy_articlelist.iv_chatt_refresh.clearAnimation();
                             lv_strategy_articlelist.viewFoot.setPadding(0,0,0,-lv_strategy_articlelist.viewFoot.getMeasuredHeight());
                         }
@@ -119,19 +119,23 @@ public class StrategyPageFragment extends Fragment {
         lv_strategy_articlelist.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                StrategyArticle article = articleListListContent.get(position-1);
-                Log.i(TAG,article.toString());
-                String articleurl = article.getArticleUrl();
-                String objectId = article.getObjectId();
-                Intent intent = new Intent(getActivity(),ShowArticleDetailActivity.class);
-                intent.putExtra("articleurl",articleurl);
-                Log.i(TAG,"articleurl:"+articleurl);
-                Log.i(TAG,"article:"+article.getTitle());
-                intent.putExtra("articleId",article.getArticleId());
+                if (position-1<articleListListContent.size() && position-1>=0){
+                    StrategyArticle article = articleListListContent.get(position-1);
+                    if (article!=null){
+                        Log.i(TAG,article.toString());
+                        String articleurl = article.getArticleUrl();
+                        String objectId = article.getObjectId();
+                        Intent intent = new Intent(getActivity(),ShowArticleDetailActivity.class);
+                        intent.putExtra("articleurl",articleurl);
+                        Log.i(TAG,"articleurl:"+articleurl);
+                        Log.i(TAG,"article:"+article.getTitle());
+                        intent.putExtra("articleId",article.getArticleId());
 
-                intent.putExtra("objectId",objectId);
-                intent.putExtra("readCount",article.getReadCount());
-                startActivity(intent);
+                        intent.putExtra("objectId",objectId);
+                        intent.putExtra("readCount",article.getReadCount());
+                        startActivity(intent);
+                    }
+                }
             }
         });
     }
@@ -153,7 +157,7 @@ public class StrategyPageFragment extends Fragment {
                             lv_strategy_articlelist.iv_head_icon.setImageResource(R.drawable.indicator_arrow);
 
                             strategyAdapter.notifyDataSetChanged();
-                            Toast.makeText(getActivity(),"刷新成功",Toast.LENGTH_SHORT).show();
+                            Toast.makeText(getContext(),"刷新成功",Toast.LENGTH_SHORT).show();
                         }
                     }
                     break;
@@ -184,7 +188,7 @@ public class StrategyPageFragment extends Fragment {
                     strategyAdapter = new ArticlelistAdapter();
                     lv_strategy_articlelist.setAdapter(strategyAdapter);
                 }else {
-                    Toast.makeText(getActivity(),"失败,请检查网络"+e,Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getContext(),"失败,请检查网络"+e,Toast.LENGTH_SHORT).show();
                 }
             }
 
@@ -193,9 +197,19 @@ public class StrategyPageFragment extends Fragment {
 
     class ArticlelistAdapter extends BaseAdapter {
         BitmapUtils bitmapUtils;
+        private BitmapFactory.Options options ;
+        private final BitmapDisplayConfig bitmapDisplayConfig;
 
         public ArticlelistAdapter() {
             bitmapUtils= new BitmapUtils(getActivity());
+            options = new BitmapFactory.Options();
+            //options.inPreferredConfig = Bitmap.Config.ARGB_4444;
+            options.inPreferredConfig = Bitmap.Config.RGB_565;
+            //options.inSampleSize = 2;
+
+            bitmapDisplayConfig = new BitmapDisplayConfig();
+            BitmapSize bitmapSize = new BitmapSize((int) MyUtils.dp2px(getContext(), 117), (int) MyUtils.dp2px(getContext(), 70));
+            bitmapDisplayConfig.setBitmapMaxSize(bitmapSize);
         }
 
         @Override
@@ -218,20 +232,40 @@ public class StrategyPageFragment extends Fragment {
         @Override
         public View getView(final int position, View convertView, ViewGroup parent) {
             final StrategyArticle article = articleListListContent.get(position);
-            View inflate = View.inflate(getActivity(), R.layout.list_article_item,null);
-            ImageView iv_readlist_artcileimage = (ImageView) inflate.findViewById(R.id.iv_readlist_artcileimage);
-            TextView tv_readlist_title = (TextView) inflate.findViewById(R.id.tv_readlist_title);
-            TextView tv_readlist_time = (TextView) inflate.findViewById(R.id.tv_readlist_time);
-            TextView tv_readlist_count = (TextView) inflate.findViewById(R.id.tv_readlist_count);
+
+            View inflate;
+            MyHolder myHolder;
+            if (convertView!=null){
+                inflate = convertView;
+                myHolder = (MyHolder) inflate.getTag();
+            }
+            else {
+                inflate =View.inflate(getContext(), R.layout.list_article_item,null);
+                myHolder = new MyHolder();
+                myHolder.iv_readlist_artcileimage = (ImageView) inflate.findViewById(R.id.iv_readlist_artcileimage);
+                myHolder.tv_readlist_title = (TextView) inflate.findViewById(R.id.tv_readlist_title);
+                myHolder.tv_readlist_time = (TextView) inflate.findViewById(R.id.tv_readlist_time);
+                myHolder.tv_readlist_count = (TextView) inflate.findViewById(R.id.tv_readlist_count);
+                inflate.setTag(myHolder);
+            }
 
             String imageurl = article.getimageUrl();
-            bitmapUtils.display(iv_readlist_artcileimage,imageurl);
+            bitmapUtils.display(myHolder.iv_readlist_artcileimage,imageurl,bitmapDisplayConfig);
 
-            tv_readlist_title.setText(article.getTitle());
-            tv_readlist_time.setText(article.getTime());
-            tv_readlist_count.setText("阅读量："+ article.getReadCount()+"");
+            myHolder.tv_readlist_title.setText(article.getTitle());
+            myHolder.tv_readlist_time.setText(article.getTime());
+            myHolder.tv_readlist_count.setText("阅读量："+ article.getReadCount()+"");
 
             return inflate;
         }
+
     }
+
+    class MyHolder {
+        ImageView iv_readlist_artcileimage;
+        TextView tv_readlist_title;
+        TextView tv_readlist_time;
+        TextView tv_readlist_count;
+    }
+
 }

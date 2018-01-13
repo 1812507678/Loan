@@ -100,7 +100,8 @@
     <RelativeLayout
         android:id="@+id/ll_me_aboutus"
         style="@style/option_item_rl"
-        android:paddingLeft="5dp">
+        android:paddingLeft="5dp"
+        android:visibility="gone">
         <TextView
             style="@style/option_item_text"
             android:text="关于我们"/>

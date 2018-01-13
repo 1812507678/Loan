@@ -336,13 +336,15 @@ public class ImageLoader {
     public File getDiskCacheDir(Context context, String uniqueName) {
         boolean externalStorageAvailable = Environment
                 .getExternalStorageState().equals(Environment.MEDIA_MOUNTED);
-        final String cachePath;
+        String cachePath = "";
         if (externalStorageAvailable) {
-            cachePath = context.getExternalCacheDir().getPath();
+            File externalCacheDir = context.getExternalCacheDir();
+            if (externalCacheDir!=null){
+                cachePath = externalCacheDir.getPath();
+            }
         } else {
             cachePath = context.getCacheDir().getPath();
         }
-
         return new File(cachePath + File.separator + uniqueName);
     }
 

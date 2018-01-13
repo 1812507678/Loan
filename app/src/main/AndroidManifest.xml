@@ -40,6 +40,7 @@
     <uses-permission android:name="android.permission.READ_LOGS" />
 
     <uses-permission android:name="android.permission.VIBRATE"/>
+    <uses-permission android:name="android.permission.MANAGE_LOCATION_POLICY"/>
 
     <!-- 友盟 -->
     <!-- 已加入 -->
@@ -49,20 +50,21 @@
         android:icon="@drawable/app_logo"
         android:label="58名校贷"
         android:supportsRtl="true"
+        android:largeHeap="true"
         android:theme="@style/MyAppTheme">
-        <activity android:name=".activity.HomeActivity" />
-        <activity android:name=".activity.SuccessRateActivity" />
-        <activity android:name=".activity.CreditDetailActivity" />
-        <activity android:name=".activity.CreditDetailActivity1" />
-        <activity android:name=".activity.CreditDetailActivity2" />
-        <activity android:name=".activity.CreditDetailActivity3" />
-        <activity android:name=".activity.CreditDetailActivity4" />
-        <activity android:name=".activity.ShowArticleDetailActivity" />
-        <activity android:name=".activity.LoginActivity" />
-        <activity android:name=".activity.RegisterActivity" />
-        <activity android:name=".activity.RetrievePasswordActivity" />
-        <activity android:name=".activity.AccountnfoActivity" />
-        <activity android:name=".activity.ModifyAccountItemActivity" />
+        <activity android:name=".activity.HomeActivity" android:screenOrientation="portrait"/>
+        <activity android:name=".activity.SuccessRateActivity" android:screenOrientation="portrait"/>
+        <activity android:name=".activity.CreditDetailActivity" android:screenOrientation="portrait"/>
+        <activity android:name=".activity.CreditDetailActivity1" android:screenOrientation="portrait"/>
+        <activity android:name=".activity.CreditDetailActivity2" android:screenOrientation="portrait"/>
+        <activity android:name=".activity.CreditDetailActivity3" android:screenOrientation="portrait"/>
+        <activity android:name=".activity.CreditDetailActivity4" android:screenOrientation="portrait"/>
+        <activity android:name=".activity.ShowArticleDetailActivity" android:screenOrientation="portrait"/>
+        <activity android:name=".activity.LoginActivity" android:screenOrientation="portrait"/>
+        <activity android:name=".activity.RegisterActivity" android:screenOrientation="portrait"/>
+        <activity android:name=".activity.RetrievePasswordActivity" android:screenOrientation="portrait"/>
+        <activity android:name=".activity.AccountnfoActivity" android:screenOrientation="portrait"/>
+        <activity android:name=".activity.ModifyAccountItemActivity" android:screenOrientation="portrait"/>
         <activity android:name=".activity.ChattingActivity"
             android:launchMode="singleTask"
             android:screenOrientation="portrait">
@@ -135,26 +137,26 @@
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>
-        <activity android:name=".activity.CollectArticleActivity" />
-        <activity android:name=".activity.ChatImageActivity" />
-        <activity android:name=".activity.CreditPlatListActivity" />
-        <activity android:name=".activity.CommitMaterialStep1Activity" />
-        <activity android:name=".activity.CommitMaterialStep2Activity" />
-        <activity android:name=".activity.ApplySuccessActivity" />
-        <activity android:name=".activity.LookupApplyActivity" />
-        <activity android:name=".activity.AcceptPushActivity" />
-        <activity android:name=".activity.SplashActivity">
+        <activity android:name=".activity.CollectArticleActivity" android:screenOrientation="portrait"/>
+        <activity android:name=".activity.ChatImageActivity" android:screenOrientation="portrait"/>
+        <activity android:name=".activity.CreditPlatListActivity" android:screenOrientation="portrait"/>
+        <activity android:name=".activity.CommitMaterialStep1Activity" android:screenOrientation="portrait"/>
+        <activity android:name=".activity.CommitMaterialStep2Activity" android:screenOrientation="portrait"/>
+        <activity android:name=".activity.ApplySuccessActivity" android:screenOrientation="portrait"/>
+        <activity android:name=".activity.LookupApplyActivity" android:screenOrientation="portrait"/>
+        <activity android:name=".activity.AcceptPushActivity" android:screenOrientation="portrait"/>
+        <activity android:name=".activity.SplashActivity" android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".activity.InstallGuideActivity" />
-        <activity android:name=".activity.SettingActivity" />
-        <activity android:name=".activity.ComplaintFeedbackActivity" />
-        <activity android:name=".activity.AboutAsActivity" />
-        <activity android:name=".activity.BaseActivity" />
+        <activity android:name=".activity.InstallGuideActivity" android:screenOrientation="portrait"/>
+        <activity android:name=".activity.SettingActivity" android:screenOrientation="portrait"/>
+        <activity android:name=".activity.ComplaintFeedbackActivity" android:screenOrientation="portrait"/>
+        <activity android:name=".activity.AboutAsActivity" android:screenOrientation="portrait"/>
+        <activity android:name=".activity.BaseActivity" android:screenOrientation="portrait"/>
 
         <receiver
             android:name=".receiver.PushMessageReceiver"

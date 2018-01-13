@@ -1,11 +1,9 @@
 package zhiyuan.com.loan.activity;
 
-import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
-
-import com.umeng.analytics.MobclickAgent;
 
 import java.util.List;
 
@@ -28,7 +26,7 @@ public class SplashActivity extends BaseActivity {
 
         initView();
 
-        initData(this);
+        initData();
     }
 
 
@@ -43,14 +41,15 @@ public class SplashActivity extends BaseActivity {
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }
-                boolean isInstall = MyApplication.sharedPreferences.getBoolean("isInstall", false);
+                /*boolean isInstall = MyApplication.sharedPreferences.getBoolean("isInstall", false);
                 if (isInstall){
                     startActivity(new Intent(SplashActivity.this,HomeActivity.class));
                 }
                 else {
                     startActivity(new Intent(SplashActivity.this,InstallGuideActivity.class));
                     MyApplication.sharedPreferences.edit().putBoolean("isInstall",true).apply();
-                }
+                }*/
+                startActivity(new Intent(SplashActivity.this,HomeActivity.class));
                 finish();
             }
         }.start();
@@ -58,7 +57,7 @@ public class SplashActivity extends BaseActivity {
 
     }
 
-    private void initData(final Context context) {
+    private void initData() {
         BmobQuery<Apk> apkBmobQuery = new BmobQuery<>();
         apkBmobQuery.findObjects(new FindListener<Apk>() {
             @Override
@@ -74,13 +73,15 @@ public class SplashActivity extends BaseActivity {
                         String contactPhone = apk.getContactPhone();
 
                         Log.i(TAG,"versionCode:"+versionCode+",apkUrl:"+apkUrl+",forceWhenUpdate:"+forceWhenUpdate+",updateWhenOpen:"+updateWhenOpen);
-                        MyApplication.sharedPreferences.edit().putInt("versionCode",versionCode).apply();
-                        MyApplication.sharedPreferences.edit().putString("apkUrl",apkUrl).apply();
-                        MyApplication.sharedPreferences.edit().putString("qqContactInfo",qqContactInfo).apply();
-                        MyApplication.sharedPreferences.edit().putString("contactPhone",contactPhone).apply();
-                        MyApplication.sharedPreferences.edit().putBoolean("forceWhenUpdate",forceWhenUpdate).apply();
-                        MyApplication.sharedPreferences.edit().putBoolean("updateWhenOpen",updateWhenOpen).apply();
-                        MyApplication.sharedPreferences.edit().putString("weixinContactInfo",apk.getWeixinContactInfo()).apply();
+
+                        SharedPreferences.Editor edit = MyApplication.sharedPreferences.edit();
+                        edit.putInt("versionCode",versionCode).apply();
+                        edit.putString("apkUrl",apkUrl).apply();
+                        edit.putString("qqContactInfo",qqContactInfo).apply();
+                        edit.putString("contactPhone",contactPhone).apply();
+                        edit.putBoolean("forceWhenUpdate",forceWhenUpdate).apply();
+                        edit.putBoolean("updateWhenOpen",updateWhenOpen).apply();
+                        edit.putString("weixinContactInfo",apk.getWeixinContactInfo()).apply();
 
                         MyUtils.putApkToSP(apk);
                     }
@@ -90,12 +91,6 @@ public class SplashActivity extends BaseActivity {
             }
         });
 
-
-        //友盟统计
-        String phone = MyApplication.sharedPreferences.getString("phone", "");
-        if (!phone.equals("")){
-            MobclickAgent.onProfileSignIn(phone);
-        }
 
     }
 }

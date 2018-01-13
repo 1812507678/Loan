@@ -1,176 +1,184 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<LinearLayout
+<ScrollView
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:background="#F4F4F4"
-    android:orientation="vertical">
-
-    <RelativeLayout
-        android:id="@+id/rl_home_top"
-        android:layout_width="fill_parent"
-        android:layout_height="45dp"
-        android:background="#FFFFFF" >
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:background="#F4F4F4"
-            android:layout_alignParentTop="true"></View>
-        <TextView
-            android:layout_width="fill_parent"
-            android:layout_height="fill_parent"
-            android:gravity="center"
-            android:text="个人中心"
-            android:textColor="#000000"
-            android:textSize="20sp"/>
-
-        <LinearLayout
-            android:id="@+id/ll_me_setting"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentRight="true"
-            android:orientation="horizontal"
-            android:gravity="center"
-            android:background="@drawable/bg_text_setting"
-            android:layout_centerVertical="true"
-            android:layout_marginRight="10dp"
-            android:padding="5dp">
-            <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:src="@drawable/ic_settings_black_24dp"/>
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="设置"/>
-        </LinearLayout>
-
-
-    </RelativeLayout>
+    android:layout_height="match_parent"
+    android:background="#F4F4F4">
 
     <LinearLayout
-        android:id="@+id/ll_user_container"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:visibility="visible" >
+        android:background="#F4F4F4"
+        android:orientation="vertical">
 
         <RelativeLayout
-            android:id="@+id/rl_user_center"
-            android:layout_width="match_parent"
-            android:layout_height="100dp"
-            android:background="#FFFFFF"
-            android:clickable="true" >
-
-            <zhiyuan.com.loan.view.CircleImageView
-                android:id="@+id/cv_me_icon"
-                android:layout_width="70dp"
-                android:layout_height="70dp"
-                android:layout_centerHorizontal="true"
-                android:layout_marginTop="5dp"
-                android:contentDescription="@null"
-                android:src="@drawable/widget_dface"
-                />
+            android:id="@+id/rl_home_top"
+            android:layout_width="fill_parent"
+            android:layout_height="45dp"
+            android:background="#FFFFFF" >
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="#F4F4F4"
+                android:layout_alignParentTop="true"></View>
             <TextView
-                android:id="@+id/tv_me_nickname"
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"
+                android:gravity="center"
+                android:text="个人中心"
+                android:textColor="#000000"
+                android:textSize="20sp"/>
+
+            <LinearLayout
+                android:id="@+id/ll_me_setting"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_below="@id/cv_me_icon"
-                android:layout_centerHorizontal="true"
-                android:layout_marginTop="@dimen/space_5"
-                android:text="点击登陆"/>
+                android:layout_alignParentRight="true"
+                android:orientation="horizontal"
+                android:gravity="center"
+                android:background="@drawable/bg_text_setting"
+                android:layout_centerVertical="true"
+                android:layout_marginRight="10dp"
+                android:padding="5dp">
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/ic_settings_black_24dp"/>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="设置"/>
+            </LinearLayout>
+
 
         </RelativeLayout>
 
         <LinearLayout
+            android:id="@+id/ll_user_container"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:gravity="center_vertical"
-            android:orientation="horizontal"
-            android:background="#FFFFFF">
+            android:orientation="vertical"
+            android:visibility="visible" >
+
+            <RelativeLayout
+                android:id="@+id/rl_user_center"
+                android:layout_width="match_parent"
+                android:layout_height="100dp"
+                android:background="#FFFFFF"
+                android:clickable="true" >
+
+                <zhiyuan.com.loan.view.CircleImageView
+                    android:id="@+id/cv_me_icon"
+                    android:layout_width="70dp"
+                    android:layout_height="70dp"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginTop="5dp"
+                    android:contentDescription="@null"
+                    android:src="@drawable/widget_dface"
+                    />
+                <TextView
+                    android:id="@+id/tv_me_nickname"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/cv_me_icon"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginTop="@dimen/space_5"
+                    android:text="点击登陆"/>
+
+            </RelativeLayout>
 
             <LinearLayout
-                android:id="@+id/ll_me_collect"
-                style="@style/uset_information_ll"
-                android:clickable="false" >
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:background="#FFFFFF">
 
+                <LinearLayout
+                    android:id="@+id/ll_me_collect"
+                    style="@style/uset_information_ll"
+                    android:clickable="false" >
+
+                    <ImageView
+                        android:layout_width="30dp"
+                        android:layout_height="30dp"
+                        android:src="@drawable/credit_tab_normal"/>
+                    <TextView
+                        style="@style/user_formation_info"
+                        android:text="收藏"
+                        android:textColor="#8B8386"/>
+                </LinearLayout>
                 <ImageView
-                    android:layout_width="30dp"
-                    android:layout_height="30dp"
-                    android:src="@drawable/credit_tab_normal"/>
-                <TextView
-                    style="@style/user_formation_info"
-                    android:text="收藏"
-                    android:textColor="#8B8386"/>
-            </LinearLayout>
-            <ImageView
-                android:layout_width="0.5dp"
-                android:layout_height="40dp"
-                android:src="@drawable/common_vertical_line"/>
-            <LinearLayout
-                android:id="@+id/ll_me_push"
-                style="@style/uset_information_ll" >
-                <ImageView
-                    android:layout_width="30dp"
-                    android:layout_height="30dp"
-                    android:src="@drawable/message_push"/>
-                <TextView
-                    style="@style/user_formation_info"
-                    android:text="推送"
-                    android:textColor="#8B8386"/>
+                    android:layout_width="0.5dp"
+                    android:layout_height="40dp"
+                    android:src="@drawable/common_vertical_line"/>
+                <LinearLayout
+                    android:id="@+id/ll_me_push"
+                    style="@style/uset_information_ll" >
+                    <ImageView
+                        android:layout_width="30dp"
+                        android:layout_height="30dp"
+                        android:src="@drawable/message_push"/>
+                    <TextView
+                        style="@style/user_formation_info"
+                        android:text="推送"
+                        android:textColor="#8B8386"/>
+                </LinearLayout>
             </LinearLayout>
         </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/ll_me_personinf"
+            style="@style/option_item_rl"
+            android:layout_marginTop="20dp" >main_tab_tribune_select.9
+            <ImageView
+                android:layout_width="25dp"
+                android:layout_height="25dp"
+                android:src="@drawable/main_tab_corner_head_pressed"/>
+            <TextView
+                style="@style/option_item_text"
+                android:text="个人信息"
+                android:layout_marginLeft="5dp"/>
+        </LinearLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1px"
+            android:background="@color/list_divider_color" />
+        <LinearLayout
+            android:id="@+id/ll_me_applyhis"
+            style="@style/option_item_rl">
+            <ImageView
+                android:layout_width="25dp"
+                android:layout_height="25dp"
+                android:src="@drawable/menu_about_logo"/>
+            <TextView
+                style="@style/option_item_text"
+                android:text="申请记录"
+                android:layout_marginLeft="5dp"/>
+        </LinearLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1px"
+            android:background="@color/list_divider_color" />
+
+        <LinearLayout
+            android:id="@+id/ll_me_invite"
+            style="@style/option_item_rl">
+
+            <ImageView
+                android:layout_width="25dp"
+                android:layout_height="25dp"
+                android:src="@drawable/visit_today_flag"/>
+            <TextView
+                style="@style/option_item_text"
+                android:text="邀请好友"
+                android:layout_marginLeft="5dp"/>
+        </LinearLayout>
+
     </LinearLayout>
 
-    <LinearLayout
-        android:id="@+id/ll_me_personinf"
-        style="@style/option_item_rl"
-        android:layout_marginTop="20dp" >main_tab_tribune_select.9
-        <ImageView
-            android:layout_width="25dp"
-            android:layout_height="25dp"
-            android:src="@drawable/main_tab_corner_head_pressed"/>
-        <TextView
-            style="@style/option_item_text"
-            android:text="个人信息"
-            android:layout_marginLeft="5dp"/>
-    </LinearLayout>
 
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="1px"
-        android:background="@color/list_divider_color" />
-    <LinearLayout
-        android:id="@+id/ll_me_applyhis"
-        style="@style/option_item_rl">
-        <ImageView
-            android:layout_width="25dp"
-            android:layout_height="25dp"
-            android:src="@drawable/menu_about_logo"/>
-        <TextView
-            style="@style/option_item_text"
-            android:text="申请记录"
-            android:layout_marginLeft="5dp"/>
-    </LinearLayout>
-
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="1px"
-        android:background="@color/list_divider_color" />
-
-    <LinearLayout
-        android:id="@+id/ll_me_invite"
-        style="@style/option_item_rl">
-
-        <ImageView
-            android:layout_width="25dp"
-            android:layout_height="25dp"
-            android:src="@drawable/visit_today_flag"/>
-        <TextView
-            style="@style/option_item_text"
-            android:text="邀请好友"
-            android:layout_marginLeft="5dp"/>
-    </LinearLayout>
-
-</LinearLayout>
+</ScrollView>

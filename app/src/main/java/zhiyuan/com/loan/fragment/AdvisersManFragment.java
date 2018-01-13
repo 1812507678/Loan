@@ -64,7 +64,7 @@ public class AdvisersManFragment extends Fragment{
                     }
                     lv_advise_adviser.setAdapter(new MyListViewAdapter());
                 }else {
-                    Toast.makeText(getActivity(),"失败,请检查网络"+e,Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getContext(),"失败,请检查网络"+e,Toast.LENGTH_SHORT).show();
                 }
             }
         });
@@ -103,7 +103,7 @@ public class AdvisersManFragment extends Fragment{
         public View getView(int i, View view, ViewGroup viewGroup) {
             Adviser adviser = adviserList.get(i);
 
-            View inflate = View.inflate(getActivity(), R.layout.list_advise_item, null);
+            View inflate = View.inflate(getContext(), R.layout.list_advise_item, null);
             CircleImageView cv_adviseitem_icon = (CircleImageView) inflate.findViewById(R.id.cv_adviseitem_icon);
             TextView tv_adviseitem_name = (TextView) inflate.findViewById(R.id.tv_adviseitem_name);
 

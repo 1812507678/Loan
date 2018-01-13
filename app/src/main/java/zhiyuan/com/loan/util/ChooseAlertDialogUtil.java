@@ -1,6 +1,7 @@
 package zhiyuan.com.loan.util;
 
 import android.content.Context;
+import android.graphics.Bitmap;
 import android.graphics.drawable.ColorDrawable;
 import android.provider.MediaStore;
 import android.support.v7.app.AlertDialog;
@@ -15,8 +16,6 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.lidroid.xutils.BitmapUtils;
-
-import java.io.FileNotFoundException;
 
 import zhiyuan.com.loan.R;
 import zhiyuan.com.loan.bean.Apk;
@@ -39,7 +38,7 @@ public class ChooseAlertDialogUtil {
     public void setAlertDialogText(){
         View inflate = View.inflate(context, R.layout.confirm_dialog, null);
         ImageView iv_dialog_close = inflate.findViewById(R.id.iv_dialog_close);
-        ImageView iv_dialog_qrcncan = inflate.findViewById(R.id.iv_dialog_qrcncan);
+        final ImageView iv_dialog_qrcncan = inflate.findViewById(R.id.iv_dialog_qrcncan);
         TextView bt_choose_copy = inflate.findViewById(R.id.bt_choose_copy);
         final TextView tv_dialog_weixin = inflate.findViewById(R.id.tv_dialog_weixin);
         TextView bt_choose_saveimage = inflate.findViewById(R.id.bt_choose_saveimage);
@@ -47,8 +46,12 @@ public class ChooseAlertDialogUtil {
         final BitmapUtils bitmapUtils = new BitmapUtils(context);
         final Apk apkFromSP = MyUtils.getApkFromSP();
         if (apkFromSP!=null){
-            bitmapUtils.display(iv_dialog_qrcncan,apkFromSP.getQrCode());
-            tv_dialog_weixin.setText(apkFromSP.getWeixinGZHContactInfo());
+            if (!TextUtils.isEmpty(apkFromSP.getQrCode())){
+                bitmapUtils.display(iv_dialog_qrcncan,apkFromSP.getQrCode());
+            }
+            if (!TextUtils.isEmpty(apkFromSP.getWeixinGZHContactInfo())){
+                tv_dialog_weixin.setText(apkFromSP.getWeixinGZHContactInfo());
+            }
         }
 
         final AlertDialog alertDialog = new AlertDialog.Builder(context, R.style.myCorDialog).setView(inflate).create();
@@ -97,8 +100,15 @@ public class ChooseAlertDialogUtil {
                 alertDialog.dismiss();
                 MyUtils.showToask(context,"二维码图片保存成功，可在相册查看");
                 try {
-                    MediaStore.Images.Media.insertImage(context.getContentResolver(), bitmapUtils.getBitmapFileFromDiskCache(apkFromSP.getQrCode()).getAbsolutePath(), "title", "description");
-                } catch (FileNotFoundException e) {
+                    if (apkFromSP!=null && !TextUtils.isEmpty(apkFromSP.getQrCode())){
+                        MediaStore.Images.Media.insertImage(context.getContentResolver(), bitmapUtils.getBitmapFileFromDiskCache(apkFromSP.getQrCode()).getAbsolutePath(), "title", "description");
+                    }
+                    else {
+                        iv_dialog_qrcncan.setDrawingCacheEnabled(true);
+                        Bitmap bitmap = iv_dialog_qrcncan.getDrawingCache();
+                        MediaStore.Images.Media.insertImage(context.getContentResolver(), bitmap, "这是title", "这是description");
+                    }
+                } catch (Exception e) {
                     e.printStackTrace();
                     Log.i(TAG,"e:"+e);
                 }

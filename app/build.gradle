@@ -8,8 +8,8 @@ android {
         applicationId "zhiyuan.com.loan"
         minSdkVersion 18
         targetSdkVersion 21
-        versionCode 51
-        versionName "5.1"
+        versionCode 54
+        versionName "5.4"
         //multiDexEnabled true
 
         ndk {
@@ -50,6 +50,10 @@ android {
         inner {dimension "default"}   //其他
         beta_test {dimension "default"}   //测试
         google_pay {dimension "default"}   //测试
+        pc6 {dimension "default"}   //测试
+        green_resorce {dimension "default"}   //测试
+        u9 {dimension "default"}   //测试
+        xinyun {dimension "default"}   //测试
     }
 
     productFlavors.all { flavor ->
