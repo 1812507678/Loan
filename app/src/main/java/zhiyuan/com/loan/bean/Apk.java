@@ -16,6 +16,7 @@ public class Apk extends BmobObject {
     private String qrCode;
     private String contactPhone;
     private String platform;
+    private boolean isuploadApkTest;
 
     public String getApkUrl() {
         return apkUrl;
@@ -96,5 +97,30 @@ public class Apk extends BmobObject {
 
     public void setWeixinGZHContactInfo(String weixinGZHContactInfo) {
         this.weixinGZHContactInfo = weixinGZHContactInfo;
+    }
+
+    public boolean isIsuploadApkTest() {
+        return isuploadApkTest;
+    }
+
+    public void setIsuploadApkTest(boolean isuploadApkTest) {
+        this.isuploadApkTest = isuploadApkTest;
+    }
+
+    @Override
+    public String toString() {
+        return "Apk{" +
+                "apkUrl='" + apkUrl + '\'' +
+                ", versionCode='" + versionCode + '\'' +
+                ", isUpdateWhenOpen=" + isUpdateWhenOpen +
+                ", isForceWhenUpdate=" + isForceWhenUpdate +
+                ", qqContactInfo='" + qqContactInfo + '\'' +
+                ", weixinContactInfo='" + weixinContactInfo + '\'' +
+                ", weixinGZHContactInfo='" + weixinGZHContactInfo + '\'' +
+                ", qrCode='" + qrCode + '\'' +
+                ", contactPhone='" + contactPhone + '\'' +
+                ", platform='" + platform + '\'' +
+                ", isuploadApkTest=" + isuploadApkTest +
+                '}';
     }
 }

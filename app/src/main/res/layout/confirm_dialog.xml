@@ -27,7 +27,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:gravity="center_horizontal"
-                android:text="关注58名校贷微信公众号"
+                android:text="关注微信公众号"
                 android:layout_centerInParent="true"
                 android:textColor="@android:color/black"
                 android:textSize="15sp"

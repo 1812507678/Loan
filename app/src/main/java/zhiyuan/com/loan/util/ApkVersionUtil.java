@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.net.Uri;
@@ -18,8 +19,15 @@ import com.lidroid.xutils.http.ResponseInfo;
 import com.lidroid.xutils.http.callback.RequestCallBack;
 
 import java.io.File;
+import java.util.List;
 
+import cn.bmob.v3.BmobQuery;
+import cn.bmob.v3.exception.BmobException;
+import cn.bmob.v3.listener.FindListener;
 import zhiyuan.com.loan.application.MyApplication;
+import zhiyuan.com.loan.bean.Apk;
+import zhiyuan.com.loan.bean.MessageEvent;
+import zhiyuan.com.loan.bean.StrategyArticle;
 
 /**
  * Created by haijun on 2016/9/28.
@@ -131,5 +139,72 @@ public class ApkVersionUtil {
         intent.setAction("android.intent.action.VIEW");
         intent.setDataAndType(Uri.fromFile(file), "application/vnd.android.package-archive");
         context.startActivity(intent);
+    }
+
+
+    public static void initApkData(final MyApplication myApplication) {
+        BmobQuery<Apk> apkBmobQuery = new BmobQuery<>();
+
+        apkBmobQuery.findObjects(new FindListener<Apk>() {
+            @Override
+            public void done(List<Apk> list, BmobException e) {
+                Log.i(TAG,"apk list:"+list+",  e:"+e);
+                if (e==null){
+                    if (list!=null && list.size()>0){
+                        Apk apk = list.get(0);
+                        int versionCode = Integer.parseInt(apk.getVersionCode());
+                        String apkUrl = apk.getApkUrl();
+                        boolean forceWhenUpdate = apk.isForceWhenUpdate();
+                        boolean updateWhenOpen = apk.isUpdateWhenOpen();
+                        String qqContactInfo = apk.getQqContactInfo();
+                        String contactPhone = apk.getContactPhone();
+
+                        Log.i(TAG,"versionCode:"+versionCode+",apkUrl:"+apkUrl+",forceWhenUpdate:"+forceWhenUpdate+",updateWhenOpen:"+updateWhenOpen);
+
+                        SharedPreferences.Editor edit = MyApplication.sharedPreferences.edit();
+                        edit.putInt("versionCode",versionCode).apply();
+                        edit.putString("apkUrl",apkUrl).apply();
+                        edit.putString("qqContactInfo",qqContactInfo).apply();
+                        edit.putString("contactPhone",contactPhone).apply();
+                        edit.putBoolean("forceWhenUpdate",forceWhenUpdate).apply();
+                        edit.putBoolean("updateWhenOpen",updateWhenOpen).apply();
+                        edit.putString("weixinContactInfo",apk.getWeixinContactInfo()).apply();
+
+                        MyUtils.putApkToSP(apk);
+                        myApplication.setCurApkInfoDownloadFinshed(Constant.curdownloadType_success);
+
+                        EventbusProxy.getInstance().postDataOnBus(new MessageEvent(EventbusProxy.MessageEventType.msgType_RequestNetwork_APK,EventbusProxy.success,"加载成功",apk));
+                    }
+                }else {
+                    EventbusProxy.getInstance().postDataOnBus(new MessageEvent(EventbusProxy.MessageEventType.msgType_RequestNetwork_APK,EventbusProxy.fail,"加载失败",null));
+                    myApplication.setCurApkInfoDownloadFinshed(Constant.curdownloadType_failure);
+                    MyUtils.showToask(myApplication,"网络异常，加载失败");
+                }
+            }
+        });
+
+    }
+
+    //加载初始化数据
+    public static void loadArticleListtData(final MyApplication myApplication) {
+        BmobQuery<StrategyArticle> bmobQuery = new BmobQuery<>();
+        bmobQuery.setLimit(8);
+        bmobQuery.order("readCount");
+        bmobQuery.findObjects(new FindListener<StrategyArticle>() {
+            @Override
+            public void done(List<StrategyArticle> list, BmobException e) {
+                Log.i(TAG,"文章 list:"+list+",  e:"+e);
+                if (e==null){
+                    EventbusProxy.getInstance().postDataOnBus(new MessageEvent(EventbusProxy.MessageEventType.msgType_RequestNetwork_ArticleList,EventbusProxy.success,"加载成功",list));
+                    myApplication.setCurArticleListDownloadFinshed(Constant.curdownloadType_success);
+                    myApplication.setArticleListListContent(list);
+                }
+                else {
+                    EventbusProxy.getInstance().postDataOnBus(new MessageEvent(EventbusProxy.MessageEventType.msgType_RequestNetwork_ArticleList,EventbusProxy.fail,"加载失败",null));
+                    myApplication.setCurArticleListDownloadFinshed(Constant.curdownloadType_failure);
+                }
+            }
+
+        });
     }
 }

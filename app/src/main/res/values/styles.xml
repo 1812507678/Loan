@@ -93,4 +93,12 @@
         <item name="android:backgroundDimEnabled">true</item> <!-- 背景模糊 -->
     </style>
 
+
+    <style name="progresStyle" parent="android:style/Widget.ProgressBar">
+        <item name="android:indeterminateDrawable">@drawable/progressbar</item>
+        <item name="android:minWidth">50dp</item>
+        <item name="android:maxWidth">50dp</item>
+        <item name="android:minHeight">50dp</item>
+        <item name="android:maxHeight">50dp</item>
+    </style>
 </resources>

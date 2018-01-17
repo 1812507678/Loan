@@ -8,8 +8,8 @@ android {
         applicationId "zhiyuan.com.loan"
         minSdkVersion 18
         targetSdkVersion 21
-        versionCode 54
-        versionName "5.4"
+        versionCode 55
+        versionName "5.5"
         //multiDexEnabled true
 
         ndk {
@@ -109,5 +109,6 @@ dependencies {
     compile 'com.tencent.bugly:crashreport:latest.release'
     compile 'com.tencent.bugly:nativecrashreport:latest.release'
     implementation files('libs/hyphenatechat_3.3.7.jar')
+    compile 'org.greenrobot:eventbus:3.1.1'
 
 }

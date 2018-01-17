@@ -1,8 +1,6 @@
 package zhiyuan.com.loan.fragment;
 
 import android.content.Intent;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -13,15 +11,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
-import android.widget.BaseAdapter;
-import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.TextView;
 import android.widget.Toast;
-
-import com.lidroid.xutils.BitmapUtils;
-import com.lidroid.xutils.bitmap.BitmapDisplayConfig;
-import com.lidroid.xutils.bitmap.core.BitmapSize;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -31,8 +22,8 @@ import cn.bmob.v3.exception.BmobException;
 import cn.bmob.v3.listener.FindListener;
 import zhiyuan.com.loan.R;
 import zhiyuan.com.loan.activity.ShowArticleDetailActivity;
+import zhiyuan.com.loan.adapter.ArticlelistAdapter;
 import zhiyuan.com.loan.bean.StrategyArticle;
-import zhiyuan.com.loan.util.MyUtils;
 import zhiyuan.com.loan.view.LastMsgListView;
 
 
@@ -185,7 +176,7 @@ public class StrategyPageFragment extends Fragment {
                             }
                         }
                     }
-                    strategyAdapter = new ArticlelistAdapter();
+                    strategyAdapter = new ArticlelistAdapter(getActivity(),articleListListContent);
                     lv_strategy_articlelist.setAdapter(strategyAdapter);
                 }else {
                     Toast.makeText(getContext(),"失败,请检查网络"+e,Toast.LENGTH_SHORT).show();
@@ -195,77 +186,6 @@ public class StrategyPageFragment extends Fragment {
         });
     }
 
-    class ArticlelistAdapter extends BaseAdapter {
-        BitmapUtils bitmapUtils;
-        private BitmapFactory.Options options ;
-        private final BitmapDisplayConfig bitmapDisplayConfig;
 
-        public ArticlelistAdapter() {
-            bitmapUtils= new BitmapUtils(getActivity());
-            options = new BitmapFactory.Options();
-            //options.inPreferredConfig = Bitmap.Config.ARGB_4444;
-            options.inPreferredConfig = Bitmap.Config.RGB_565;
-            //options.inSampleSize = 2;
-
-            bitmapDisplayConfig = new BitmapDisplayConfig();
-            BitmapSize bitmapSize = new BitmapSize((int) MyUtils.dp2px(getContext(), 117), (int) MyUtils.dp2px(getContext(), 70));
-            bitmapDisplayConfig.setBitmapMaxSize(bitmapSize);
-        }
-
-        @Override
-        public int getCount() {
-            return articleListListContent.size();
-        }
-
-        @Override
-        public Object getItem(int position) {
-            return articleListListContent.get(position);
-        }
-
-        @Override
-        public long getItemId(int position) {
-            return 0;
-        }
-
-
-
-        @Override
-        public View getView(final int position, View convertView, ViewGroup parent) {
-            final StrategyArticle article = articleListListContent.get(position);
-
-            View inflate;
-            MyHolder myHolder;
-            if (convertView!=null){
-                inflate = convertView;
-                myHolder = (MyHolder) inflate.getTag();
-            }
-            else {
-                inflate =View.inflate(getContext(), R.layout.list_article_item,null);
-                myHolder = new MyHolder();
-                myHolder.iv_readlist_artcileimage = (ImageView) inflate.findViewById(R.id.iv_readlist_artcileimage);
-                myHolder.tv_readlist_title = (TextView) inflate.findViewById(R.id.tv_readlist_title);
-                myHolder.tv_readlist_time = (TextView) inflate.findViewById(R.id.tv_readlist_time);
-                myHolder.tv_readlist_count = (TextView) inflate.findViewById(R.id.tv_readlist_count);
-                inflate.setTag(myHolder);
-            }
-
-            String imageurl = article.getimageUrl();
-            bitmapUtils.display(myHolder.iv_readlist_artcileimage,imageurl,bitmapDisplayConfig);
-
-            myHolder.tv_readlist_title.setText(article.getTitle());
-            myHolder.tv_readlist_time.setText(article.getTime());
-            myHolder.tv_readlist_count.setText("阅读量："+ article.getReadCount()+"");
-
-            return inflate;
-        }
-
-    }
-
-    class MyHolder {
-        ImageView iv_readlist_artcileimage;
-        TextView tv_readlist_title;
-        TextView tv_readlist_time;
-        TextView tv_readlist_count;
-    }
 
 }
